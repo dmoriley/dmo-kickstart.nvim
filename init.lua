@@ -211,6 +211,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/nvim-treesitter-context',
     },
     build = ':TSUpdate',
   },
@@ -227,8 +228,13 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
-}, {})
+  { import = 'custom.plugins' },
+}, {
+  -- configure lazyvim to use ssh instead of https
+  git = {
+    url_format = "git@github.com:%s.git",
+  },
+})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -305,6 +311,7 @@ require('telescope').setup {
   },
 }
 
+
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -319,7 +326,16 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
+-- See :help key-notion for which keys map to what string
+
+-- To bind cmd key in mac:
+-- bound to Meta + P. Then in iterm2 settings -> profiles -> keys -> keymapping -> add new (cmd + p) + (text with vim special characters) + (\<M-p>)
+-- This is to map cmd+p to meta+p so that I can use cmd+p as a explicit shortcut I define. Leading backslash is required otherwise will print literally
+
+-- To bind the alt keys in mac
+-- Use literal result of alt key. For example Alt + P = π. So put π as the keymap.
+--
+vim.keymap.set('n', '<M-p>', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
@@ -394,6 +410,9 @@ vim.defer_fn(function()
       },
     },
   }
+  require("treesitter-context").setup {
+    enable = true,
+  }
 end, 0)
 
 -- Diagnostic keymaps
@@ -419,8 +438,9 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>vrn', vim.lsp.buf.rename, '[V]im [R]e[n]ame')
+  nmap('<leader>vca', vim.lsp.buf.code_action, '[V]im [C]ode [A]ction')
+  nmap('<leader>vrr', vim.lsp.buf.references, '[V]im refe[rr]ences in quickfix')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -446,8 +466,6 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
-
--- document existing key chains
 require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },

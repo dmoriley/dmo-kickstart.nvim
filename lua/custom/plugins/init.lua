@@ -2,4 +2,72 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+    {
+        -- Theme inspired by Atom
+        'navarasu/onedark.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require('onedark').setup {
+                style = 'deep',
+                term_colors = true,
+                transparent = true
+            }
+            require('onedark').load()
+            vim.cmd.colorscheme 'onedark'
+        end
+    },
+    {
+        -- for how to use see :help nvim-surround.usage
+        "kylechui/nvim-surround",
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    },
+    {
+        -- Auto pair, automatically add closing brackets
+        "windwp/nvim-autopairs",
+        event = "VeryLazy",
+        -- Optional dependency
+        dependencies = { 'hrsh7th/nvim-cmp' },
+        config = function()
+            require("nvim-autopairs").setup {}
+            -- If you want to automatically add `(` after selecting a function or method
+            local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+            local cmp = require('cmp')
+            cmp.event:on(
+                'confirm_done',
+                cmp_autopairs.on_confirm_done()
+            )
+        end,
+    },
+    {
+        "mbbill/undotree",
+        -- lazy = true,
+        event = "VeryLazy",
+        config = function()
+            -- require("undotree").setup {
+            --     WindowLayout = 2,
+            --     SetFocusWhenToggle = 1,
+            -- }
+            vim.g.undotree_SetFocusWhenToggle = 1
+            vim.g.undotree_WindowLayout = 2
+        end
+    }
+    --[[ {
+        "nvim-neo-tree/neo-tree.nvim",
+        version = "*",
+        dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+        },
+        config = function ()
+        require('neo-tree').setup {}
+        end,
+    } ]]
+}

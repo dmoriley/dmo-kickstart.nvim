@@ -4,6 +4,14 @@
 -- See the kickstart.nvim README for more information
 return {
     {
+        'goolord/alpha-nvim',
+        lazy = false,
+        config = function ()
+            -- require('alpha').setup(require'alpha.themes.dashboard'.config)
+            require('custom.configs.alpha-nvim')
+        end
+    },
+    {
         -- Theme inspired by Atom
         'navarasu/onedark.nvim',
         lazy = false,
@@ -16,6 +24,17 @@ return {
             }
             require('onedark').load()
             vim.cmd.colorscheme 'onedark'
+        end
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function()
+            require('custom.configs.nvim-tree')
         end
     },
     {
@@ -47,17 +66,20 @@ return {
     },
     {
         "mbbill/undotree",
-        -- lazy = true,
         event = "VeryLazy",
         config = function()
-            -- require("undotree").setup {
-            --     WindowLayout = 2,
-            --     SetFocusWhenToggle = 1,
-            -- }
             vim.g.undotree_SetFocusWhenToggle = 1
             vim.g.undotree_WindowLayout = 2
         end
-    }
+    },
+    {
+        "nvimtools/none-ls.nvim",
+        lazy = true,
+        ft = "go", -- filetype to load for
+        opts = function()
+            return require "custom.configs.none-ls"
+        end
+    },
     --[[ {
         "nvim-neo-tree/neo-tree.nvim",
         version = "*",

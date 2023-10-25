@@ -1,6 +1,6 @@
 --[[
 
-=====================================================================
+====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
 
@@ -42,6 +42,10 @@ P.S. You can delete this when you're done too. It's your config now :)
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- disable netrw from starting in favour of using nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -341,8 +345,9 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
-
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', "css", "scss", "html" },
+    ignore_install = {},
+    sync_install = false,
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
 
@@ -435,14 +440,14 @@ local on_attach = function(_, bufnr)
   nmap('<leader>vrr', vim.lsp.buf.references, '[V]im refe[rr]ences in quickfix')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gtg', vim.lsp.buf.type_definition, '[G]oto [T]ype [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   --nmap('˚', vim.lsp.buf.signature_help, 'Signature Documentation') -- overwriten in keymaps
 
   -- Lesser used LSP functionality
@@ -483,17 +488,31 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
+  gopls = {
+    settings = {
+      gopls = {
+        completeUnimported = true,
+        usePlaceholders = true,
+        analyses = {
+          unusedparams = true,
+        }
+      }
+    },
+    filetypes = {"go", "gomod", "gowork", "gotmpl"},
+    root_dir = {"go.work", "go.mod", ".git"}
+  },
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+      },
+    }
   },
 }
 
@@ -504,20 +523,22 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
+-- Ensure the servers above are installed
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
+local util = require("lspconfig/util");
 mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
+      settings = servers[server_name].settings,
       filetypes = (servers[server_name] or {}).filetypes,
+      root_dir = util.root_pattern((servers[server_name] or {}).root_dir)
     }
   end,
 }

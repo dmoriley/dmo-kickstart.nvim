@@ -1,24 +1,20 @@
--- [[ Setting options ]]
 -- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 vim.o.hlsearch = false -- Set highlight on search
 vim.wo.number = true -- Make line numbers default
 vim.o.mouse = 'a'
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = 'unnamed'
 
--- Enable break indent
-vim.o.breakindent = true
+vim.o.breakindent = true -- Enable break indent
 
--- Save undo history
-vim.o.undofile = true
+vim.o.undofile = true -- Save undo history
 
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+
+vim.o.ignorecase = true -- ignore letter case when searching
+vim.o.smartcase = true -- case insensitive unless capitals are used
+vim.o.incsearch = true -- start searching as soon as typing, without enter needed 
+
+vim.o.wrap = false -- word wrapping
 
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
@@ -32,7 +28,16 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true -- NOTE: You should make sure your terminal supports this
 vim.o.splitbelow = true -- force all horizontal splits to go to the bottom of current window
 vim.o.splitright = false -- force all verticle splits to go to the right of current window
-vim.o.expandtab = true
 vim.o.relativenumber = false -- set relative numbered lines
 vim.o.cursorline = true -- highlight the current line
 vim.opt.iskeyword:append {"-"} -- make a dash recognized as part of a w instead of W
+vim.o.spell = true -- spell checking
+
+-- tabs
+vim.o.smarttab = true
+vim.o.tabstop = 2; -- size of a hard tabstop
+vim.o.shiftwidth = 2; --size of an indentation 
+vim.o.softtabstop = 2; -- number of space a <Tab> counts for. When 0, feature is off
+vim.o.expandtab = true -- always use spaces instead of tab characters
+
+vim.o.smartindent = true -- autoindenting when starting new lines

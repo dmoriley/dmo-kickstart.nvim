@@ -334,9 +334,9 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 -- vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' }) -- overwriten in keymaps.lua
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+-- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+-- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
 -- [[ Configure Treesitter ]]
@@ -345,7 +345,22 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', "css", "scss", "html" },
+    ensure_installed = {
+      -- 'c',
+      -- 'cpp',
+      'go',
+      'lua',
+      'tsx',
+      'javascript',
+      'typescript',
+      'vimdoc',
+      'vim',
+      'bash',
+      "css",
+      "scss",
+      "html",
+      "markdown"
+    },
     ignore_install = {},
     sync_install = false,
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
@@ -439,8 +454,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>vca', vim.lsp.buf.code_action, '[V]im [C]ode [A]ction')
   nmap('<leader>vrr', vim.lsp.buf.references, '[V]im refe[rr]ences in quickfix')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gtg', vim.lsp.buf.type_definition, '[G]oto [T]ype [D]efinition')
+  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+  nmap('gtd',require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
@@ -477,7 +492,6 @@ require('which-key').register {
 -- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
-
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -501,19 +515,30 @@ local servers = {
     filetypes = {"go", "gomod", "gowork", "gotmpl"},
     root_dir = {"go.work", "go.mod", ".git"}
   },
-  -- pyright = {},
-  -- rust_analyzer = {},
-  tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
   lua_ls = {
     settings = {
       Lua = {
-        workspace = { checkThirdParty = false },
+        workspace = { checkThirdParty = 'Disable' },
         telemetry = { enable = false },
+        diagnostics = {
+          globals = {'vim', 'require'}
+        }
       },
     }
   },
+  -- pyright = {},
+  -- rust_analyzer = {},
+  tsserver = {
+    root_dir = {"package.json"}
+  },
+  angularls = {
+    root_dir = {"angular.json"}
+  },
+  -- eslint = {},
+  -- html = { filetypes = { 'html', 'hbs'} },
+  -- cssls = {},
+  -- jsonls = {},
+  -- tailwindcss = {}
 }
 
 -- Setup neovim lua configuration
@@ -533,6 +558,7 @@ mason_lspconfig.setup {
 local util = require("lspconfig/util");
 mason_lspconfig.setup_handlers {
   function(server_name)
+    -- the settings below maybe be overriding the defaults set by some lsp's. Ex angluarls
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,

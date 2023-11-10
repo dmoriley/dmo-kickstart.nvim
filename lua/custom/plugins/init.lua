@@ -80,6 +80,10 @@ return {
             return require "custom.configs.none-ls"
         end
     },
+    -- {
+    --     -- syntax highlights for inline templates, inline styles and specific HTML highlighting
+    --     "nvim-treesitter/nvim-treesitter-angular"
+    -- }
     --[[ {
         "nvim-neo-tree/neo-tree.nvim",
         version = "*",

@@ -3,7 +3,7 @@ vim.o.hlsearch = false -- Set highlight on search
 vim.wo.number = true -- Make line numbers default
 vim.o.mouse = 'a'
 
-vim.o.clipboard = 'unnamed'
+-- vim.o.clipboard = 'unnamed' // always sync with system clipboard
 
 vim.o.breakindent = true -- Enable break indent
 

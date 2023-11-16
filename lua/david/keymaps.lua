@@ -1,3 +1,5 @@
+-- non plugin keymaps
+
 local keymap = vim.keymap.set;
 local options = function(description)
   if description then
@@ -24,13 +26,6 @@ end
 -- To bind the alt keys in mac
 -- Use literal result of alt key. For example Alt + P = π. So put π as the keymap.
 --
-keymap('n', '<M-p>', require('telescope.builtin').git_files, options("Search Git Files"))
-keymap('n', '<leader>sdd', require('telescope.builtin').diagnostics, options("[S]earch [D]ocument [D]iagnostics"))
-keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('[S]earch [D]ocument [S]ymbols'))
-keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
-  options('[S]earch [W]orkspace [S]ymbols'))
-keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options("[S]earch [W]orkspace for current [W]ord"))
-keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options("[S]earch [K]eymaps"));
 
 -- fast line movement
 keymap({ 'n', 'x' }, "K", "5k", options("Up faster"));
@@ -79,9 +74,6 @@ keymap("v", "˚", ":m '<-2<CR>gv=gv", options("Move selected text up one line up
 keymap("x", "∆", ":m '>+1<CR>gv-gv", options("Move selected text up one line down"));
 -- ˚ is <A-k>
 keymap("x", "˚", ":m '<-2<CR>gv-gv", options("Move selected text up one line up")); ]]
-
---nvim-tree
-keymap('n', "<leader>-", vim.cmd.NvimTreeToggle, options("NvimTree toggle"));
 
 -- center screen on movement
 keymap('n', "<C-d>", "<C-d>zz", options("Move down screen and center on line"))

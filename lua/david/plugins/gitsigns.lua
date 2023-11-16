@@ -3,11 +3,11 @@ return {
     'lewis6991/gitsigns.nvim',
     event = "BufReadPre",
     keys = {
-        { "<leader>gh", "<cmd>Gitsigns preview_hunk<CR>", mode = 'n', desc = 'Git preview hunk', noremap = true, silent = true },
-        { "<leader>gb", "<cmd>Gitsigns blame_line<CR>", mode = 'n', desc = 'Git blame line', noremap = true, silent = true },
-        { "<leader>gd", "<cmd>Gitsigns toggle_deleted<CR>", mode = 'n', desc = 'Git toggle deleted', noremap = true, silent = true },
-        { "<leader>gw", "<cmd>Gitsigns toggle_word_diff<CR>", mode = 'n', desc = 'Git toggle word diff', noremap = true, silent = true },
-        { "<leader>go", "<cmd>Gitsigns<CR>", mode = 'n', desc = 'Git options', noremap = true, silent = true },
+        { "<leader>gh", "<cmd>Gitsigns preview_hunk<CR>",              mode = 'n', desc = 'Git preview hunk',      noremap = true, silent = true },
+        { "<leader>gb", "<cmd>Gitsigns blame_line<CR>",                mode = 'n', desc = 'Git blame line',        noremap = true, silent = true },
+        { "<leader>gd", "<cmd>Gitsigns toggle_deleted<CR>",            mode = 'n', desc = 'Git toggle deleted',    noremap = true, silent = true },
+        { "<leader>gw", "<cmd>Gitsigns toggle_word_diff<CR>",          mode = 'n', desc = 'Git toggle word diff',  noremap = true, silent = true },
+        { "<leader>go", "<cmd>Gitsigns<CR>",                           mode = 'n', desc = 'Git options',           noremap = true, silent = true },
         { "<leader>gl", "<cmd>Gitsigns toggle_current_line_blame<CR>", mode = 'n', desc = 'Git toggle blame line', noremap = true, silent = true },
     },
     opts = {
@@ -23,7 +23,8 @@ return {
         on_attach = function(bufnr)
             local gs = package.loaded.gitsigns
 
-            --[[ local vmap = function(keys, func, desc)
+            -- Visual mode padding for selection
+            local vmap = function(keys, func, desc)
                 if desc then
                     desc = "Git: " .. desc
                 end
@@ -41,7 +42,8 @@ return {
 
             vmap("gr", function()
                 gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-            end, "Reset Selected") ]]
+            end, "Reset Selected")
+            -- end of visual mode mapping
 
             -- don't override the built-in and fugitive keymaps
             vim.keymap.set({ 'n', 'v' }, ']c', function()

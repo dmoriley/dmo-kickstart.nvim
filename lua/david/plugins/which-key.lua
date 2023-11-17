@@ -17,6 +17,7 @@ return {
             r = { name = '[R]ename', _ = 'which_key_ignore' },
             s = { name = '[S]earch', _ = 'which_key_ignore' },
             w = { name = '[W]orkspace', _ = 'which_key_ignore' },
+            t = { name = '[T]rouble', _ = 'which_key_ignore' },
         }, { prefix = "<leader>"})
     end,
     opts = {}

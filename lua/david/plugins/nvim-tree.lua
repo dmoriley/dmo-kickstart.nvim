@@ -5,14 +5,13 @@ return {
     },
     cmd = { 'NvimTreeToggle'},
     -- event = 'BufReadPre',
-    -- keys = {
-    --     { '<leader>-', ':NvimTreeToggle<cr>', mode = 'n', desc = 'NvimTree toggle', noremap = true, silent = true }
-    -- },
+    keys = {
+        { '<leader>-', ':NvimTreeToggle<cr>', mode = 'n', desc = 'NvimTree toggle', noremap = true, silent = true }
+    },
     opts = function()
         -- local HEIGHT_RATIO = 0.8
         -- local WIDTH_RATIO = 0.5
 
-        vim.keymap.set('n', '<leader>-', ':NvimTreeToggle<cr>', { desc = 'NvimTree Toggle', noremap = true, silent = true })
         return {
             disable_netrw = true,
             hijack_netrw = true,

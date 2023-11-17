@@ -103,12 +103,9 @@ return {
         vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
         keymap('n', '<M-p>', require('telescope.builtin').git_files, options("Search Git Files"))
         keymap('n', '<leader>sdd', require('telescope.builtin').diagnostics, options("[S]earch [D]ocument [D]iagnostics"))
-        keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols,
-            options('[S]earch [D]ocument [S]ymbols'))
-        keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
-            options('[S]earch [W]orkspace [S]ymbols'))
-        keymap('n', '<leader>sww', require('telescope.builtin').grep_string,
-            options("[S]earch [W]orkspace for current [W]ord"))
+        keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('[S]earch [D]ocument [S]ymbols'))
+        keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('[S]earch [W]orkspace [S]ymbols'))
+        keymap({'n', 'v'}, '<leader>sww', require('telescope.builtin').grep_string, options("Search workspace for current word/selection"))
         keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options("[S]earch [K]eymaps"));
     end
 

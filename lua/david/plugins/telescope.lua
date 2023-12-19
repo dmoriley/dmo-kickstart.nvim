@@ -18,14 +18,18 @@ return {
         },
     },
     config = function()
+        local actions = require("telescope.actions")
         require('telescope').setup {
             defaults = {
                 mappings = {
                     i = {
                         ['<C-u>'] = false,
                         ['<C-d>'] = false,
+                        -- after the selection of a telescope item, center the cursor vertically on the buffer window
+                        ['<CR>'] = actions.select_default + actions.center,
                     },
                 },
+                path_display = {"truncate"}
             },
         }
 
@@ -103,10 +107,15 @@ return {
         vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
         keymap('n', '<M-p>', require('telescope.builtin').git_files, options("Search Git Files"))
         keymap('n', '<leader>sdd', require('telescope.builtin').diagnostics, options("[S]earch [D]ocument [D]iagnostics"))
-        keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('[S]earch [D]ocument [S]ymbols'))
-        keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('[S]earch [W]orkspace [S]ymbols'))
-        keymap({'n', 'v'}, '<leader>sww', require('telescope.builtin').grep_string, options("Search workspace for current word/selection"))
+        keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols,
+            options('[S]earch [D]ocument [S]ymbols'))
+        keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
+            options('[S]earch [W]orkspace [S]ymbols'))
         keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options("[S]earch [K]eymaps"));
+        keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
+        -- vim.keymap.set('x', '<leader>sww',  '"zy<Cmd>Telescope live_grep<CR><C-r>z' ) -- alternative to the below command using live_grep
+        keymap("x", "<leader>sww", '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>', options("Search workspace for selection"))
     end
 
 }
+

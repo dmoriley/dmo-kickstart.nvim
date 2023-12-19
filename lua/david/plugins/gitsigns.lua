@@ -46,18 +46,18 @@ return {
             -- end of visual mode mapping
 
             -- don't override the built-in and fugitive keymaps
-            vim.keymap.set({ 'n', 'v' }, ']c', function()
+            vim.keymap.set({ 'n', 'v' }, ']h', function()
                 if vim.wo.diff then
-                    return ']c'
+                    return ']h'
                 end
                 vim.schedule(function()
                     gs.next_hunk()
                 end)
                 return '<Ignore>'
             end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
-            vim.keymap.set({ 'n', 'v' }, '[c', function()
+            vim.keymap.set({ 'n', 'v' }, '[h', function()
                 if vim.wo.diff then
-                    return '[c'
+                    return '[h'
                 end
                 vim.schedule(function()
                     gs.prev_hunk()

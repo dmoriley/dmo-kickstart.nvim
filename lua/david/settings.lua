@@ -41,3 +41,7 @@ vim.o.softtabstop = 2; -- number of space a <Tab> counts for. When 0, feature is
 vim.o.expandtab = true -- always use spaces instead of tab characters
 
 vim.o.smartindent = true -- autoindenting when starting new lines
+
+if vim.fn.executable('rg') == 1 then
+  vim.o.grepprg = 'rg --vimgrep --smart-case --follow'
+end

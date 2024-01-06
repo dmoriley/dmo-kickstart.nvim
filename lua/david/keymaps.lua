@@ -93,6 +93,9 @@ keymap({ 'n', 'x' }, '<leader>p', '"+p', options("paste from system clipboard"))
 
 -- change to normal mode faster
 keymap("i", "jk", "<ESC>", options());
+keymap("i", "JK", "<ESC>", options());
+keymap("i", "kj", "<ESC>", options());
+keymap("i", "KJ", "<ESC>", options());
 
 -- Indenting
 keymap('x', ">", ">gv", options("Stay in visual mode while indenting right"))

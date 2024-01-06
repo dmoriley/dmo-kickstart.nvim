@@ -105,6 +105,14 @@ return {
         -- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
         vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
         vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+        -- Search the nvim config workspace to tweak things on the fly
+        vim.keymap.set("n", '<leader>sc',
+            function ()
+                require('telescope.builtin').find_files({cwd="~/.config/nvim"})
+            end,
+            { desc = "Search nvim config workspace", noremap = true, silent = true}
+        )
+
         keymap('n', '<M-p>', require('telescope.builtin').git_files, options("Search Git Files"))
         keymap('n', '<leader>sdd', require('telescope.builtin').diagnostics, options("[S]earch [D]ocument [D]iagnostics"))
         keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols,
@@ -115,6 +123,7 @@ return {
         keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
         -- vim.keymap.set('x', '<leader>sww',  '"zy<Cmd>Telescope live_grep<CR><C-r>z' ) -- alternative to the below command using live_grep
         keymap("x", "<leader>sww", '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>', options("Search workspace for selection"))
+
     end
 
 }

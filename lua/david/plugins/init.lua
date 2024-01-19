@@ -25,7 +25,7 @@ return {
         opts = {}
     },
     {
-        "folke/persistence.nvim",
+        'folke/persistence.nvim',
         event = 'BufReadPre',
         opts = {}
     },

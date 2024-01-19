@@ -1,5 +1,3 @@
--- non plugin keymaps
-
 local keymap = vim.keymap.set;
 local options = function(description)
   if description then
@@ -57,8 +55,8 @@ keymap("n", "<A-Left>", ":vertical :resize -2<CR>", options("Resize vertical win
 keymap("n", "<A-Right>", ":vertical :resize +2<CR>", options("Resize vertical window right"))
 
 -- Buffers
-keymap("n", "<C-h>", ":bnext<CR>", options("Next buffer"))
-keymap("n", "<C-l>", ":bprev<CR>", options("Previous buffer"))
+keymap("n", "<C-h>", ":bprev<CR>", options("Next buffer"))
+keymap("n", "<C-l>", ":bnext<CR>", options("Previous buffer"))
 keymap("n", "<leader>ba", ":%bd|e#<cr>", options("Close all buffers but not current one"))
 
 -- Move text up and down

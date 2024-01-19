@@ -34,6 +34,7 @@ return {
                     sync_install = false,
                     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
                     auto_install = false,
+                    modules = {},
 
                     highlight = { enable = true },
                     indent = { enable = true },

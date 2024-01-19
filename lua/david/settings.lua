@@ -24,7 +24,7 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect' -- also set in nvim-cmp
 vim.o.termguicolors = true -- NOTE: You should make sure your terminal supports this
 vim.o.splitbelow = true -- force all horizontal splits to go to the bottom of current window
 vim.o.splitright = false -- force all verticle splits to go to the right of current window

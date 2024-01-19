@@ -3,12 +3,17 @@ return {
     'lewis6991/gitsigns.nvim',
     event = "BufReadPre",
     keys = {
-        { "<leader>gh", "<cmd>Gitsigns preview_hunk<CR>",              mode = 'n', desc = 'Git preview hunk',      noremap = true, silent = true },
-        { "<leader>gb", "<cmd>Gitsigns blame_line<CR>",                mode = 'n', desc = 'Git blame line',        noremap = true, silent = true },
-        { "<leader>gd", "<cmd>Gitsigns toggle_deleted<CR>",            mode = 'n', desc = 'Git toggle deleted',    noremap = true, silent = true },
-        { "<leader>gw", "<cmd>Gitsigns toggle_word_diff<CR>",          mode = 'n', desc = 'Git toggle word diff',  noremap = true, silent = true },
-        { "<leader>go", "<cmd>Gitsigns<CR>",                           mode = 'n', desc = 'Git options',           noremap = true, silent = true },
-        { "<leader>gl", "<cmd>Gitsigns toggle_current_line_blame<CR>", mode = 'n', desc = 'Git toggle blame line', noremap = true, silent = true },
+        { "<leader>gh", "<cmd>Gitsigns preview_hunk<CR>",              mode = 'n', desc = 'Git preview hunk',        noremap = true, silent = true },
+        { "<leader>gb", "<cmd>Gitsigns blame_line<CR>",                mode = 'n', desc = 'Git blame line',          noremap = true, silent = true },
+        { "<leader>gd", "<cmd>Gitsigns toggle_deleted<CR>",            mode = 'n', desc = 'Git toggle deleted diff', noremap = true, silent = true },
+        { "<leader>gw", "<cmd>Gitsigns toggle_word_diff<CR>",          mode = 'n', desc = 'Git toggle word diff',    noremap = true, silent = true },
+        { "<leader>go", "<cmd>Gitsigns<CR>",                           mode = 'n', desc = 'Git options',             noremap = true, silent = true },
+        { "<leader>gl", "<cmd>Gitsigns toggle_current_line_blame<CR>", mode = 'n', desc = 'Git toggle blame line',   noremap = true, silent = true },
+        { "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>",                mode = 'n', desc = 'Git stage hunk',          noremap = true, silent = true },
+        { "<leader>gS", "<cmd>Gitsigns stage_buffer<CR>",              mode = 'n', desc = 'Git stage buffer',        noremap = true, silent = true },
+        { "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>",                mode = 'n', desc = 'Git reset hunk',          noremap = true, silent = true },
+        { "<leader>gR", "<cmd>Gitsigns reset_buffer<CR>",              mode = 'n', desc = 'Git reset buffer',        noremap = true, silent = true },
+        { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<CR>",           mode = 'n', desc = 'Git undo stage hunk',     noremap = true, silent = true },
     },
     opts = {
         -- See `:help gitsigns.txt`
@@ -34,7 +39,7 @@ return {
 
             vmap("gs", function()
                 gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-            end, "Stage Selected")
+            end, "Stage Selected hunks")
 
             vmap("gu", function()
                 gs.undo_stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
@@ -42,7 +47,7 @@ return {
 
             vmap("gr", function()
                 gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-            end, "Reset Selected")
+            end, "Reset Selected hunks")
             -- end of visual mode mapping
 
             -- don't override the built-in and fugitive keymaps

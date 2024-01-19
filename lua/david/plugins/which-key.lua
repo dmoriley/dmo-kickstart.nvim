@@ -19,6 +19,15 @@ return {
             w = { name = '[W]orkspace', _ = 'which_key_ignore' },
             t = { name = '[T]rouble', _ = 'which_key_ignore' },
         }, { prefix = "<leader>"})
+
+        -- visual mode keys
+        wk.register({
+            g = { '[G]it' },
+            s = {
+                name = '[S]earch',
+                w = {'[W]orkspace'},
+            },
+        }, { mode = 'v', prefix = '<leader>' })
     end,
     opts = {}
 }

@@ -11,7 +11,7 @@ return {
     'folke/neodev.nvim',
     'folke/trouble.nvim',
     { 'j-hui/fidget.nvim', opts = {} },
-    "RRethy/vim-illuminate",
+    "RRethy/vim-illuminate", -- highlighting and cursor over after delay
   },
   event = "BufReadPre",
   config = require("david.plugins.lsp.config")

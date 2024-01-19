@@ -3,5 +3,4 @@ require("david.settings")
 require("david.commands")
 require("david.lazy")
 require("david.keymaps")
-
--- vim.cmd([[colorscheme tokyonight]])
+require("david.ui")

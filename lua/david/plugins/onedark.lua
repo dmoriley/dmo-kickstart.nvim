@@ -7,9 +7,12 @@ return {
         require('onedark').setup {
             style = 'deep',
             term_colors = true,
-            transparent = true
+            transparent = true,
+            -- highlights = { -- could change highlights here instead of ui.lua
+            --     CursorLine = { bg = 'none', fmt = 'underline'}
+            -- }
         }
-        require('onedark').load()
-        vim.cmd.colorscheme 'onedark'
+        -- lua equivalent of vim.cmd([[colorscheme onedark]])
+        -- require('onedark').load()
     end
 }

@@ -105,6 +105,7 @@ return {
             })
         end, { desc = '[/] Fuzzily search in current buffer' })
 
+        keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
         keymap('n', '<leader>sf', require('telescope.builtin').find_files, options('[S]earch [F]iles'))
         keymap('n', '<leader>sh', require('telescope.builtin').help_tags, options('[S]earch [H]elp'))
         keymap('n', '<leader>sr', require('telescope.builtin').resume, options('[S]earch [R]esume'))

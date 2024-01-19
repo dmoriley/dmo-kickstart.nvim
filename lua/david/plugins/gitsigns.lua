@@ -52,6 +52,7 @@ return {
                 end
                 vim.schedule(function()
                     gs.next_hunk()
+                    vim.cmd.normal("zz") -- center the cursor
                 end)
                 return '<Ignore>'
             end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
@@ -61,6 +62,7 @@ return {
                 end
                 vim.schedule(function()
                     gs.prev_hunk()
+                    vim.cmd.normal("zz") -- center the cursor
                 end)
                 return '<Ignore>'
             end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })

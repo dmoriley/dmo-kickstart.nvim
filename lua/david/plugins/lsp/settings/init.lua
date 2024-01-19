@@ -32,7 +32,8 @@ M.on_attach = function(client, bufnr)
   keymap('n', '<leader>vrr', vim.lsp.buf.references, options('[V]im refe[rr]ences in quickfix'))
 
   keymap('n', 'gr', require('telescope.builtin').lsp_references, options('[G]oto [R]eferences'))
-  keymap('n', 'gd', require('telescope.builtin').lsp_definitions, options('[G]oto [D]efinition'))
+  -- lsp_definitions is async so the zz command happens before definitions completes. Need to look into how to do this. For now it doesnt center
+  keymap('n', 'gd', "<CMD>lua require('telescope.builtin').lsp_definitions()<CR> <bar> <CMD> lua vim.cmd.normal('zz')<CR>", options('[G]oto [D]efinition'))
   keymap('n', 'gtd', require('telescope.builtin').lsp_type_definitions, options('[G]oto [T]ype [D]efinition'))
   keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('[G]oto [I]mplementation'))
   keymap('n', 'gD', vim.lsp.buf.declaration, options('[G]oto [D]eclaration'))

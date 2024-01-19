@@ -28,7 +28,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true -- NOTE: You should make sure your terminal supports this
 vim.o.splitbelow = true -- force all horizontal splits to go to the bottom of current window
 vim.o.splitright = false -- force all verticle splits to go to the right of current window
-vim.o.relativenumber = false -- set relative numbered lines
+vim.o.relativenumber = true -- set relative numbered lines
 vim.o.cursorline = true -- highlight the current line
 vim.opt.iskeyword:append {"-"} -- make a dash recognized as part of a w instead of W
 vim.o.spell = true -- spell checking
@@ -42,6 +42,7 @@ vim.o.expandtab = true -- always use spaces instead of tab characters
 
 vim.o.smartindent = true -- autoindenting when starting new lines
 
+-- if ripgrep is available, use as the default grep function from vim cmd
 if vim.fn.executable('rg') == 1 then
   vim.o.grepprg = 'rg --vimgrep --smart-case --follow'
 end

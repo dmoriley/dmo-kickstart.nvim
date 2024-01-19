@@ -17,7 +17,7 @@ end
 -- keymap("n", "<leader>xx",  ":Lexplore %:p:h<CR>", options("Open left explore in current file directory"));
 -- keymap("n", "<leader>xl",  ":Lexplore<CR>", options("Toggle left explore"));
 
--- See :help key-notion for which keys map to what string
+-- See :help key-notation for which keys map to what string
 
 -- To bind cmd key in mac:
 -- bound to Meta + P. Then in iterm2 settings -> profiles -> keys -> keymapping -> add new (cmd + p) + (text with vim special characters) + (\<M-p>)
@@ -94,8 +94,8 @@ keymap({ 'n', 'x' }, '<leader>p', '"+p', options("paste from system clipboard"))
 -- change to normal mode faster
 keymap("i", "jk", "<ESC>", options());
 keymap("i", "JK", "<ESC>", options());
-keymap("i", "kj", "<ESC>", options());
-keymap("i", "KJ", "<ESC>", options());
+-- keymap("i", "kj", "<ESC>", options());
+-- keymap("i", "KJ", "<ESC>", options());
 
 -- Indenting
 keymap('x', ">", ">gv", options("Stay in visual mode while indenting right"))

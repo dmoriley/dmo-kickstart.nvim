@@ -31,25 +31,18 @@ M.on_attach = function(client, bufnr)
   keymap('n', '<leader>vca', vim.lsp.buf.code_action, options('[V]im [C]ode [A]ction'))
   keymap('n', '<leader>vrr', vim.lsp.buf.references, options('[V]im refe[rr]ences in quickfix'))
 
-  keymap('n', 'gr', require('telescope.builtin').lsp_references, options('[G]oto [R]eferences'))
-  -- lsp_definitions is async so the zz command happens before definitions completes. Need to look into how to do this. For now it doesnt center
-  keymap('n', 'gd', "<CMD>lua require('telescope.builtin').lsp_definitions()<CR> <bar> <CMD> lua vim.cmd.normal('zz')<CR>", options('[G]oto [D]efinition'))
-  keymap('n', 'gtd', require('telescope.builtin').lsp_type_definitions, options('[G]oto [T]ype [D]efinition'))
-  keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('[G]oto [I]mplementation'))
   keymap('n', 'gD', vim.lsp.buf.declaration, options('[G]oto [D]eclaration'))
 
   keymap('n', '<leader>k', vim.lsp.buf.hover, options('Hover Documentation'))
   keymap('n', '<leader>K', vim.lsp.buf.signature_help, options('Signature Documentation'))
-  keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('[S]earch [D]ocument [S]ymbols'))
-  keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('[S]earch [W]orkspace [S]ymbols'))
   keymap('n', '<leader>df', vim.lsp.buf.format, options('[D]ocument [F]ormat'));
 
   local trouble = require("trouble").toggle
   keymap('n', "<leader>tt", function() trouble() end, options("Toggle Trouble"))
   keymap('n', "<leader>tq", function() trouble("quickfix") end, options("Quickfix List"))
   keymap('n', "<leader>tr", function() trouble("lsp_references") end, options("References"))
-  keymap('n', "<leader>tdd", function() trouble("document_diagnostics") end, options("[D]ocument [D]iagnostics"))
-  keymap('n', "<leader>twd", function() trouble("workspace_diagnostics") end, options("Workspace Diagnostics"))
+  keymap('n', "<leader>tdd", function() trouble("document_diagnostics") end, options("Document Diagnostics"))
+  keymap('n', "<leader>twd", function() trouble("workspace_diagnostics") end, options("Open Workspace/Buffers Diagnostics"))
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)

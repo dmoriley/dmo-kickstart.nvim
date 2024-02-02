@@ -28,15 +28,39 @@ return {
                         -- after the selection of a telescope item, center the cursor vertically on the buffer window
                         ['<CR>'] = actions.select_default + actions.center,
                     },
+                    n = {
+                        ['<CR>'] = actions.select_default + actions.center,
+                    }
                 },
-                path_display = { "truncate" }
+                path_display = { "shorten" }
             },
+            pickers = {
+                help_tags = {
+                    mappings = {
+                        n = {
+                            ['<CR>'] = actions.select_vertical
+                        },
+                        i = {
+                            ['<CR>'] = actions.select_vertical
+                        }
+                    }
+                }
+            }
         }
 
 
         -- Enable telescope fzf native, if installed
-        pcall(require('telescope').load_extension, 'fzf')
+        require('telescope').load_extension('fzf')
 
+        local keymap = vim.keymap.set;
+        local options = function(description)
+            if description then
+                return { noremap = true, silent = true, desc = description }
+            end
+            return { noremap = true, silent = true }
+        end
+
+        --[[
         -- Telescope live_grep in git root
         -- Function to find the git root directory based on the current buffer's path
         local function find_git_root()
@@ -62,6 +86,8 @@ return {
             return git_root
         end
 
+        -- Grep functions
+
         -- Custom live_grep function to search in git root
         local function live_grep_git_root()
             local git_root = find_git_root()
@@ -73,6 +99,9 @@ return {
         end
         -- assign a function to user defined command and use in keymap
         vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
+        keymap('n', '<leader>sG', '<Cmd>LiveGrepGitRoot<CR>', options('[S]earch by Grep on Git Root')) 
+        
+        ]]
 
         local function telescope_live_grep_open_files()
             require('telescope.builtin').live_grep {
@@ -80,15 +109,11 @@ return {
                 prompt_title = 'Live Grep in Open Files',
             }
         end
+        keymap('n', '<leader>s/', telescope_live_grep_open_files, options('Search by Grep in open files'))
+        keymap('n', '<leader>sg', require('telescope.builtin').live_grep, options('[S]earch by Grep'))
 
+        -- -------
 
-        local keymap = vim.keymap.set;
-        local options = function(description)
-            if description then
-                return { noremap = true, silent = true, desc = description }
-            end
-            return { noremap = true, silent = true }
-        end
 
         vim.keymap.set('n', '<leader>so', require('telescope.builtin').oldfiles,
             { desc = '[S]earch recently [o]pened files' })
@@ -106,9 +131,9 @@ return {
         end, { desc = '[/] Fuzzily search in current buffer' })
 
         keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
-        keymap('n', '<leader>sf', require('telescope.builtin').find_files, options('[S]earch [F]iles'))
-        keymap('n', '<leader>sh', require('telescope.builtin').help_tags, options('[S]earch [H]elp'))
-        keymap('n', '<leader>sr', require('telescope.builtin').resume, options('[S]earch [R]esume'))
+        keymap('n', '<leader>sf', require('telescope.builtin').find_files, options('[S]earch Files'))
+        keymap('n', '<leader>sh', require('telescope.builtin').help_tags, options('[S]earch Help'))
+        keymap('n', '<leader>sr', require('telescope.builtin').resume, options('[S]earch Resume'))
         -- Search the nvim config workspace to tweak things on the fly
         keymap('n', '<leader>sc',
             function()
@@ -118,20 +143,27 @@ return {
         )
 
         keymap('n', '<M-p>', require('telescope.builtin').git_files, options('Search Git Files'))
-        keymap('n', '<leader>sG', '<Cmd>LiveGrepGitRoot<CR>', options('[S]earch by [G]rep on Git Root'))
-        keymap('n', '<leader>s/', telescope_live_grep_open_files, options('Search by grep in open files'))
-        keymap('n', '<leader>sg', require('telescope.builtin').live_grep, options('[S]earch by [G]rep'))
-        keymap('n', '<leader>sdd', require('telescope.builtin').diagnostics, options('[S]earch [D]ocument [D]iagnostics'))
+        keymap('n', '<leader>sdd', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end, options('[S]earch [D]ocument [D]iagnostics'))
         keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols,
             options('[S]earch [D]ocument [S]ymbols'))
         keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
             options('[S]earch [W]orkspace [S]ymbols'))
         keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options('[S]earch [K]eymaps'));
         keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
+        keymap('n', '<leader>sx', require('telescope.builtin').commands, options('[S]earch commands'))
         -- vim.keymap.set('x', '<leader>sww',  '"zy<Cmd>Telescope live_grep<CR><C-r>z' ) -- alternative to the below command using live_grep
         keymap('x', '<leader>sww',
             '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>',
             options('Search workspace for selection'))
+        keymap('n', '<leader>sm', require('telescope.builtin').marks, options('[S]earch marks'))
+
+        keymap('n', 'gr', function() require('telescope.builtin').lsp_references({ fname_width = 50, trim_text = false}) end, options('Goto References'))
+        -- lsp_definitions is async so the zz command happens before definitions completes. Need to look into how to do this. For now it doesnt center
+        keymap('n', 'gd', "<CMD>lua require('telescope.builtin').lsp_definitions()<CR> <bar> <CMD> lua vim.cmd.normal('zz')<CR>", options('Goto Definition'))
+        keymap('n', 'gtd', require('telescope.builtin').lsp_type_definitions, options('Goto Type Definition'))
+        keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('Goto Implementation'))
+        keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('Search Document Symbols'))
+        keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('Search Workspace Symbols'))
     end
 
 }

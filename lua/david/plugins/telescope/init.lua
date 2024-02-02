@@ -151,14 +151,14 @@ return {
         keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options('[S]earch [K]eymaps'));
         keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
         keymap('n', '<leader>sx', require('telescope.builtin').commands, options('[S]earch commands'))
-        -- vim.keymap.set('x', '<leader>sww',  '"zy<Cmd>Telescope live_grep<CR><C-r>z' ) -- alternative to the below command using live_grep
+        -- vim.keymap.set('x', '<leader>sww',  '"zy<Cmd>Telescope live_grep<CR><C-r>z', options('Search workspace for selection') ) -- alternative search workspace for selection
         keymap('x', '<leader>sww',
             '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>',
             options('Search workspace for selection'))
         keymap('n', '<leader>sm', require('telescope.builtin').marks, options('[S]earch marks'))
 
         keymap('n', 'gr', function() require('telescope.builtin').lsp_references({ fname_width = 50, trim_text = false}) end, options('Goto References'))
-        -- lsp_definitions is async so the zz command happens before definitions completes. Need to look into how to do this. For now it doesnt center
+        -- lsp_definitions is async so the zz command happens before definitions completes. Need to look into how to do this. For now it doesn't center
         keymap('n', 'gd', "<CMD>lua require('telescope.builtin').lsp_definitions()<CR> <bar> <CMD> lua vim.cmd.normal('zz')<CR>", options('Goto Definition'))
         keymap('n', 'gtd', require('telescope.builtin').lsp_type_definitions, options('Goto Type Definition'))
         keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('Goto Implementation'))

@@ -2,6 +2,7 @@ return {
     -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
+    -- cmd = 'Telescope'
     dependencies = {
         'nvim-lua/plenary.nvim',
         {
@@ -18,7 +19,9 @@ return {
         },
     },
     config = function()
-        local actions = require("telescope.actions")
+        local actions = require('telescope.actions')
+        local custom_pickers = require('david.plugins.telescope.custom_pickers')
+
         require('telescope').setup {
             defaults = {
                 mappings = {
@@ -31,8 +34,7 @@ return {
                     n = {
                         ['<CR>'] = actions.select_default + actions.center,
                     }
-                },
-                path_display = { "shorten" }
+                }
             },
             pickers = {
                 help_tags = {
@@ -44,6 +46,33 @@ return {
                             ['<CR>'] = actions.select_vertical
                         }
                     }
+                },
+                oldfiles = {
+                    sort_lastused = true
+                },
+                find_files = {
+                    path_display = { "truncate" },
+                    find_command = {
+                        'rg',
+                        '--files',
+                        '--color',
+                        'never'
+                    }
+                },
+                live_grep = {
+                    -- ripgrep is the default tool for live_grep and grep_string
+                    path_display = { "shorten" },
+                    mappings = {
+                        i = {
+                            ['<C-k>'] = custom_pickers.actions.set_extension,
+                            ['<C-i>'] = custom_pickers.actions.set_ignore_extension,
+                            ['<C-l>'] = custom_pickers.actions.set_folders,
+                        }
+                    }
+                    -- consider disabling treesitter in preview window for performance
+                    -- preview = {
+                    --     treesitter = false
+                    -- }
                 }
             }
         }

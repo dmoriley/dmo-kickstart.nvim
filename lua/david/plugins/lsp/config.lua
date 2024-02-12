@@ -27,8 +27,9 @@ return function ()
       lspConfig[serverName].setup({
         on_attach = lspSettings.on_attach,
         capabilities = lspSettings.capabilities,
-        settings = servers[serverName],
-        filetypes = (servers[serverName] or {}).filetypes
+        settings = servers[serverName].settings,
+        filetypes = servers[serverName].settings.filetypes,
+        commands = servers[serverName].commands,
       })
     end
   })

@@ -1,10 +1,9 @@
 -- @see https://github.com/JoosepAlviste/dotfiles/blob/master/config/nvim/lua/j/telescope_pretty_pickers.lua
-
-local M = {}
-
 local telescope_utils = require 'telescope.utils'
 local make_entry = require 'telescope.make_entry'
 local entry_display = require 'telescope.pickers.entry_display'
+
+local M = {}
 
 ---- Helper functions ----
 
@@ -38,7 +37,9 @@ end
 --                                      picker = '<pickerName>',
 --                                      (optional) options = { ... }
 --                                   }
-function M.pretty_files_picker(picker_and_options)
+
+
+--[[ function M.pretty_files_picker(picker_and_options)
   if type(picker_and_options) ~= 'table' or picker_and_options.picker == nil then
     print "Incorrect argument format. Correct format is: { picker = 'desiredPicker', (optional) options = { ... } }"
     return
@@ -116,7 +117,7 @@ function M.pretty_files_picker(picker_and_options)
   else
     print 'Picker is not supported by Pretty Find Files'
   end
-end
+end ]]
 
 -- Generates a Grep Search picker but beautified
 -- ----------------------------------------------

@@ -66,7 +66,6 @@ return {
                         i = {
                             ['<C-k>'] = custom_pickers.actions.set_extension,
                             ['<C-i>'] = custom_pickers.actions.set_ignore_extension,
-                            ['<C-l>'] = custom_pickers.actions.set_folders,
                         }
                     }
                     -- consider disabling treesitter in preview window for performance
@@ -139,7 +138,7 @@ return {
             }
         end
         keymap('n', '<leader>s/', telescope_live_grep_open_files, options('Search by Grep in open files'))
-        keymap('n', '<leader>sg', require('telescope.builtin').live_grep, options('[S]earch by Grep'))
+        keymap('n', '<leader>sg', custom_pickers.custom_live_grep , options('[S]earch by Grep'))
 
         -- -------
 
@@ -148,23 +147,27 @@ return {
             { desc = '[S]earch recently [o]pened files' })
         vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers,
             { desc = '[ ] Find existing buffers' })
-        vim.keymap.set('n', '<leader>/', function()
-            -- You can pass additional configuration to telescope to change theme, layout, etc.
-            require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-                winblend = 10,
-                previewer = false,
-                layout_config = {
-                    height = 35
-                }
-            })
-        end, { desc = '[/] Fuzzily search in current buffer' })
+
+        -- example of using themes for telescope
+        -- vim.keymap.set('n', '<leader>/', function()
+        --     -- You can pass additional configuration to telescope to change theme, layout, etc.
+        --     require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        --         winblend = 10,
+        --         previewer = false,
+        --         layout_config = {
+        --             height = 35
+        --         }
+        --     })
+        -- end, { desc = '[/] Fuzzily search in current buffer' })
+
+        vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = 'Current Buffer Fuzzy' })
 
         keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
         keymap('n', '<leader>sf', require('telescope.builtin').find_files, options('[S]earch Files'))
         keymap('n', '<leader>sh', require('telescope.builtin').help_tags, options('[S]earch Help'))
         keymap('n', '<leader>sr', require('telescope.builtin').resume, options('[S]earch Resume'))
         -- Search the nvim config workspace to tweak things on the fly
-        keymap('n', '<leader>sc',
+        keymap('n', '<leader>sx',
             function()
                 require('telescope.builtin').find_files({ cwd = '~/.config/nvim' })
             end,
@@ -177,9 +180,9 @@ return {
             options('[S]earch [D]ocument [S]ymbols'))
         keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
             options('[S]earch [W]orkspace [S]ymbols'))
-        keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options('[S]earch [K]eymaps'));
+        keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options('Search Keymaps'));
         keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
-        keymap('n', '<leader>sx', require('telescope.builtin').commands, options('[S]earch commands'))
+        keymap('n', '<leader>sc', require('telescope.builtin').commands, options('Search commands'))
         -- vim.keymap.set('x', '<leader>sww',  '"zy<Cmd>Telescope live_grep<CR><C-r>z', options('Search workspace for selection') ) -- alternative search workspace for selection
         keymap('x', '<leader>sww',
             '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>',

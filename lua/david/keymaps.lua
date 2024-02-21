@@ -104,6 +104,8 @@ keymap('x', "<", "<gv", options("Stay in visual mode while indenting left"))
 -- search and replace
 keymap('n', "<leader>sR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], options("Search and replace"))
 
+-- easier way to select alternate buffer
+keymap('n', "<Tab>", "<C-6>", options("Select alternate buffer"))
 -- diagnostics
 vim.keymap.set(
   'n',
@@ -123,6 +125,12 @@ vim.keymap.set(
   { desc = 'Go to next diagnostic message' }
 )
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+
+vim.keymap.set('n', '<leader><C-t>', function ()
+  vim.cmd.vsplit()
+  vim.cmd.term()
+end, { desc = 'Open terminal in split window' })
+
 
 -- Remap for dealing with word wrap
 -- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

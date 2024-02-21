@@ -23,11 +23,9 @@ vim.wo.signcolumn = 'yes'
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect' -- also set in nvim-cmp
 vim.o.termguicolors = true -- NOTE: You should make sure your terminal supports this
 vim.o.splitbelow = true -- force all horizontal splits to go to the bottom of current window
-vim.o.splitright = false -- force all verticle splits to go to the right of current window
+vim.o.splitright = true -- force all verticle splits to go to the right of current window
 vim.o.relativenumber = true -- set relative numbered lines
 vim.o.cursorline = true -- highlight the current line
 vim.opt.iskeyword:append {"-"} -- make a dash recognized as part of a w instead of W

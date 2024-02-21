@@ -5,10 +5,6 @@ return {
         cmd = { 'G', 'Git', 'Gdiffsplit', 'Gvdiffsplit' }
     },
     {
-        'tpope/vim-rhubarb',
-        event = 'BufReadPre'
-    },
-    {
         -- Detect tabstop and shiftwidth automatically
         'tpope/vim-sleuth',
         event = 'BufReadPre'

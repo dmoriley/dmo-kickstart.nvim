@@ -4,8 +4,8 @@ return {
       workspace = { checkThirdParty = 'Disable' },
       telemetry = { enable = false },
       diagnostics = {
-        globals = { 'vim', 'require' }
-        -- disable = { 'missing-fields' } ignore missing fields warnings
+        globals = { 'vim', 'require' },
+        disable = { 'missing-fields' },
       },
       hint = { enable = true }
     },

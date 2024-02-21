@@ -21,9 +21,19 @@ return {
     config = function()
         local actions = require('telescope.actions')
         local custom_pickers = require('david.plugins.telescope.custom_pickers')
-
         require('telescope').setup {
             defaults = {
+                layout_strategy = 'flex',
+                layout_config = {
+                    horizontal = {
+                        preview_width = 0.55,
+                    },
+                    flex = {
+                        -- breakpoints for flex layout, when to swap between vertical and horizontal
+                        -- flip_lines = 20,
+                        flip_columns = 170,
+                    }
+                },
                 mappings = {
                     i = {
                         ['<C-u>'] = false,
@@ -59,9 +69,12 @@ return {
                         'never'
                     }
                 },
+                git_files = {
+                    show_untracked = true,
+                },
                 live_grep = {
                     -- ripgrep is the default tool for live_grep and grep_string
-                    path_display = { "shorten" },
+                    path_display = { truncate = 3 },
                     mappings = {
                         i = {
                             ['<C-k>'] = custom_pickers.actions.set_extension,
@@ -72,10 +85,35 @@ return {
                     -- preview = {
                     --     treesitter = false
                     -- }
+                },
+                grep_string = {
+                    path_display = { truncate = 3 }
+                },
+                buffers = {
+                    sort_lastused = true,
+                    sort_mru = true,
+                    ignore_current_buffer = true,
+                    theme = 'dropdown',
+                    previewer = false,
+                    mappings = {
+                        i = { ['<C-d>'] = actions.delete_buffer },
+                        n = { ['<C-d>'] = actions.delete_buffer },
+                    },
+                },
+                builtin = {
+                    theme = 'dropdown',
+                    include_extensions = true,
+                    use_default_opts = true,
+                    layout_config = {
+                        width = 50,
+                        height = 0.5,
+                    },
+                },
+                diagnostics = {
+                    sort_by = 'severity',
                 }
             }
         }
-
 
         -- Enable telescope fzf native, if installed
         require('telescope').load_extension('fzf')
@@ -127,8 +165,8 @@ return {
         end
         -- assign a function to user defined command and use in keymap
         vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
-        keymap('n', '<leader>sG', '<Cmd>LiveGrepGitRoot<CR>', options('[S]earch by Grep on Git Root')) 
-        
+        keymap('n', '<leader>sG', '<Cmd>LiveGrepGitRoot<CR>', options('[S]earch by Grep on Git Root'))
+
         ]]
 
         local function telescope_live_grep_open_files()
@@ -138,7 +176,7 @@ return {
             }
         end
         keymap('n', '<leader>s/', telescope_live_grep_open_files, options('Search by Grep in open files'))
-        keymap('n', '<leader>sg', custom_pickers.custom_live_grep , options('[S]earch by Grep'))
+        keymap('n', '<leader>sg', custom_pickers.custom_live_grep, options('[S]earch by Grep'))
 
         -- -------
 
@@ -148,19 +186,8 @@ return {
         vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers,
             { desc = '[ ] Find existing buffers' })
 
-        -- example of using themes for telescope
-        -- vim.keymap.set('n', '<leader>/', function()
-        --     -- You can pass additional configuration to telescope to change theme, layout, etc.
-        --     require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        --         winblend = 10,
-        --         previewer = false,
-        --         layout_config = {
-        --             height = 35
-        --         }
-        --     })
-        -- end, { desc = '[/] Fuzzily search in current buffer' })
-
-        vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = 'Current Buffer Fuzzy' })
+        vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find,
+            { desc = 'Current Buffer Fuzzy' })
 
         keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
         keymap('n', '<leader>sf', require('telescope.builtin').find_files, options('[S]earch Files'))
@@ -175,7 +202,8 @@ return {
         )
 
         keymap('n', '<M-p>', require('telescope.builtin').git_files, options('Search Git Files'))
-        keymap('n', '<leader>sdd', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end, options('[S]earch [D]ocument [D]iagnostics'))
+        keymap('n', '<leader>sdd', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end,
+            options('[S]earch [D]ocument [D]iagnostics'))
         keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols,
             options('[S]earch [D]ocument [S]ymbols'))
         keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
@@ -189,13 +217,18 @@ return {
             options('Search workspace for selection'))
         keymap('n', '<leader>sm', require('telescope.builtin').marks, options('[S]earch marks'))
 
-        keymap('n', 'gr', function() require('telescope.builtin').lsp_references({ fname_width = 50, trim_text = false}) end, options('Goto References'))
+        keymap('n', 'gr',
+            function() require('telescope.builtin').lsp_references({ fname_width = 50, trim_text = false }) end,
+            options('Goto References'))
         -- lsp_definitions is async so the zz command happens before definitions completes. Need to look into how to do this. For now it doesn't center
-        keymap('n', 'gd', "<CMD>lua require('telescope.builtin').lsp_definitions()<CR> <bar> <CMD> lua vim.cmd.normal('zz')<CR>", options('Goto Definition'))
+        keymap('n', 'gd',
+            "<CMD>lua require('telescope.builtin').lsp_definitions()<CR> <bar> <CMD> lua vim.cmd.normal('zz')<CR>",
+            options('Goto Definition'))
         keymap('n', 'gtd', require('telescope.builtin').lsp_type_definitions, options('Goto Type Definition'))
         keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('Goto Implementation'))
         keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('Search Document Symbols'))
-        keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('Search Workspace Symbols'))
+        keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
+            options('Search Workspace Symbols'))
     end
 
 }

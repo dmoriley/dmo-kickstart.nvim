@@ -35,7 +35,6 @@ M.on_attach = function(client, bufnr)
 
   keymap('n', '<leader>k', vim.lsp.buf.hover, options('Hover Documentation'))
   keymap('n', '<leader>K', vim.lsp.buf.signature_help, options('Signature Documentation'))
-  keymap('n', '<leader>df', vim.lsp.buf.format, options('[D]ocument [F]ormat'));
 
   local trouble = require("trouble").toggle
   keymap('n', "<leader>tt", function() trouble() end, options("Toggle Trouble"))

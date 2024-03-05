@@ -12,7 +12,7 @@ return {
       -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
       vim.defer_fn(function()
         ---@diagnostic disable
-        require('nvim-treesitter.configs').setup {
+        require('nvim-treesitter.configs').setup({
           -- Add languages to be installed here that you want installed for treesitter
           ensure_installed = {
             -- 'c',
@@ -91,17 +91,17 @@ return {
               },
             },
           },
-        }
-        require('treesitter-context').setup {
+        })
+        require('treesitter-context').setup({
           enable = true,
-        }
+        })
       end, 0)
     end,
   },
   -- treesitter dep, but seperate from dep table so it can be lazy loaded based on file type
   {
     'windwp/nvim-ts-autotag',
-    ft = { 'html', 'jsx', 'tsx', 'javascript', 'typescript', 'astro', 'handlebars', 'xml', 'markdown' },
+    ft = { 'html', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript', 'astro', 'handlebars', 'xml', 'markdown' },
     opts = {
       autotag = {
         enable_close_on_slash = false,

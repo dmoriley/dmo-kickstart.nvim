@@ -11,13 +11,14 @@ return {
         async = false,
       },
       formatters_by_ft = {
-        javascript = { 'prettierd' },
-        typescript = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
-        css = { 'prettierd' },
-        html = { 'prettierd' },
-        json = { 'prettierd' },
+        -- sub-list to run only the first available formatter
+        javascript = { { 'prettierd', 'prettier' } },
+        typescript = { { 'prettierd', 'prettier' } },
+        javascriptreact = { { 'prettierd', 'prettier' } },
+        typescriptreact = { { 'prettierd', 'prettier' } },
+        css = { { 'prettierd', 'prettier' } },
+        html = { { 'prettierd', 'prettier' } },
+        json = { { 'prettierd', 'prettier' } },
         lua = { 'stylua' },
         go = { 'goimports', 'golines' }, -- goimports also does gofmt
       },

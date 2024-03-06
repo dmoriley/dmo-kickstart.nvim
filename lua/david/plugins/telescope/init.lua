@@ -20,6 +20,8 @@ return {
     config = function()
       local actions = require('telescope.actions')
       local custom_pickers = require('david.plugins.telescope.custom_pickers')
+      local fb_actions = require('telescope').extensions.file_browser.actions
+
       require('telescope').setup({
         defaults = {
           layout_strategy = 'flex',
@@ -42,6 +44,7 @@ return {
             },
             n = {
               ['<CR>'] = actions.select_default + actions.center,
+              ['<C-c>'] = actions.close,
             },
           },
         },
@@ -110,6 +113,18 @@ return {
           },
           diagnostics = {
             sort_by = 'severity',
+          },
+        },
+        extensions = {
+          file_browser = {
+            mappings = {
+              n = {
+                ['<CR>'] = actions.select_default,
+              },
+              i = {
+                ['<CR>'] = actions.select_default,
+              },
+            },
           },
         },
       })

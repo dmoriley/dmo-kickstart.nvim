@@ -3,9 +3,9 @@
 
 -- See the telescope developlers md on how to create your own telescope extension
 -- @see https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md
-local action_state = require 'telescope.actions.state'
+local action_state = require('telescope.actions.state')
 local transform_mod = require('telescope.actions.mt').transform_mod
-local actions = require 'telescope.actions'
+local actions = require('telescope.actions')
 local utils = require('david.plugins.telescope.utils')
 
 -- imports for filter by folder
@@ -21,7 +21,7 @@ local M = {}
 
 ---@param current_input ?string
 local function custom_live_grep(current_input)
-  require('david.plugins.telescope.pretty_pickers').pretty_grep_picker {
+  require('david.plugins.telescope.pretty_pickers').pretty_grep_picker({
     picker = 'live_grep',
     options = {
       -- this is like passing args to rip grep on the command line
@@ -31,10 +31,22 @@ local function custom_live_grep(current_input)
       end,
       default_text = current_input,
     },
-  }
+  })
 end
 
-M.actions = transform_mod {
+local find_files_opts = {
+  hidden = false,
+  no_ignore = false,
+}
+local function custom_find_files(current_input)
+  require('telescope.builtin').find_files({
+    hidden = find_files_opts.hidden,
+    no_ignore = find_files_opts.no_ignore,
+    search_file = current_input,
+  })
+end
+
+M.actions = transform_mod({
   ---Ask for a file extension and open a new `live_grep` filtering by it
   set_extension = function(prompt_bufnr)
     local ok = utils.filter_included_extensions()
@@ -52,6 +64,20 @@ M.actions = transform_mod {
       actions.close(prompt_bufnr)
       custom_live_grep(current_input)
     end)
+  end,
+
+  toggle_find_files_hidden = function(prompt_bufnr)
+    find_files_opts.hidden = not find_files_opts.hidden
+    local current_input = action_state.get_current_line()
+    actions.close(prompt_bufnr)
+    custom_find_files(current_input)
+  end,
+
+  toggle_find_files_no_ignore = function(prompt_bufnr)
+    find_files_opts.no_ignore = not find_files_opts.no_ignore
+    local current_input = action_state.get_current_line()
+    actions.close(prompt_bufnr)
+    custom_find_files(current_input)
   end,
 
   ---Ask the user for a folder and open a new `live_grep` filtering by it
@@ -99,8 +125,9 @@ M.actions = transform_mod {
   --     })
   --     :find()
   -- end,
-}
+})
 
 M.custom_live_grep = custom_live_grep
+M.custom_find_files = custom_find_files
 
 return M

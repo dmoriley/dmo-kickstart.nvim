@@ -20,7 +20,6 @@ return {
     config = function()
       local actions = require('telescope.actions')
       local custom_pickers = require('david.plugins.telescope.custom_pickers')
-      local fb_actions = require('telescope').extensions.file_browser.actions
 
       require('telescope').setup({
         defaults = {
@@ -69,6 +68,12 @@ return {
               '--files',
               '--color',
               'never',
+            },
+            mappings = {
+              i = {
+                ['<C-h>'] = custom_pickers.actions.toggle_find_files_hidden,
+                ['<C-i>'] = custom_pickers.actions.toggle_find_files_no_ignore,
+              },
             },
           },
           git_files = {
@@ -195,7 +200,7 @@ return {
       keymap('n', '<leader><space>', require('telescope.builtin').buffers, options('[ ] Find existing buffers'))
       keymap('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, options('Current Buffer Fuzzy'))
       keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
-      keymap('n', '<leader>sf', require('telescope.builtin').find_files, options('[S]earch Files'))
+      keymap('n', '<leader>sf', custom_pickers.custom_find_files, options('[S]earch Files'))
       keymap('n', '<leader>sh', require('telescope.builtin').help_tags, options('[S]earch Help'))
       keymap('n', '<leader>sr', require('telescope.builtin').resume, options('[S]earch Resume'))
       -- Search the nvim config workspace to tweak things on the fly

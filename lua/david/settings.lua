@@ -27,20 +27,24 @@ vim.o.splitbelow = true -- force all horizontal splits to go to the bottom of cu
 vim.o.splitright = true -- force all verticle splits to go to the right of current window
 vim.o.relativenumber = true -- set relative numbered lines
 vim.o.cursorline = true -- highlight the current line
-vim.opt.iskeyword:append { '-' } -- make a dash recognized as part of a w instead of W
+vim.opt.iskeyword:append({ '-' }) -- make a dash recognized as part of a w instead of W
 vim.o.spell = true -- spell checking
 
 -- tabs
 vim.o.smarttab = true
 vim.o.tabstop = 2 -- size of a hard tabstop
-vim.o.shiftwidth = 2 --size of an indentation 
+vim.o.shiftwidth = 2 --size of an indentation
 vim.o.softtabstop = 2 -- number of space a <Tab> counts for. When 0, feature is off
 vim.o.expandtab = true -- always use spaces instead of tab characters
 
 vim.o.smartindent = true -- autoindenting when starting new lines
 
+vim.o.pumblend = 10 -- Make builtin completion menus slightly transparent
+vim.o.pumheight = 10 -- Make popup menu smaller
+vim.o.winblend = 10 -- Make floating windows slightly transparent
+
 -- if ripgrep is available, use as the default grep function from vim cmd
-if vim.fn.executable 'rg' == 1 then
+if vim.fn.executable('rg') == 1 then
   vim.o.grepprg = 'rg --vimgrep --smart-case --follow'
 end
 

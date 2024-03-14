@@ -37,9 +37,10 @@ keymap('n', '<leader>j', 'J', options('Join lines'))
 keymap('n', '<leader>k', vim.lsp.buf.hover, options('Hover Documentation'))
 keymap('n', '<leader>K', vim.lsp.buf.signature_help, options('LSP: Signature Documentation'))
 
-keymap('n', '<leader>df', vim.lsp.buf.format, options('LSP: Document Format'))
-keymap('n', '<leader>ds', '<cmd>write<cr>', options('Document save'))
-keymap('n', '<leader>ws', '<cmd>wall<cr>', options('Workspace save'))
+keymap('n', '<leader>ds', '<cmd>write<cr>', options('Document Save'))
+keymap('n', '<leader>ws', '<cmd>wall<cr>', options('Workspace Save'))
+keymap('n', '<C-S>', '<CMD>silent! update | redraw<CR>', options('Document Save'))
+keymap({ 'i', 'x' }, '<C-S>', '<ESC><CMD>silent! update | redraw<CR>', options('Document Save and go to normal mode'))
 
 -- Better window navigation
 -- keymap("n", "<C-h>", "<C-w>h", options("Move cursor to left window"));
@@ -52,10 +53,10 @@ keymap({ 'n', 'x' }, '<S-h>', '^', options('Move cursor to first character in li
 keymap({ 'n', 'x' }, '<S-l>', '$', options('Move cursor to last character in line'))
 
 -- Resize window with arrow keys
-keymap('n', '<A-Up>', ':resize +2<CR>', options('Resize horizontal window up'))
-keymap('n', '<A-Down>', ':resize -2<CR>', options('Resize horizontal window down'))
-keymap('n', '<A-Left>', ':vertical :resize -2<CR>', options('Resize vertical window left'))
-keymap('n', '<A-Right>', ':vertical :resize +2<CR>', options('Resize vertical window right'))
+vim.keymap.set('n', '<A-Right>', '"<Cmd>vertical resize -" . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Decrease window width' })
+vim.keymap.set('n', '<A-Up>', '"<Cmd>resize -"          . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Decrease window height' })
+vim.keymap.set('n', '<A-Down>', '"<Cmd>resize +"          . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Increase window height' })
+vim.keymap.set('n', '<A-Left>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Increase window width' })
 
 -- Buffers
 keymap('n', '<C-h>', ':bprev<CR>', options('Next buffer'))
@@ -87,8 +88,10 @@ keymap('n', 'x', '"_x', options('x deletion but dont save to buffer'))
 keymap('x', 'p', '"_dP', options('Paste without swapping paste value for deleted value')) -- When pasting in Visual mode, dont replace the paste value with what was deleted
 
 -- copy pasting
-keymap({ 'n', 'x' }, '<leader>y', '"+y', options('copy to system clipboard'))
-keymap({ 'n', 'x' }, '<leader>p', '"+p', options('paste from system clipboard'))
+keymap({ 'n', 'x' }, 'gy', '"+y', options('Copy to system clipboard'))
+keymap('n', 'gp', '"+p', options('Paste from system clipboard'))
+-- - Paste in Visual with `P` to not copy selected text (`:h v_P`)
+keymap('x', 'gp', '"+P', options('Paste from system clipboard'))
 -- keymap("n", "<leader>Y", [["+Y]], opts) -- copy current line to system clipboard
 -- keymap("n", "<leader>vp", "`[v`]", opts) -- reselect pasted text
 
@@ -104,6 +107,7 @@ keymap('x', '<', '<gv', options('Stay in visual mode while indenting left'))
 
 -- search and replace
 keymap('n', '<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], options('Search and replace'))
+keymap('x', 'g/', '<esc>/\\%V', options('Search inside visual selection'))
 
 -- easier way to select alternate buffer
 keymap('n', '<Tab>', '<C-6>', options('Select alternate buffer'))
@@ -126,6 +130,12 @@ vim.keymap.set('n', '<leader><C-t>', function()
   vim.cmd.term()
 end, { desc = 'Open terminal in split window' })
 
--- Remap for dealing with word wrap
--- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Move by visible lines. Notes:
+-- - Don't map in Operator-pending mode because it severely changes behavior:
+--   like `dj` on non-wrapped line will not delete it.
+-- - Condition on `v:count == 0` to allow easier use of relative line numbers.
+vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? 'gj' : 'j']], { expr = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
+
+-- Reselect latest changed, put, or yanked text
+vim.keymap.set('n', 'gV', '"`[" . strpart(getregtype(), 0, 1) . "`]"', { expr = true, replace_keycodes = false, desc = 'Visually select changed text' })

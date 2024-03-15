@@ -65,13 +65,13 @@ keymap('n', '<leader>ba', ':%bd|e#<cr>', options('Close all buffers but not curr
 
 -- Move text up and down
 -- ∆ is <A-j>
-keymap('n', '∆', ':m .+1<CR>==', options('Move current line up'))
+-- keymap('n', '∆', ':m .+1<CR>==', options('Move current line up'))
 -- ˚ is <A-k>
-keymap('n', '˚', ':m .-2<CR>==', options('Move current line down'))
+-- keymap('n', '˚', ':m .-2<CR>==', options('Move current line down'))
 -- ∆ is <A-j>
-keymap('v', '∆', ":m '>+1<CR>gv=gv", options('Move selected text up one line down'))
+-- keymap('v', '∆', ":m '>+1<CR>gv=gv", options('Move selected text up one line down'))
 -- ˚ is <A-k>
-keymap('v', '˚', ":m '<-2<CR>gv=gv", options('Move selected text up one line up'))
+-- keymap('v', '˚', ":m '<-2<CR>gv=gv", options('Move selected text up one line up'))
 --[[ -- ∆ is <A-j>
 keymap("x", "∆", ":m '>+1<CR>gv-gv", options("Move selected text up one line down"));
 -- ˚ is <A-k>

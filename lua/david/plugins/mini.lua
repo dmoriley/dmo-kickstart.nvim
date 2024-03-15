@@ -20,5 +20,21 @@ return {
     -- Better buffer deletion
     require('mini.bufremove').setup()
     vim.keymap.set('n', '<leader>bd', '<CMD>bdelete<CR>', { noremap = true, silent = true, desc = 'Delete Buffer' })
+
+    -- line and word jumping
+    require('mini.jump2d').setup()
+
+    -- move selected lines or current line in normal
+    require('mini.move').setup()
+
+    -- highlighted notifications in floating window
+    require('mini.notify').setup()
+
+    -- tabline instead of using lualine tabline
+    require('mini.tabline').setup()
+
+    require('mini.surround').setup({
+      n_lines = 500,
+    })
   end,
 }

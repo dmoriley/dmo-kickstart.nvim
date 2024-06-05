@@ -14,3 +14,13 @@ vim.api.nvim_create_user_command('Grep', Grep, { nargs = 1 })
 vim.api.nvim_create_user_command('WordWrapToggle', function()
   vim.o.wrap = not vim.o.wrap
 end, { nargs = 0 })
+
+-- save without formatting
+vim.api.nvim_create_user_command('SaveWithoutFormat', function()
+  vim.cmd('noautocmd w')
+end, { nargs = 0 })
+
+-- save all without format
+vim.api.nvim_create_user_command('SaveAllWithoutFormat', function()
+  vim.cmd('noautocmd wa')
+end, { nargs = 0 })

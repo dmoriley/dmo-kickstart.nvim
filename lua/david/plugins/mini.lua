@@ -19,10 +19,13 @@ return {
 
     -- Better buffer deletion
     require('mini.bufremove').setup()
-    vim.keymap.set('n', '<leader>bd', '<CMD>bdelete<CR>', { noremap = true, silent = true, desc = 'Delete Buffer' })
+    vim.keymap.set('n', '<leader>bd', function()
+      -- _G is global table that MiniBufremove was added to in the setup function
+      -- could have just used a require call
+      _G.MiniBufremove.delete(vim.api.nvim_get_current_buf())
+    end, { noremap = true, silent = true, desc = 'Delete Buffer' })
 
     -- line and word jumping
-    require('mini.jump2d').setup()
 
     -- move selected lines or current line in normal
     require('mini.move').setup()

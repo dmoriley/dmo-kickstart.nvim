@@ -102,6 +102,7 @@ return {
             ignore_current_buffer = true,
             theme = 'dropdown',
             previewer = false,
+            path_display = { 'truncate' },
             mappings = {
               i = { ['<C-d>'] = actions.delete_buffer },
               n = { ['<C-d>'] = actions.delete_buffer },
@@ -197,7 +198,7 @@ return {
       keymap('n', '<leader>s/', telescope_live_grep_open_files, options('Search by Grep in open files'))
       keymap('n', '<leader>sg', custom_pickers.custom_live_grep, options('[S]earch by Grep'))
       keymap('n', '<leader>so', require('telescope.builtin').oldfiles, options('[S]earch recently [o]pened files'))
-      keymap('n', '<leader><space>', require('telescope.builtin').buffers, options('[ ] Find existing buffers'))
+      keymap('n', '<leader><space>', require('telescope.builtin').buffers, options('Search open buffers'))
       keymap('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, options('Current Buffer Fuzzy'))
       keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
       keymap('n', '<leader>sf', custom_pickers.custom_find_files, options('[S]earch Files'))

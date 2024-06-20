@@ -23,7 +23,37 @@ return {
       -- _G is global table that MiniBufremove was added to in the setup function
       -- could have just used a require call
       _G.MiniBufremove.delete(vim.api.nvim_get_current_buf())
-    end, { noremap = true, silent = true, desc = 'Delete Buffer' })
+    end, { noremap = true, silent = true, desc = 'Delete current buffer' })
+
+    vim.keymap.set('n', '<leader>bD', function()
+      local buffers = vim.api.nvim_list_bufs()
+      for _, buf in ipairs(buffers) do
+        if buf ~= vim.api.nvim_get_current_buf() then
+          _G.MiniBufremove.delete(buf)
+        end
+      end
+    end, { noremap = true, silent = true, desc = 'Delete all but current buffer' })
+
+    vim.keymap.set('n', '<C-q>', function()
+      -- _G is global table that MiniBufremove was added to in the setup function
+      -- could have just used a require call
+      _G.MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
+    end, { noremap = true, silent = true, desc = 'Wipeout current buffer' })
+
+    vim.keymap.set('n', '<leader>bw', function()
+      -- _G is global table that MiniBufremove was added to in the setup function
+      -- could have just used a require call
+      _G.MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
+    end, { noremap = true, silent = true, desc = 'Wipeout current buffer' })
+
+    vim.keymap.set('n', '<leader>bW', function()
+      local buffers = vim.api.nvim_list_bufs()
+      for _, buf in ipairs(buffers) do
+        if buf ~= vim.api.nvim_get_current_buf() then
+          _G.MiniBufremove.wipeout(buf)
+        end
+      end
+    end, { noremap = true, silent = true, desc = 'Wipeout all but current buffer' })
 
     -- line and word jumping
 

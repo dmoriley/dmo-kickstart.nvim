@@ -61,7 +61,6 @@ vim.keymap.set('n', '<A-Left>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"', 
 -- Buffers
 keymap('n', '<C-h>', ':bprev<CR>', options('Next buffer'))
 keymap('n', '<C-l>', ':bnext<CR>', options('Previous buffer'))
-keymap('n', '<leader>ba', ':%bd|e#<cr>', options('Close all buffers but not current one'))
 
 -- Move text up and down
 -- ∆ is <A-j>

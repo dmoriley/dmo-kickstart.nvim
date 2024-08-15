@@ -104,8 +104,8 @@ return {
             previewer = false,
             path_display = { 'truncate' },
             mappings = {
-              i = { ['<C-d>'] = actions.delete_buffer },
-              n = { ['<C-d>'] = actions.delete_buffer },
+              i = { ['<C-q>'] = actions.delete_buffer },
+              n = { ['<C-q>'] = actions.delete_buffer },
             },
           },
           builtin = {
@@ -119,18 +119,6 @@ return {
           },
           diagnostics = {
             sort_by = 'severity',
-          },
-        },
-        extensions = {
-          file_browser = {
-            mappings = {
-              n = {
-                ['<CR>'] = actions.select_default,
-              },
-              i = {
-                ['<CR>'] = actions.select_default,
-              },
-            },
           },
         },
       })
@@ -239,6 +227,4 @@ return {
       keymap('n', '<leader>gf', require('telescope.builtin').git_files, options('Search Git Files'))
     end,
   },
-  -- telescope dep, but seperate from dep table so it can be lazy loaded
-  require('david.plugins.telescope.telescope_file_browser'),
 }

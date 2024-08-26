@@ -69,5 +69,23 @@ return {
     require('mini.surround').setup({
       n_lines = 500,
     })
+
+    require('mini.files').setup({
+      mappings = {
+        go_in_plus = '<Enter>',
+        synchronize = 's',
+      },
+      windows = {
+        preview = true,
+        width_preview = 50,
+      },
+    })
+    vim.keymap.set('n', '<leader>-', function()
+      -- Open directory of current file (in last used state) focused on the file
+      if not _G.MiniFiles.close() then
+        _G.MiniFiles.open(vim.api.nvim_buf_get_name(0))
+      end
+    end, { noremap = true, silent = true, desc = 'Toggle file explorer' })
+    vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = '#d2a8ff' })
   end,
 }

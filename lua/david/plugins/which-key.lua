@@ -4,21 +4,6 @@ return {
   config = function()
     local wk = require('which-key')
     wk.setup({})
-    -- wk.register({
-    --   -- ["1"] = "which_key_ignore",
-    --   -- ["2"] = "which_key_ignore",
-    --   -- ["3"] = "which_key_ignore",
-    --   -- ["4"] = "which_key_ignore",
-    --   -- ["5"] = "which_key_ignore",
-    --   b = { name = '[B]uffer' },
-    --   c = { name = '[C]ode', _ = 'which_key_ignore' },
-    --   d = { name = '[D]ocument', _ = 'which_key_ignore' },
-    --   g = { name = '[G]it', _ = 'which_key_ignore' },
-    --   r = { name = '[R]ename', _ = 'which_key_ignore' },
-    --   s = { name = '[S]earch', _ = 'which_key_ignore' },
-    --   w = { name = '[W]orkspace', _ = 'which_key_ignore' },
-    --   t = { name = '[T]rouble', _ = 'which_key_ignore' },
-    -- }, { prefix = '<leader>' })
 
     wk.add({
       { '<leader>b', group = '[B]uffer' },
@@ -37,15 +22,6 @@ return {
       { '<leader>w', group = '[W]orkspace' },
       { '<leader>w_', hidden = true },
     })
-
-    -- wk.register({
-    --   g = { '[G]it' },
-    --   s = {
-    --     name = '[S]earch',
-    --     w = { '[W]orkspace' },
-    --   },
-    -- }, { mode = 'v', prefix = '<leader>' })
-
     -- visual mode keys
     wk.add({
       {

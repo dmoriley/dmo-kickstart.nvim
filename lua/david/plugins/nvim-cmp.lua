@@ -1,34 +1,20 @@
 return {
-  -- Autocompletion
   'hrsh7th/nvim-cmp',
-  event = 'BufReadPre',
+  version = false,
+  event = 'InsertEnter',
   dependencies = {
-    -- Snippet Engine & its associated nvim-cmp source
-    {
-      'L3MON4D3/LuaSnip',
-      dependencies = { 'rafamadriz/friendly-snippets' },
-      config = function()
-        local luasnip = require('luasnip')
-
-        luasnip.filetype_extend('typescript', { 'javascript' })
-        luasnip.filetype_extend('typescriptreact', { 'javascript' })
-      end,
-    },
-    'saadparwaiz1/cmp_luasnip',
     -- Adds LSP completion capabilities
     'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
   },
   config = function()
     local cmp = require('cmp')
-    local luasnip = require('luasnip')
-
-    require('luasnip/loaders/from_vscode').lazy_load()
 
     cmp.setup({
       snippet = {
         expand = function(args)
-          luasnip.lsp_expand(args.body)
+          vim.snippet.expand(args.body)
         end,
       },
       completion = {
@@ -43,26 +29,40 @@ return {
         }),
         -- manually trigger auto completion window
         ['<C-Space>'] = cmp.mapping.complete({}),
-        -- ['<CR>'] = cmp.mapping.confirm {
-        --     behavior = cmp.ConfirmBehavior.Replace,
-        --     select = true,
-        -- },
+        -- jump forward placeholder in snippet
         ['<C-l>'] = cmp.mapping(function()
-          if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
+          --check if can jump forward first
+          if vim.snippet.active({ direction = 1 }) then
+            vim.snippet.jump(1)
           end
         end, { 'i', 's' }),
+        -- jump backwards placeholder in snippet
         ['<C-h>'] = cmp.mapping(function()
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
+          --check if can jump backwards first
+          if vim.snippet.active({ direction = -1 }) then
+            vim.snippet.jump(-1)
           end
         end, { 'i', 's' }),
       }),
-      sources = {
-        { name = 'luasnip' },
+      sources = cmp.config.sources({
+        { name = 'snippets' }, -- nvim snippets
         { name = 'nvim_lsp' },
         { name = 'path' },
+      }, {
+        { name = 'buffer' },
+      }),
+      performance = {
+        debounce = 0, --default is 60
+        throttle = 0, --default is 30
       },
+      --[[ matching = {
+        -- turn off fuzzy matching to increase performance
+        disallow_fuzzy_matching = true,
+        disallow_fullfuzzy_matching = true,
+        disallow_partial_fuzzy_matching = true,
+        disallow_partial_matching = true,
+        disallow_prefix_unmatching = true,
+      }, ]]
     })
   end,
 }

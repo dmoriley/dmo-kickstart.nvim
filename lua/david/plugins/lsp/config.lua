@@ -1,9 +1,7 @@
 return function()
-  require('neodev').setup()
-
-  local lspConfig = require 'lspconfig'
-  local masonLspConfig = require 'mason-lspconfig'
-  local lspSettings = require 'david.plugins.lsp.settings'
+  local lspConfig = require('lspconfig')
+  local masonLspConfig = require('mason-lspconfig')
+  local lspSettings = require('david.plugins.lsp.settings')
 
   local servers = {
     -- LSP's
@@ -15,33 +13,32 @@ return function()
     -- cssls = lspSettings.css,
     -- eslint = {},
     -- jsonls = {},
-    -- tailwindcss = {}
   }
 
-  masonLspConfig.setup {
+  masonLspConfig.setup({
     ensure_installed = vim.tbl_keys(servers),
-  }
+  })
 
-  masonLspConfig.setup_handlers {
+  masonLspConfig.setup_handlers({
     function(serverName)
-      lspConfig[serverName].setup {
+      lspConfig[serverName].setup({
         on_attach = lspSettings.on_attach,
         capabilities = lspSettings.capabilities,
         settings = servers[serverName].settings or {},
         filetypes = (servers[serverName].settings or {}).filetypes,
         commands = servers[serverName].commands,
-      }
+      })
     end,
-  }
+  })
 
   -- Illuminate settings
-  require('illuminate').configure {
+  require('illuminate').configure({
     delay = 150,
     large_file_cutoff = 2000,
     large_file_overrides = {
       providers = { 'lsp' },
     },
-  }
+  })
 
   local options = {
     -- bold = true,

@@ -15,6 +15,8 @@ return {
   --     opts = {}
   -- },
   {
+    -- commenting supported natively in neovim 0.10, but doesnt do block comments yet
+    -- can probably remove when that is available
     'numToStr/Comment.nvim',
     event = 'BufReadPre',
     opts = {},

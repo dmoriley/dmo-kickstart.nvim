@@ -81,6 +81,7 @@ return {
 
     require('mini.files').setup({
       mappings = {
+        close = '<C-c>',
         go_in_plus = '<Enter>',
         synchronize = 's',
       },

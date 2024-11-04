@@ -3,7 +3,9 @@ return {
   event = 'BufReadPre',
   config = function()
     local wk = require('which-key')
-    wk.setup({})
+    wk.setup({
+      preset = 'modern',
+    })
 
     wk.add({
       { '<leader>b', group = '[B]uffer' },

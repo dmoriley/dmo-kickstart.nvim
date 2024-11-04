@@ -106,7 +106,7 @@ keymap('x', '<', '<gv', options('Stay in visual mode while indenting left'))
 
 -- search and replace
 keymap('n', '<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], options('Search and replace'))
-keymap('x', 'g/', '<esc>/\\%V', options('Search inside visual selection'))
+keymap('x', '<leader>sv', '<esc>/\\%V', options('Search inside visual selection'))
 
 -- easier way to select alternate buffer
 keymap('n', '<Tab>', '<C-6>', options('Select alternate buffer'))

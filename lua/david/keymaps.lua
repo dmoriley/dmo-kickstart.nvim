@@ -1,3 +1,5 @@
+local utils = require('david.core.utils')
+
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 local keymap = vim.keymap.set
@@ -40,13 +42,22 @@ keymap('n', '<leader>K', vim.lsp.buf.signature_help, options('LSP: Signature Doc
 keymap('n', '<leader>ds', '<cmd>write<cr>', options('Document Save'))
 keymap('n', '<leader>ws', '<cmd>wall<cr>', options('Workspace Save'))
 keymap('n', '<C-S>', '<CMD>silent! update | redraw<CR>', options('Document Save'))
+
 keymap({ 'i', 'x' }, '<C-S>', '<ESC><CMD>silent! update | redraw<CR>', options('Document Save and go to normal mode'))
 
 -- Better window navigation
--- keymap("n", "<C-h>", "<C-w>h", options("Move cursor to left window"));
--- keymap("n", "<C-j>", "<C-w>j", options("Move cursor to below window"));
--- keymap("n", "<C-k>", "<C-w>k", options("Move cursor to above window"));
--- keymap("n", "<C-l>", "<C-w>l", options("Move cursor to right window"));
+keymap('n', '<C-S-H>', function()
+  utils.navigate_pane_or_window('h')
+end, options('Move cursor to left window'))
+keymap('n', '<C-S-J>', function()
+  utils.navigate_pane_or_window('j')
+end, options('Move cursor to below window'))
+keymap('n', '<C-S-L>', function()
+  utils.navigate_pane_or_window('l')
+end, options('Move cursor to right window'))
+keymap('n', '<C-S-K>', function()
+  utils.navigate_pane_or_window('k')
+end, options('Move cursor to below window'))
 
 -- Line start and end navigation
 keymap({ 'n', 'x' }, '<S-h>', '^', options('Move cursor to first character in line'))
@@ -61,20 +72,6 @@ vim.keymap.set('n', '<A-Left>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"', 
 -- Buffers
 keymap('n', '<C-h>', ':bprev<CR>', options('Next buffer'))
 keymap('n', '<C-l>', ':bnext<CR>', options('Previous buffer'))
-
--- Move text up and down
--- ∆ is <A-j>
--- keymap('n', '∆', ':m .+1<CR>==', options('Move current line up'))
--- ˚ is <A-k>
--- keymap('n', '˚', ':m .-2<CR>==', options('Move current line down'))
--- ∆ is <A-j>
--- keymap('v', '∆', ":m '>+1<CR>gv=gv", options('Move selected text up one line down'))
--- ˚ is <A-k>
--- keymap('v', '˚', ":m '<-2<CR>gv=gv", options('Move selected text up one line up'))
---[[ -- ∆ is <A-j>
-keymap("x", "∆", ":m '>+1<CR>gv-gv", options("Move selected text up one line down"));
--- ˚ is <A-k>
-keymap("x", "˚", ":m '<-2<CR>gv-gv", options("Move selected text up one line up")); ]]
 
 -- center screen on movement
 keymap('n', '<C-d>', '<C-d>zz', options('Move down screen and center on line'))
@@ -91,14 +88,10 @@ keymap({ 'n', 'x' }, 'gy', '"+y', options('Copy to system clipboard'))
 keymap('n', 'gp', '"+p', options('Paste from system clipboard'))
 -- - Paste in Visual with `P` to not copy selected text (`:h v_P`)
 keymap('x', 'gp', '"+P', options('Paste from system clipboard'))
--- keymap("n", "<leader>Y", [["+Y]], opts) -- copy current line to system clipboard
--- keymap("n", "<leader>vp", "`[v`]", opts) -- reselect pasted text
 
 -- change to normal mode faster
 keymap('i', 'jk', '<ESC>', options())
 keymap('i', 'JK', '<ESC>', options())
--- keymap("i", "kj", "<ESC>", options());
--- keymap("i", "KJ", "<ESC>", options());
 
 -- Indenting
 keymap('x', '>', '>gv', options('Stay in visual mode while indenting right'))
@@ -135,6 +128,3 @@ end, { desc = 'Open terminal in split window' })
 -- - Condition on `v:count == 0` to allow easier use of relative line numbers.
 vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? 'gj' : 'j']], { expr = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
-
--- Reselect latest changed, put, or yanked text
-vim.keymap.set('n', 'gV', '"`[" . strpart(getregtype(), 0, 1) . "`]"', { expr = true, replace_keycodes = false, desc = 'Visually select changed text' })

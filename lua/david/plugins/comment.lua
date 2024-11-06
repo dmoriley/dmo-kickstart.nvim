@@ -20,7 +20,7 @@ return {
     vim.keymap.set(
       'x',
       'gC',
-      'V<Esc>gvy`>pgv<Esc>`><cmd>lua require"Comment.api".comment.linewise("V")<CR><Down>^i',
+      'V<Esc>gvy`>pgv<Esc>`><cmd>lua require"Comment.api".comment.linewise("V")<CR><Down>^',
       { noremap = true, silent = true, desc = 'Duplicate and comment selected text' }
     )
   end,

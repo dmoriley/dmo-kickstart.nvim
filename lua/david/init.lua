@@ -1,7 +1,4 @@
-require('david.global-config')
-require('david.settings')
-require('david.commands')
+require('david.core')
 require('david.lazy')
-require('david.keymaps')
 require('david.ui')
 require('david.file-switcher')

@@ -15,21 +15,22 @@ return function()
     -- jsonls = {},
   }
 
+  require('mason').setup()
   masonLspConfig.setup({
     ensure_installed = vim.tbl_keys(servers),
   })
 
-  masonLspConfig.setup_handlers({
-    function(serverName)
-      lspConfig[serverName].setup({
-        on_attach = lspSettings.on_attach,
-        capabilities = lspSettings.capabilities,
-        settings = servers[serverName].settings or {},
-        filetypes = (servers[serverName].settings or {}).filetypes,
-        commands = servers[serverName].commands,
-      })
-    end,
-  })
+  local installed = masonLspConfig.get_installed_servers()
+
+  for _, value in ipairs(installed) do
+    lspConfig[value].setup({
+      on_attach = lspSettings.on_attach,
+      capabilities = lspSettings.capabilities,
+      settings = servers[value].settings or {},
+      filetypes = (servers[value].settings or {}).filetypes,
+      commands = servers[value].commands,
+    })
+  end
 
   -- Illuminate settings
   require('illuminate').configure({

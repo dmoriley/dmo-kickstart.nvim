@@ -1,13 +1,8 @@
 return {
   {
-    -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      {
-        'williamboman/mason.nvim',
-        config = true,
-      },
+      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'folke/trouble.nvim',
       'RRethy/vim-illuminate', -- highlighting and cursor over after delay
@@ -26,8 +21,7 @@ return {
   -- not apart of lsp config, but tsc is a part of language server stuff, so putting in the same file
   {
     'dmmulroy/tsc.nvim',
-    ft = { 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' },
     cmd = { 'TSC' },
-    opts = true,
+    config = true,
   },
 }

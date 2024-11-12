@@ -19,7 +19,7 @@ local M = {}
 ---@param mode string|table
 ---@return fun(lhs: string, rhs: string|function, opts?: vim.keymap.set.Opts)
 function M.mapper_factory(mode)
-  local default_opts = { silent = true }
+  local default_opts = { silent = true, noremap = true }
 
   return function(lhs, rhs, opts)
     local final_opts = vim.tbl_extend('force', default_opts, opts or {})

@@ -88,6 +88,8 @@ nnoremap('<C-d>', '<C-d>zz', { desc = 'Move down screen and center on line' })
 nnoremap('<C-u>', '<C-u>zz', { desc = 'Move up screen and center on line' })
 nnoremap('<C-o>', '<C-o>zz', { desc = 'Go back and center on line' })
 nnoremap('<C-i>', '<C-i>zz', { desc = 'Go forward and center on line' })
+nnoremap('n', 'nzzzv')
+nnoremap('N', 'Nzzzv')
 
 -- avoid registers
 nnoremap('x', '"_x', { desc = 'x deletion but dont save to buffer' })
@@ -112,6 +114,12 @@ xnoremap('<', '<gv', { desc = 'Stay in visual mode while indenting left' })
 
 -- search and replace
 nnoremap('<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Search and replace' })
+-- Quick find and replace
+xnoremap('<Leader>rr', [[<esc>:'<,'>s//g<left>]], { desc = 'Replace within visually selected area', silent = false })
+nnoremap('<Leader>rr', [[:%s//<left>]], { desc = 'Find and Replace text in buffer', silent = false })
+xnoremap('<Leader>rw', [["zy:%s/<C-r><C-o>"/]], { desc = 'Replace visually selected text in buffer', silent = false })
+nnoremap('<Leader>rw', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]], { desc = 'Replace word under cursor in buffer', silent = false })
+
 xnoremap('<leader>sv', '<esc>/\\%V', { desc = 'Search inside visual selection' })
 
 -- easier way to select alternate buffer
@@ -134,3 +142,16 @@ nnoremap('<leader><C-t>', function()
   vim.cmd.vsplit()
   vim.cmd.term()
 end, { desc = 'Open terminal in split window' })
+
+-- `dd` but don't yank if the line is empty
+nnoremap('dd', function()
+  if vim.api.nvim_get_current_line():match('^%s*$') then
+    return [["_dd]]
+  else
+    return [[dd]]
+  end
+end, { expr = true })
+--
+-- No need to keep holding shift
+nnoremap(';', ':', { silent = false })
+xnoremap(';', ':', { silent = false })

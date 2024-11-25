@@ -4,8 +4,9 @@ local bgColour = '#06020C'
 
 return {
   'tiagovla/tokyodark.nvim',
-  opts = {},
-  config = {
+  lazy = false,
+  priority = 1000,
+  opts = {
     custom_highlights = {
       FloatBorder = { fg = fgColour, bg = bgColour },
       NormalFloat = { bg = bgColour },
@@ -13,4 +14,8 @@ return {
       TelescopeBorder = { fg = fgColour },
     },
   },
+  config = function(_, opts)
+    require('tokyodark').setup(opts)
+    vim.cmd('colorscheme tokyodark')
+  end,
 }

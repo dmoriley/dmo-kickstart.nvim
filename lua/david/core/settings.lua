@@ -1,85 +1,56 @@
--- See `:help vim.o`
-vim.o.hlsearch = false -- Set highlight on search
-vim.wo.number = true -- Make line numbers default
-vim.o.mouse = 'a'
+local set = vim.o
+local opt = vim.opt
 
--- vim.o.clipboard = 'unnamed' // always sync with system clipboard
+set.hlsearch = false -- Set highlight on search
+set.mouse = 'a'
+set.number = true -- Make line numbers default
+set.relativenumber = true -- set relative numbered lines
+-- set.clipboard = 'unnamed' // always sync with system clipboard
+set.breakindent = true -- Enable break indent
+set.undofile = true -- Save undo history
+set.ignorecase = true -- ignore letter case when searching
+set.smartcase = true -- case insensitive unless capitals are used
+set.incsearch = true -- start searching as soon as typing, without enter needed
+set.wrap = false -- word wrapping
+set.termguicolors = true -- NOTE: You should make sure your terminal supports this
+set.splitbelow = true -- force all horizontal splits to go to the bottom of current window
+set.splitright = true -- force all verticle splits to go to the right of current window
+set.cursorline = true -- highlight the current line
+set.spell = true -- spell checking
+set.pumblend = 10 -- Make builtin completion menus slightly transparent
+set.pumheight = 10 -- Make popup menu smaller
+set.winblend = 10 -- Make floating windows slightly transparent
 
-vim.o.breakindent = true -- Enable break indent
+-- indentation
+set.smarttab = true
+set.tabstop = 2 -- size of a hard tabstop
+set.shiftwidth = 2 --size of an indentation
+set.softtabstop = 2 -- number of space a <Tab> counts for. When 0, feature is off
+set.expandtab = true -- always use spaces instead of tab characters
+set.smartindent = true -- autoindenting when starting new lines
 
-vim.o.undofile = true -- Save undo history
+-- Decrease update time
+set.updatetime = 250
+set.timeoutlen = 300
 
-vim.o.ignorecase = true -- ignore letter case when searching
-vim.o.smartcase = true -- case insensitive unless capitals are used
-vim.o.incsearch = true -- start searching as soon as typing, without enter needed
-
-vim.o.wrap = false -- word wrapping
+opt.iskeyword:append({ '-' }) -- make a dash recognized as part of a w instead of W
 
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
-vim.o.termguicolors = true -- NOTE: You should make sure your terminal supports this
-vim.o.splitbelow = true -- force all horizontal splits to go to the bottom of current window
-vim.o.splitright = true -- force all verticle splits to go to the right of current window
-vim.o.relativenumber = true -- set relative numbered lines
-vim.o.cursorline = true -- highlight the current line
-vim.opt.iskeyword:append({ '-' }) -- make a dash recognized as part of a w instead of W
-vim.o.spell = true -- spell checking
-
--- tabs
-vim.o.smarttab = true
-vim.o.tabstop = 2 -- size of a hard tabstop
-vim.o.shiftwidth = 2 --size of an indentation
-vim.o.softtabstop = 2 -- number of space a <Tab> counts for. When 0, feature is off
-vim.o.expandtab = true -- always use spaces instead of tab characters
-
-vim.o.smartindent = true -- autoindenting when starting new lines
-
-vim.o.pumblend = 10 -- Make builtin completion menus slightly transparent
-vim.o.pumheight = 10 -- Make popup menu smaller
-vim.o.winblend = 10 -- Make floating windows slightly transparent
-
 -- if ripgrep is available, use as the default grep function from vim cmd
 if vim.fn.executable('rg') == 1 then
-  vim.o.grepprg = 'rg --vimgrep --smart-case --follow'
+  set.grepprg = 'rg --vimgrep --smart-case --follow'
 end
 
--- Highlight on yank
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-  desc = 'Highlight text on yank',
-})
+-- Global Variables
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ',' --<localleader>
 
--- toggle relative number based on mode
-local augroup = vim.api.nvim_create_augroup('numbertoggle', {})
-vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'CmdlineLeave', 'WinEnter' }, {
-  pattern = '*',
-  group = augroup,
-  callback = function()
-    if vim.o.nu and vim.api.nvim_get_mode().mode ~= 'i' then
-      vim.opt.relativenumber = true
-    end
-  end,
-})
+-- disable netrw from starting in favour of using nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
-vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'CmdlineEnter', 'WinLeave' }, {
-  pattern = '*',
-  group = augroup,
-  callback = function()
-    if vim.o.nu then
-      vim.opt.relativenumber = false
-
-      vim.cmd('redraw')
-    end
-  end,
-})
+vim.g.netrw_banner = 0 -- no top banner
+vim.g.netrw_liststyle = 3
+vim.g.netrw_winsize = 30 -- set netrw windows to 30% when split

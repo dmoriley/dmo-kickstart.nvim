@@ -1,7 +1,5 @@
--- Global ui/colour settings
+-- overrides for the theme set in the plugins folder
 
--- vim.cmd([[colorscheme tokyonight]])
-vim.cmd([[colorscheme tokyodark]])
 vim.api.nvim_set_hl(0, 'CursorLine', { underline = true })
 -- vim.cmd([[highlight! CursorLine gui=underline]])
 

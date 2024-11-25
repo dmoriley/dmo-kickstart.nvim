@@ -113,12 +113,12 @@ xnoremap('>', '>gv', { desc = 'Stay in visual mode while indenting right' })
 xnoremap('<', '<gv', { desc = 'Stay in visual mode while indenting left' })
 
 -- search and replace
-nnoremap('<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Search and replace' })
+nnoremap('<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<left><left><left>]], { desc = 'Search and replace' })
 -- Quick find and replace
-xnoremap('<Leader>rr', [[<esc>:'<,'>s//g<left>]], { desc = 'Replace within visually selected area', silent = false })
-nnoremap('<Leader>rr', [[:%s//<left>]], { desc = 'Find and Replace text in buffer', silent = false })
-xnoremap('<Leader>rw', [["zy:%s/<C-r><C-o>"/]], { desc = 'Replace visually selected text in buffer', silent = false })
-nnoremap('<Leader>rw', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]], { desc = 'Replace word under cursor in buffer', silent = false })
+xnoremap('<leader>rr', [[<esc>:'<,'>s//<left>]], { desc = 'Replace within visually selected area', silent = false })
+nnoremap('<leader>rr', [[:%s//<left>]], { desc = 'Find and Replace text in buffer', silent = false })
+xnoremap('<leader>rw', [["zy:%s/<C-r><C-o>"/]], { desc = 'Replace visually selected text in buffer', silent = false })
+nnoremap('<leader>rw', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]], { desc = 'Replace word under cursor in buffer', silent = false })
 
 xnoremap('<leader>sv', '<esc>/\\%V', { desc = 'Search inside visual selection' })
 
@@ -151,7 +151,3 @@ nnoremap('dd', function()
     return [[dd]]
   end
 end, { expr = true })
---
--- No need to keep holding shift
-nnoremap(';', ':', { silent = false })
-xnoremap(';', ':', { silent = false })

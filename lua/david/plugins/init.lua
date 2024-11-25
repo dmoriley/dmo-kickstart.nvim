@@ -15,4 +15,9 @@ return {
     event = 'BufReadPre',
     opts = {},
   },
+  {
+    -- Better f/F/t/T finding
+    'rhysd/clever-f.vim',
+    event = 'BufReadPre',
+  },
 }

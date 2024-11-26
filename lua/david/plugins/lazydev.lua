@@ -1,5 +1,12 @@
 return {
+  -- neovim api completion
   'folke/lazydev.nvim',
-  ft = 'lua', -- only load on lua files
-  opts = true,
+  ft = 'lua',
+  cmd = 'LazyDev',
+  opts = {
+    library = {
+      { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      { path = 'lazy.nvim', words = { 'LazyVim' } },
+    },
+  },
 }

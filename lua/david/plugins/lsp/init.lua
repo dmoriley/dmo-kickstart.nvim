@@ -2,9 +2,25 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-      'folke/trouble.nvim',
+      {
+        'williamboman/mason.nvim',
+        dependencies = {
+          'williamboman/mason-lspconfig.nvim',
+        },
+        build = ':MasonUpdate',
+        config = function()
+          require('mason').setup({
+            ui = {
+              border = 'rounded',
+              icons = {
+                package_installed = '✓',
+                package_pending = '➜',
+                package_uninstalled = '✗',
+              },
+            },
+          })
+        end,
+      },
       'RRethy/vim-illuminate', -- highlighting and cursor over after delay
     },
     event = 'BufReadPre',

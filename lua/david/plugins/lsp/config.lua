@@ -1,14 +1,14 @@
 return function()
   local lspConfig = require('lspconfig')
   local masonLspConfig = require('mason-lspconfig')
-  local lspSettings = require('david.plugins.lsp.settings')
+  local serverSettings = require('david.plugins.lsp.servers')
 
   local servers = {
     -- LSP's
-    gopls = lspSettings.go,
-    lua_ls = lspSettings.lua,
-    tsserver = lspSettings.ts,
-    angularls = lspSettings.angular,
+    gopls = serverSettings.go,
+    lua_ls = serverSettings.lua,
+    tsserver = serverSettings.ts,
+    angularls = serverSettings.angular,
     html = { filetypes = { 'html', 'hbs' } },
     -- cssls = lspSettings.css,
     -- eslint = {},
@@ -24,8 +24,8 @@ return function()
 
   for _, value in ipairs(installed) do
     lspConfig[value].setup({
-      on_attach = lspSettings.on_attach,
-      capabilities = lspSettings.capabilities,
+      on_attach = serverSettings.on_attach,
+      capabilities = serverSettings.capabilities,
       settings = servers[value].settings or {},
       filetypes = (servers[value].settings or {}).filetypes,
       commands = servers[value].commands,

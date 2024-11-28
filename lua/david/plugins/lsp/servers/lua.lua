@@ -21,4 +21,7 @@ return {
       -- },
     },
   },
+  -- filetypes = {},
+  -- on_attach = function ()
+  -- end
 }

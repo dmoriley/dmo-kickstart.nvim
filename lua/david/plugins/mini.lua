@@ -64,13 +64,15 @@ return {
     local notify = require('mini.notify')
     notify.setup()
     vim.notify = notify.make_notify({
-      ERROR = { duration = 5000, hl_group = 'DiagnosticError' },
+      ERROR = { duration = 10000, hl_group = 'DiagnosticError' },
       WARN = { duration = 5000, hl_group = 'DiagnosticWarn' },
       INFO = { duration = 5000, hl_group = 'DiagnosticInfo' },
       DEBUG = { duration = 0, hl_group = 'DiagnosticHint' },
       TRACE = { duration = 0, hl_group = 'DiagnosticOk' },
       OFF = { duration = 0, hl_group = 'MiniNotifyNormal' },
     })
+
+    vim.api.nvim_create_user_command('NotificationHistory', notify.show_history, { nargs = 0, desc = 'Show MiniNotify history' })
 
     -- tabline instead of using lualine tabline
     require('mini.tabline').setup()

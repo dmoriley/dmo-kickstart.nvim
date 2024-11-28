@@ -199,9 +199,7 @@ return {
 
       keymap('n', '<leader>sdd', function()
         require('telescope.builtin').diagnostics({ bufnr = 0 })
-      end, options('[S]earch [D]ocument [D]iagnostics'))
-      keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('[S]earch [D]ocument [S]ymbols'))
-      keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('[S]earch [W]orkspace [S]ymbols'))
+      end, options('Search Document Diagnostics'))
       keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options('Search Keymaps'))
       keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
       keymap('n', '<leader>sc', require('telescope.builtin').commands, options('Search commands'))
@@ -213,18 +211,17 @@ return {
         '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>',
         options('Search workspace for selection')
       )
+      keymap('n', '<leader>gf', require('telescope.builtin').git_files, options('Search Git Files'))
+
+      -- LSP + Telescope
       keymap('n', 'gr', function()
         require('telescope.builtin').lsp_references({ fname_width = 50, trim_text = false })
-      end, options('Goto References'))
-      -- lsp_definitions is async so the zz command happens before definitions completes. Need to look into how to do this. For now it doesn't center
-      keymap('n', 'gd', "<CMD>lua require('telescope.builtin').lsp_definitions()<CR> <bar> <CMD> lua vim.cmd.normal('zz')<CR>", options('Goto Definition'))
-      keymap('n', 'gtd', require('telescope.builtin').lsp_type_definitions, options('Goto Type Definition'))
-      keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('Goto Implementation'))
-      keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('Search Document Symbols'))
-      keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('Search Workspace Symbols'))
-
-      -- git stuff
-      keymap('n', '<leader>gf', require('telescope.builtin').git_files, options('Search Git Files'))
+      end, options('LSP: Goto References'))
+      keymap('n', 'gd', require('telescope.builtin').lsp_definitions, options('LSP: Go to Definition'))
+      keymap('n', 'gtd', require('telescope.builtin').lsp_type_definitions, options('LSP: Go to Type Definition'))
+      keymap('n', '<leader>sds', require('telescope.builtin').lsp_document_symbols, options('LSP: Search Document Symbols'))
+      keymap('n', '<leader>sws', require('telescope.builtin').lsp_dynamic_workspace_symbols, options('LSP: Search Workspace Symbols'))
+      -- keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('Go to Implementation'))
     end,
   },
 }

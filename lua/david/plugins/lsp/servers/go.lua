@@ -15,6 +15,9 @@ return {
         parameterNames = true,
         rangeVariableTypes = true,
       },
-    }
-  }
+    },
+  },
+  -- filetypes = {},
+  -- on_attach = function ()
+  -- end
 }

@@ -1,35 +1,32 @@
 return function()
   local lspConfig = require('lspconfig')
   local masonLspConfig = require('mason-lspconfig')
-  local serverSettings = require('david.plugins.lsp.servers')
+  local servers = require('david.plugins.lsp.servers').servers
+  local lsp_mappings = require('david.plugins.lsp.mappings')
 
-  local servers = {
-    -- LSP's
-    gopls = serverSettings.go,
-    lua_ls = serverSettings.lua,
-    tsserver = serverSettings.ts,
-    angularls = serverSettings.angular,
-    html = { filetypes = { 'html', 'hbs' } },
-    -- cssls = lspSettings.css,
-    -- eslint = {},
-    -- jsonls = {},
-  }
-
-  require('mason').setup()
   masonLspConfig.setup({
     ensure_installed = vim.tbl_keys(servers),
   })
 
   local installed = masonLspConfig.get_installed_servers()
 
-  for _, value in ipairs(installed) do
-    lspConfig[value].setup({
-      on_attach = serverSettings.on_attach,
-      capabilities = serverSettings.capabilities,
-      settings = servers[value].settings or {},
-      filetypes = (servers[value].settings or {}).filetypes,
-      commands = servers[value].commands,
-    })
+  -- attach common lsp callbacks
+  local groupId = vim.api.nvim_create_augroup('user-lsp-attach', {})
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = groupId,
+    callback = function(args)
+      lsp_mappings.attach(args)
+    end,
+  })
+
+  -- update capabilities
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+  for _, name in ipairs(installed) do
+    -- add capabilities to the config obj
+    local config = vim.tbl_deep_extend('force', servers[name] or {}, { capabilities = capabilities })
+    lspConfig[name].setup(config)
   end
 
   -- Illuminate settings
@@ -61,6 +58,4 @@ return function()
   for group, value in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, value)
   end
-
-  -- require("david.plugins.lsp.handlers").setup()
 end

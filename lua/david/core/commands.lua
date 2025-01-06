@@ -37,3 +37,12 @@ vim.api.nvim_create_user_command('CodeFoldByIndent', function()
   vim.o.foldmethod = 'indent'
   vim.o.foldcolumn = 'auto:9'
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command('TerminalOpen', function()
+  vim.cmd.term()
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command('TerminalOpenVertical', function()
+  vim.cmd.vsplit()
+  vim.cmd.term()
+end, { nargs = 0 })

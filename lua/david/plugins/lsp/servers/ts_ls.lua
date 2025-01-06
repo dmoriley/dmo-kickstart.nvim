@@ -12,6 +12,15 @@ end
 return {
   settings = {
     typescript = {
+      -- https://code.visualstudio.com/docs/typescript/typescript-editing#_inlay-hints
+      inlayHints = {
+        enumMemberValues = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        parameterNames = { enabled = 'literals' },
+        parameterTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        variableTypes = { enabled = true },
+      },
       preferences = {
         -- Include the `type` keyword in auto-imports whenever possible.
         -- Requires using TypeScript 5.3+ in the workspace.

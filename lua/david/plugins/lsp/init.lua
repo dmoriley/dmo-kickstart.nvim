@@ -1,3 +1,5 @@
+local env = require('david.core.env')
+
 return {
   {
     'neovim/nvim-lspconfig',
@@ -33,20 +35,38 @@ return {
           end, {})
         end,
       },
+      {
+        'yioneko/nvim-vtsls',
+        ft = {
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+        },
+        enabled = not env.NVIM_USER_USE_TS_LS,
+      },
       'RRethy/vim-illuminate', -- highlighting and cursor over after delay
     },
     event = 'BufReadPre',
-    -- opts = {
-    --   inlay_hints = {
-    --     enable = true,
-    --   },
-    --   document_highlight = {
-    --     enable = true,
-    --   },
-    -- },
+    opts = {
+      inlay_hints = {
+        enable = true,
+      },
+      -- document_highlight = {
+      --   enable = true,
+      -- },
+    },
+    -- opts = function()
+    --   ---@class PluginLspOpts
+    --   local ret = {
+    --     inlay_hints = {
+    --       enabled = true,
+    --     },
+    --   }
+    --   return ret
+    -- end,
     config = require('david.plugins.lsp.config'),
   },
-  -- not apart of lsp config, but tsc is a part of language server stuff, so putting in the same file
   {
     'dmmulroy/tsc.nvim',
     cmd = { 'TSC' },

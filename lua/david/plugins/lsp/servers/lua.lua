@@ -16,9 +16,9 @@ return {
         semicolon = 'Disable',
         arrayIndex = 'Disable',
       },
-      codeLens = {
-        enable = true,
-      },
+      -- codeLens = {
+      --   enable = true,
+      -- },
     },
   },
   -- filetypes = {},

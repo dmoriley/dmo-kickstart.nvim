@@ -48,23 +48,18 @@ return {
       'RRethy/vim-illuminate', -- highlighting and cursor over after delay
     },
     event = 'BufReadPre',
-    opts = {
-      inlay_hints = {
-        enable = true,
-      },
-      -- document_highlight = {
-      --   enable = true,
-      -- },
-    },
-    -- opts = function()
-    --   ---@class PluginLspOpts
-    --   local ret = {
-    --     inlay_hints = {
-    --       enabled = true,
-    --     },
-    --   }
-    --   return ret
-    -- end,
+    opts = function()
+      ---@class PluginLspOpts
+      local ret = {
+        inlay_hints = {
+          enabled = true,
+        },
+        -- document_highlight = {
+        --   enable = true,
+        -- },
+      }
+      return ret
+    end,
     config = require('david.plugins.lsp.config'),
   },
   {

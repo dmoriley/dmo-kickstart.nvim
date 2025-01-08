@@ -28,6 +28,17 @@ end
 M.formatters = {
   -- "eslint_d",
   'prettierd',
+
+  -- Golang formatters
+  'goimports',
+  'gofumpt',
+  -- 'golines',
+  'gomodifytags',
+  'impl',
+}
+
+M.dap = {
+  'delve', -- GO debugger
 }
 
 return M

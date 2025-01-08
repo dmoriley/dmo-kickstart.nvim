@@ -20,7 +20,7 @@ return {
         html = { 'prettierd', 'prettier', stop_after_first = true },
         json = { 'prettierd', 'prettier', stop_after_first = true },
         lua = { 'stylua' },
-        go = { 'goimports', 'golines' }, -- goimports also does gofmt
+        go = { 'goimports', 'gofumpt' }, --golines
       },
     })
 

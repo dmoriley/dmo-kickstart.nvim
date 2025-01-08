@@ -25,6 +25,7 @@ return {
           local servers = require('david.plugins.lsp.servers')
           local serverToPackageNameMap = require('mason-lspconfig.mappings.server').lspconfig_to_package
           local packagesToInstall = vim.tbl_extend('force', servers.formatters, {})
+          packagesToInstall = vim.tbl_extend('force', servers.dap, packagesToInstall)
 
           for lspName, _ in pairs(servers.servers) do
             table.insert(packagesToInstall, serverToPackageNameMap[lspName])

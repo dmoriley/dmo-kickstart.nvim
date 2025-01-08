@@ -38,7 +38,7 @@ return {
   },
   {
     'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
+    branch = 'main',
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
@@ -66,11 +66,15 @@ return {
       {
         '<leader>aq',
         function()
-          local input = vim.fn.input('Quick Chat: ')
-          if input ~= '' then
-            -- if something is selected in visual will use that as context
-            require('CopilotChat').ask(input, { selection = require('CopilotChat.select').visual })
-          end
+          -- local ok, input = pcall(vim.fn.input('Quick Chat: '))
+          vim.ui.input({
+            prompt = 'Quick Chat: ',
+          }, function(input)
+            if input and input ~= '' then
+              -- if something is selected in visual will use that as context
+              require('CopilotChat').ask(input, { selection = require('CopilotChat.select').visual })
+            end
+          end)
         end,
         desc = 'CopilotChat - Quick chat',
         mode = { 'n', 'v' },
@@ -83,6 +87,7 @@ return {
     opts = function()
       local user = vim.env.USER or 'User'
       return {
+        chat_autocomplete = true,
         auto_insert_mode = true,
         show_help = true,
         question_header = '  ' .. user .. ' ',
@@ -98,8 +103,6 @@ return {
     end,
     config = function(_, opts)
       local chat = require('CopilotChat')
-      require('CopilotChat.integrations.cmp').setup()
-
       -- when entering a chat buffer turn off all line numbering
       vim.api.nvim_create_autocmd('BufEnter', {
         pattern = 'copilot-chat',

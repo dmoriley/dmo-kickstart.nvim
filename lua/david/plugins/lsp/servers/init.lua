@@ -37,8 +37,4 @@ M.formatters = {
   'impl',
 }
 
-M.dap = {
-  'delve', -- GO debugger
-}
-
 return M

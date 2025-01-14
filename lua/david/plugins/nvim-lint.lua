@@ -7,7 +7,7 @@ return {
   -- ft = { 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' },
   keys = {
     {
-      '<leader>dl',
+      '<leader>l',
       function()
         require('lint').try_lint()
       end,

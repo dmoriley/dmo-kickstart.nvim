@@ -26,12 +26,12 @@ return {
 
     -- normal mode: format whole file
     -- visual mode: format selection
-    vim.keymap.set({ 'n', 'v' }, '<leader>df', function()
+    vim.keymap.set({ 'n', 'v' }, '<leader>ff', function()
       conform.format({
         timeout_ms = 500,
         lsp_fallback = false,
         async = false,
       })
-    end, { noremap = true, silent = true, desc = 'Document format or range (in visual mode)' })
+    end, { noremap = true, silent = true, desc = 'Format file or range (in visual mode)' })
   end,
 }

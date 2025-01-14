@@ -44,7 +44,7 @@ nxnoremap('k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
 
 -- remap K and J
 nnoremap('<leader>j', 'J', { desc = 'Join lines' })
-nnoremap('<leader>ds', '<cmd>write<cr>', { desc = 'Document Save' })
+-- nnoremap('<leader>ds', '<cmd>write<cr>', { desc = 'Document Save' })
 nnoremap('<leader>ws', '<cmd>wall<cr>', { desc = 'Workspace Save' })
 nnoremap('<C-S>', '<CMD>silent! update | redraw<CR>', { desc = 'Document Save' })
 

@@ -72,7 +72,7 @@ return {
       OFF = { duration = 0, hl_group = 'MiniNotifyNormal' },
     })
 
-    vim.api.nvim_create_user_command('NotificationHistory', notify.show_history, { nargs = 0, desc = 'Show MiniNotify history' })
+    vim.api.nvim_create_user_command('NotificationLog', notify.show_history, { nargs = 0, desc = 'Show MiniNotify log history' })
 
     -- tabline instead of using lualine tabline
     require('mini.tabline').setup()

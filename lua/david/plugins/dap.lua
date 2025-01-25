@@ -42,39 +42,39 @@ return {
     },
     keys = {
       {
-        '<F1>',
+        '<F8>',
         function()
           require('dap').continue()
         end,
         desc = 'Debug: Run/Continue',
       },
       {
-        '<F2>',
-        function()
-          require('dap').step_into()
-        end,
-        desc = 'Debug: Step Into',
-      },
-      {
-        '<F3>',
+        '<F9>',
         function()
           require('dap').step_over()
         end,
         desc = 'Debug: SStep Over',
       },
       {
-        '<F4>',
+        '<F7>',
+        function()
+          require('dap').step_back()
+        end,
+        desc = 'Debug: Step Back',
+      },
+      {
+        '<F10>',
         function()
           require('dap').step_out()
         end,
         desc = 'Debug: Step Out',
       },
       {
-        '<F5>',
+        '<F11>',
         function()
-          require('dap').step_back()
+          require('dap').step_into()
         end,
-        desc = 'Debug: Step Back',
+        desc = 'Debug: Step Into',
       },
       {
         '<localleader>db',

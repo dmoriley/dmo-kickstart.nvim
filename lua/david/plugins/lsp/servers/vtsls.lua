@@ -58,7 +58,15 @@ return {
 
     vim.api.nvim_create_user_command('TypescriptRestartServer', function()
       vtsls.commands.restart_tsserver()
-    end, { nargs = 0, desc = 'Select TS workspace version' })
+    end, { nargs = 0, desc = 'Typescript restart lsp server' })
+
+    vim.api.nvim_create_user_command('TypescriptOrganizeImports', function()
+      vtsls.commands.organize_imports()
+    end, { nargs = 0, desc = 'Typescript Organize Imports' })
+
+    vim.api.nvim_create_user_command('TypescriptAddMissingImports', function()
+      vtsls.commands.add_missing_imports()
+    end, { nargs = 0, desc = 'Typescript Add Missing Imports' })
 
     nnoremap('<localleader>co', function()
       vtsls.commands.organize_imports()

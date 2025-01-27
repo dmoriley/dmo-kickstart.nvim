@@ -1,7 +1,7 @@
 return {
   settings = {
     gopls = {
-      gofumpt = true,
+      gofumpt = false, -- built in support for gofumpt formatting, lsp not handling formatting though
       completeUnimported = true,
       usePlaceholders = true,
       staticcheck = true,

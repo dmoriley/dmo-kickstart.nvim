@@ -1,5 +1,5 @@
 return {
-    "stevearc/oil.nvim",
+  --[[ "stevearc/oil.nvim",
     -- lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
@@ -11,13 +11,13 @@ return {
         default_file_explorer = true,
         skip_confirm_for_simple_edits = true,
         view_options = { show_hidden = true },
-        --[[ keymaps = {
+        keymaps = {
             ["<C-s>"] = false,
             ["<C-h>"] = false,
             ["<A-d>"] = "actions.close",
             ["<A-w>"] = "actions.preview",
             ["<C-x>"] = "actions.select_split",
             ["<C-v>"] = "actions.select_vsplit",
-        }, ]]
-    },
+        },
+    }, ]]
 }

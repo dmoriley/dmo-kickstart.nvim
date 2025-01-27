@@ -25,7 +25,7 @@ vim.api.nvim_create_user_command('SaveAllWithoutFormat', function()
   vim.cmd('noautocmd wa')
 end, { nargs = 0 })
 
--- set code folding to use treesitter
+--[[ -- set code folding to use treesitter
 vim.api.nvim_create_user_command('CodeFoldTreeSittingExpression', function()
   vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   vim.o.foldmethod = 'expr'
@@ -36,7 +36,7 @@ end, { nargs = 0 })
 vim.api.nvim_create_user_command('CodeFoldByIndent', function()
   vim.o.foldmethod = 'indent'
   vim.o.foldcolumn = 'auto:9'
-end, { nargs = 0 })
+end, { nargs = 0 }) ]]
 
 vim.api.nvim_create_user_command('TerminalOpen', function()
   vim.cmd.term()

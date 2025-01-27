@@ -23,6 +23,12 @@ return function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+  -- folding settings for nvim-ufo
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
+
   for _, name in ipairs(installed) do
     -- add capabilities to the config obj
     local config = vim.tbl_deep_extend('force', servers[name] or {}, { capabilities = capabilities })

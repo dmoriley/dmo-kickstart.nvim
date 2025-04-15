@@ -87,6 +87,9 @@ return {
     opts = function()
       local user = vim.env.USER or 'User'
       return {
+        -- default model ( default is gpt-4o)
+        -- run :CopilotChatModels for available models
+        model = 'gemini-2.0-flash-001',
         chat_autocomplete = true,
         auto_insert_mode = true,
         show_help = true,

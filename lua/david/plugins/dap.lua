@@ -219,6 +219,50 @@ return {
       dap.listeners.before.event_exited.dapui_config = function()
         ui.close()
       end
+
+      -- GO
+      --[[ if not dap.adapters.go then
+        local function get_unused_port()
+          local server = vim.uv.new_tcp()
+          assert(server:bind('127.0.0.1', 0)) -- OS allocates an unused port
+          local tcp_t = server:getsockname()
+          server:close()
+          assert(tcp_t and tcp_t.port > 0, 'Failed to get an unused port')
+          return tcp_t.port
+        end
+
+        dap.adapters.go = function(callback, config)
+          local port = config.port or get_unused_port()
+          local term_buf = vim.api.nvim_create_buf(false, true)
+          local winnr = vim.api.nvim_open_win(term_buf, false, { split = 'below' })
+          local current_winnr = vim.api.nvim_get_current_win()
+          vim.api.nvim_set_current_win(winnr)
+          vim.fn.jobstart({ 'dlv', 'dap', '-l', '127.0.0.1:' .. port }, { term = true, buffer = term_buf })
+          vim.api.nvim_set_current_win(current_winnr)
+          vim.defer_fn(function()
+            callback({ type = 'server', host = '127.0.0.1', port = port })
+          end, 100)
+        end
+
+        local dlvToolPath = vim.fn.exepath('dlv')
+        dap.configurations.go = {
+          {
+            type = 'go',
+            name = 'Debug main.go',
+            request = 'launch',
+            showLog = true,
+            program = '${workspaceFolder}/main.go',
+            dlvToolPath = dlvToolPath,
+            port = 11111,
+          },
+          {
+            type = 'go',
+            name = 'Debug',
+            request = 'launch',
+            program = '${file}',
+          },
+        }
+      end ]]
     end,
   },
   {

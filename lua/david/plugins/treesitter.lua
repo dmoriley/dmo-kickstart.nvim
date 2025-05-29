@@ -6,7 +6,8 @@ return {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'nvim-treesitter/nvim-treesitter-context',
     },
-    event = 'BufReadPre',
+    lazy = false,
+    branch = 'master', -- Switch branch to main in the future when its the default
     build = ':TSUpdate',
     config = function()
       -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'

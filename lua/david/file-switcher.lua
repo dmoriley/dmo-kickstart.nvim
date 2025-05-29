@@ -106,8 +106,8 @@ local function setup()
   end
 end
 
--- lazy load on first buf read pre event
-vim.api.nvim_create_autocmd('BufReadPre', {
+-- lazy load on dir changed event
+vim.api.nvim_create_autocmd('VimEnter', {
   pattern = '*',
   callback = setup,
   once = true,

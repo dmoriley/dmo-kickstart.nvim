@@ -92,8 +92,7 @@ return {
         width_preview = 50,
       },
     })
-    vim.keymap.set('n', '<leader>-', function()
-      -- Open directory of current file (in last used state) focused on the file
+    vim.keymap.set('n', '<leader>e', function() -- Open directory of current file (in last used state) focused on the file
       if not _G.MiniFiles.close() then
         _G.MiniFiles.open(vim.api.nvim_buf_get_name(0))
       end

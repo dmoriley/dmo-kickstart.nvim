@@ -77,8 +77,8 @@ nnoremap('<A-Down>', '"<Cmd>resize +"          . v:count1 . "<CR>"', { expr = tr
 nnoremap('<A-Left>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Increase window width' })
 
 -- Buffers
-nnoremap('<C-h>', ':bprev<CR>', { desc = 'Next buffer' })
-nnoremap('<C-l>', ':bnext<CR>', { desc = 'Previous buffer' })
+nnoremap('<C-h>', '<cmd>bprev<CR>', { desc = 'Next buffer' })
+nnoremap('<C-l>', '<cmd>bnext<CR>', { desc = 'Previous buffer' })
 
 -- center screen on movement
 nnoremap('<C-d>', '<C-d>zz', { desc = 'Move down screen and center on line' })
@@ -112,8 +112,6 @@ xnoremap('<', '<gv', { desc = 'Stay in visual mode while indenting left' })
 -- search and replace
 nnoremap('<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<left><left><left>]], { desc = 'Search and replace' })
 -- Quick find and replace
-xnoremap('<leader>rr', [[<esc>:'<,'>s//<left>]], { desc = 'Replace within visually selected area', silent = false })
-nnoremap('<leader>rr', [[:%s//<left>]], { desc = 'Find and Replace text in buffer', silent = false })
 xnoremap('<leader>rw', [["zy:%s/<C-r><C-o>"/]], { desc = 'Replace visually selected text in buffer', silent = false })
 nnoremap('<leader>rw', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]], { desc = 'Replace word under cursor in buffer', silent = false })
 
@@ -133,7 +131,7 @@ end, { desc = 'Go to previous diagnostic message' })
 nnoremap(']d', function()
   vim.diagnostic.goto_next({ wrap = true, severity = vim.diagnostic.severity.ERROR })
 end, { desc = 'Go to next diagnostic message' })
-nnoremap('<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+nnoremap('<C-w><C-d>', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 nnoremap('<leader><C-t>', function()
   vim.cmd.vsplit()

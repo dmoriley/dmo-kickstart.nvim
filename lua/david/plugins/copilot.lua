@@ -89,6 +89,9 @@ return {
       return {
         -- default model ( default is gpt-4o)
         -- run :CopilotChatModels for available models
+        -- gpt-4.1
+        -- o3-mini
+        -- model = 'claude-3.5-sonnet',
         model = 'gemini-2.0-flash-001',
         chat_autocomplete = true,
         auto_insert_mode = true,

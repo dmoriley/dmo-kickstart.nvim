@@ -1,13 +1,14 @@
 return function()
   local lspConfig = require('lspconfig')
-  local masonLspConfig = require('mason-lspconfig')
   local servers = require('david.plugins.lsp.servers').servers
   local lsp_mappings = require('david.plugins.lsp.mappings')
 
+  require('mason').setup()
+
+  local masonLspConfig = require('mason-lspconfig')
   masonLspConfig.setup({
     ensure_installed = vim.tbl_keys(servers),
   })
-
   local installed = masonLspConfig.get_installed_servers()
 
   -- attach common lsp callbacks

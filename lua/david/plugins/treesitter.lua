@@ -34,6 +34,7 @@ return {
             'html',
             'markdown',
             'yaml',
+            'dockerfile',
           },
           ignore_install = {},
           sync_install = false,

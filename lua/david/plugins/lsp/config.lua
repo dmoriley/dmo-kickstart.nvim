@@ -8,6 +8,7 @@ return function()
   local masonLspConfig = require('mason-lspconfig')
   masonLspConfig.setup({
     ensure_installed = vim.tbl_keys(servers),
+    automatic_enable = true, -- could be redundant cause of lsp.enable call in loop further down
   })
   local installed = masonLspConfig.get_installed_servers()
 
@@ -33,7 +34,8 @@ return function()
   for _, name in ipairs(installed) do
     -- add capabilities to the config obj
     local config = vim.tbl_deep_extend('force', servers[name] or {}, { capabilities = capabilities })
-    lspConfig[name].setup(config)
+    vim.lsp.config(name, config)
+    vim.lsp.enable(name)
   end
 
   -- Illuminate settings

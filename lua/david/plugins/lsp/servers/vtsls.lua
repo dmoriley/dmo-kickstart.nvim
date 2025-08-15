@@ -47,15 +47,6 @@ return {
   on_attach = function(_, bufnr)
     local vtsls = require('vtsls')
 
-    vim.api.nvim_create_user_command('TypescriptSelectWorkspaceVersion', function()
-      local params = {
-        command = 'typescript.selectTypeScriptVersion',
-        -- arguments = { vim.api.nvim_buf_get_name(0) },
-        title = 'Select TS workspace version',
-      }
-      vim.lsp.buf.execute_command(params)
-    end, { nargs = 0, desc = 'Select TS workspace version' })
-
     vim.api.nvim_create_user_command('TypescriptRestartServer', function()
       vtsls.commands.restart_tsserver()
     end, { nargs = 0, desc = 'Typescript restart lsp server' })

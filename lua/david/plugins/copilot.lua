@@ -92,7 +92,8 @@ return {
         -- gpt-4.1
         -- o3-mini
         -- model = 'claude-3.5-sonnet',
-        model = 'gemini-2.0-flash-001',
+        -- model = 'gemini-2.0-flash-001',
+        model = 'o3-mini',
         chat_autocomplete = true,
         auto_insert_mode = true,
         show_help = true,

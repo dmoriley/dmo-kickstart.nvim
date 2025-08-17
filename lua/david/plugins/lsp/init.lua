@@ -33,10 +33,10 @@ return {
     lazy = true,
   },
   { 'mason-org/mason-lspconfig.nvim', lazy = true },
-  {
-    'RRethy/vim-illuminate', -- highlighting and cursor over after delay
-    lazy = true,
-  },
+  -- {
+  --   'RRethy/vim-illuminate', -- highlighting and cursor over after delay
+  --   lazy = true,
+  -- },
   {
     'yioneko/nvim-vtsls',
     ft = {

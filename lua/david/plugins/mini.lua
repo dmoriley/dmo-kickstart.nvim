@@ -98,5 +98,8 @@ return {
       end
     end, { noremap = true, silent = true, desc = 'Toggle file explorer' })
     vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = '#d2a8ff' })
+
+    require('mini.cursorword').setup({ delay = 150 })
+    vim.cmd('hi MiniCursorword gui=standout guifg=standout guibg=standout')
   end,
 }

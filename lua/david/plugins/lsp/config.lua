@@ -39,32 +39,32 @@ return function()
   end
 
   -- Illuminate settings
-  require('illuminate').configure({
-    delay = 150,
-    large_file_cutoff = 2000,
-    large_file_overrides = {
-      providers = { 'lsp' },
-    },
-  })
-
-  local options = {
-    -- bold = true,
-    -- italic = true,
-    -- underline = true,
-    -- undercurl = true,
-    -- underdouble = true,
-    standout = true,
-    -- sp = "yellow"
-  }
-  local highlights = {
-    IlluminatedWord = options,
-    IlluminatedCurWord = options,
-    IlluminatedWordText = options,
-    IlluminatedWordRead = options,
-    IlluminatedWordWrite = options,
-  }
-
-  for group, value in pairs(highlights) do
-    vim.api.nvim_set_hl(0, group, value)
-  end
+  -- require('illuminate').configure({
+  --   delay = 150,
+  --   large_file_cutoff = 2000,
+  --   large_file_overrides = {
+  --     providers = { 'lsp' },
+  --   },
+  -- })
+  --
+  -- local options = {
+  --   -- bold = true,
+  --   -- italic = true,
+  --   -- underline = true,
+  --   -- undercurl = true,
+  --   -- underdouble = true,
+  --   standout = true,
+  --   -- sp = "yellow"
+  -- }
+  -- local highlights = {
+  --   IlluminatedWord = options,
+  --   IlluminatedCurWord = options,
+  --   IlluminatedWordText = options,
+  --   IlluminatedWordRead = options,
+  --   IlluminatedWordWrite = options,
+  -- }
+  --
+  -- for group, value in pairs(highlights) do
+  --   vim.api.nvim_set_hl(0, group, value)
+  -- end
 end

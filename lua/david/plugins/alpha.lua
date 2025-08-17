@@ -22,15 +22,15 @@ return {
     }
 
     dashboard.section.buttons.val = {
-      dashboard.button('f', '  Find files', '<CMD>Telescope find_files <CR>'),
-      dashboard.button('e', '  New file', '<CMD>ene <BAR> startinsert <CR>'),
-      dashboard.button('r', '  Recently used files', '<CMD>Telescope oldfiles <CR>'),
-      dashboard.button('t', '  Find text', '<CMD>Telescope live_grep <CR>'),
-      dashboard.button('p', '📁  Find Project', '<CMD>Telescope projects<CR>'),
+      dashboard.button('SPC f f', '  Find files', '<CMD>Telescope find_files <CR>'),
+      dashboard.button('SPC f o', '  Recently used files', '<CMD>Telescope oldfiles <CR>'),
+      dashboard.button('SPC e', '  File Explorer', "<CMD>lua require('mini.files').open()<CR>"),
+      dashboard.button('SPC s e', '  Find text', '<CMD>Telescope live_grep <CR>'),
       dashboard.button('c', '  Configuration', "<CMD>cd $HOME/.config/nvim/ | lua require('telescope.builtin').find_files()<CR>"),
+      dashboard.button('e', '  New file', '<CMD>ene <BAR> startinsert <CR>'),
+      dashboard.button('p', '📁 Find Project', "<CMD>lua require('persistence').select()<CR>"),
       dashboard.button('s', '  Current Directory Session', "<CMD>lua require('persistence').load()<CR>"),
-      dashboard.button('l', '⏪  Last Session', "<CMD>lua require('persistence').load({ last = true })<CR>"),
-      dashboard.button('x', '  File Explorer', '<cmd>Oil<CR>'),
+      dashboard.button('l', '⏪ Last Session', "<CMD>lua require('persistence').load({ last = true })<CR>"),
       dashboard.button('q', '  Quit Neovim', '<CMD>qa<CR>'),
     }
 
@@ -44,9 +44,9 @@ return {
       end,
     })
 
-    dashboard.section.footer.opts.hl = 'Type'
-    dashboard.section.header.opts.hl = 'Include'
-    dashboard.section.buttons.opts.hl = 'Keyword'
+    -- dashboard.section.footer.opts.hl = 'Type'
+    -- dashboard.section.header.opts.hl = 'Include'
+    -- dashboard.section.buttons.opts.hl = 'Keyword'
 
     dashboard.opts.opts.noautocmd = true -- prevent keymaps aside from defined above in alpha menu
     alpha.setup(dashboard.opts)

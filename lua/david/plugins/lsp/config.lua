@@ -38,6 +38,7 @@ return function()
     vim.lsp.enable(name)
   end
 
+  -- TODO: remove later if satisfied with mini cursorword
   -- Illuminate settings
   -- require('illuminate').configure({
   --   delay = 150,

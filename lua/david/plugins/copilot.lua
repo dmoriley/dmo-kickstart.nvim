@@ -79,9 +79,9 @@ return {
         desc = 'CopilotChat - Quick chat',
         mode = { 'n', 'v' },
       },
-      -- Show help actions with telescope
+      -- Show help actions with fzflua
       { '<leader>ah', M.pick('help'), desc = 'Diagnostic Help (CopilotChat)', mode = { 'n', 'v' } },
-      -- Show prompts actions with telescope
+      -- Show prompts actions with fzflua
       { '<leader>ap', M.pick('prompt'), desc = 'Prompt Actions (CopilotChat)', mode = { 'n', 'v' } },
     },
     opts = function()

@@ -29,9 +29,8 @@ return {
     wk.add({
       {
         mode = { 'v' },
-        { '<leader>g', desc = '[G]it' },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>sw', desc = '[W]orkspace' },
+        { 'gh', desc = 'Git Hunks' },
+        { '<leader>s', desc = 'Search' },
       },
     })
   end,

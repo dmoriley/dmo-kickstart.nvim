@@ -115,8 +115,6 @@ nnoremap('<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<left><left><left>]], {
 xnoremap('<leader>rw', [["zy:%s/<C-r><C-o>"/]], { desc = 'Replace visually selected text in buffer', silent = false })
 nnoremap('<leader>rw', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]], { desc = 'Replace word under cursor in buffer', silent = false })
 
-xnoremap('<leader>sv', '<esc>/\\%V', { desc = 'Search inside visual selection' })
-
 -- easier way to select alternate buffer
 nnoremap('<Tab>', '<C-6>', { desc = 'Select alternate buffer' })
 

@@ -1,4 +1,5 @@
-return {
+-- TODO: delete telescope files when satisfied with fzflua
+local config = {
   {
     -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
@@ -183,35 +184,45 @@ return {
           prompt_title = 'Live Grep in Open Files',
         })
       end
-      keymap('n', '<leader>s/', telescope_live_grep_open_files, options('Search by Grep in open files'))
-      keymap('n', '<leader>sg', custom_pickers.custom_live_grep, options('[S]earch by Grep'))
-      keymap('n', '<leader>fo', require('telescope.builtin').oldfiles, options('[S]earch recently [o]pened files'))
-      keymap('n', '<leader>,', require('telescope.builtin').buffers, options('Search open buffers'))
-      keymap('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, options('Current Buffer Fuzzy'))
-      keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
-      keymap('n', '<leader>ff', custom_pickers.custom_find_files, options('Find files'))
-      keymap('n', '<leader>sh', require('telescope.builtin').help_tags, options('[S]earch Help'))
-      keymap('n', '<leader>sr', require('telescope.builtin').resume, options('[S]earch Resume'))
+      -- keymap('n', '<leader>s/', telescope_live_grep_open_files, options('Search by Grep in open files'))
+      -- keymap('n', '<leader>sg', custom_pickers.custom_live_grep, options('[S]earch by Grep'))
+      -- keymap('n', '<leader>fo', require('telescope.builtin').oldfiles, options('[S]earch recently [o]pened files'))
+      -- keymap('n', '<leader>,', require('telescope.builtin').buffers, options('Search open buffers'))
+      -- keymap('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, options('Current Buffer Fuzzy'))
+      -- keymap('n', '<leader>sz', require('telescope.builtin').builtin, options('[S]earch Telescope builtin'))
+      -- keymap('n', '<leader>ff', custom_pickers.custom_find_files, options('Find files'))
+      -- keymap('n', '<leader>sh', require('telescope.builtin').help_tags, options('[S]earch Help'))
+      -- keymap('n', '<leader>sr', require('telescope.builtin').resume, options('[S]earch Resume'))
       -- Search the nvim config workspace to tweak things on the fly
-      keymap('n', '<leader>fx', function()
-        require('telescope.builtin').find_files({ cwd = '~/.config/nvim' })
-      end, options('Search nvim config workspace'))
+      -- keymap('n', '<leader>fx', function()
+      --   require('telescope.builtin').find_files({ cwd = '~/.config/nvim' })
+      -- end, options('Search nvim config workspace'))
 
-      keymap('n', '<leader>sdd', function()
-        require('telescope.builtin').diagnostics({ bufnr = 0 })
-      end, options('Search Document Diagnostics'))
-      keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options('Search Keymaps'))
-      keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
-      keymap('n', '<leader>sc', require('telescope.builtin').commands, options('Search commands'))
+      -- keymap('n', '<leader>sdd', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end, options('Search Document Diagnostics'))
+      -- keymap('n', '<leader>sk', require('telescope.builtin').keymaps, options('Search Keymaps'))
+      -- keymap('n', '<leader>sww', require('telescope.builtin').grep_string, options('Search workspace for current word'))
+      -- keymap('n', '<leader>sc', require('telescope.builtin').commands, options('Search commands'))
       -- vim.keymap.set('x', '<leader>sww',  '"zy<Cmd>Telescope live_grep<CR><C-r>z', options('Search workspace for selection') ) -- alternative search workspace for selection
-      keymap('n', '<leader>sm', require('telescope.builtin').marks, options('[S]earch marks'))
-      keymap(
-        'x',
-        '<leader>sww',
-        '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>',
-        options('Search workspace for selection')
-      )
-      keymap('n', '<leader>fg', require('telescope.builtin').git_files, options('Find Git Files'))
+      -- keymap('n', '<leader>sm', require('telescope.builtin').marks, options('[S]earch marks'))
+      -- keymap(
+      --   'x',
+      --   '<leader>sww',
+      --   '"zy<Cmd>lua require("telescope.builtin").grep_string({search=vim.fn.getreg("z")})<CR>',
+      --   options('Search workspace for selection')
+      -- )
+      -- keymap('n', '<leader>fg', require('telescope.builtin').git_files, options('Find Git Files'))
+
+      -- LSP + Telescope
+      -- nnoremap('gr', function()
+      --   require('telescope.builtin').lsp_references({ fname_width = 50, trim_text = false })
+      -- end, { desc = 'LSP: Goto References' })
+      -- nnoremap('gd', require('telescope.builtin').lsp_definitions, { desc = 'LSP: Go to Definition' })
+      -- nnoremap('gtd', require('telescope.builtin').lsp_type_definitions, { desc = 'LSP: Go to Type Definition' })
+      -- nnoremap('<leader>ss', require('telescope.builtin').lsp_document_symbols, { desc = 'LSP: Search symbols' })
+      -- nnoremap('<leader>sS', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = 'LSP: Search workspace symbols' })
+      -- keymap('n', 'gI', require('telescope.builtin').lsp_implementations, options('Go to Implementation'))
     end,
   },
 }
+
+return {}

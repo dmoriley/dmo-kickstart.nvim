@@ -22,11 +22,11 @@ return {
     }
 
     dashboard.section.buttons.val = {
-      dashboard.button('SPC f f', '  Find files', '<CMD>Telescope find_files <CR>'),
-      dashboard.button('SPC f o', '  Recently used files', '<CMD>Telescope oldfiles <CR>'),
+      dashboard.button('SPC f f', '  Find files', '<CMD>FzfLua files <CR>'),
+      dashboard.button('SPC f o', '  Recently used files', '<CMD>FzfLua oldfiles <CR>'),
+      dashboard.button('SPC s e', '  Find text', '<CMD>FzfLua live_grep <CR>'),
       dashboard.button('SPC e', '  File Explorer', "<CMD>lua require('mini.files').open()<CR>"),
-      dashboard.button('SPC s e', '  Find text', '<CMD>Telescope live_grep <CR>'),
-      dashboard.button('c', '  Configuration', "<CMD>cd $HOME/.config/nvim/ | lua require('telescope.builtin').find_files()<CR>"),
+      dashboard.button('c', '  Configuration', "<CMD>cd $HOME/.config/nvim/ | lua require('fzf-lua').files()<CR>"),
       dashboard.button('e', '  New file', '<CMD>ene <BAR> startinsert <CR>'),
       dashboard.button('p', '📁 Find Project', "<CMD>lua require('persistence').select()<CR>"),
       dashboard.button('s', '  Current Directory Session', "<CMD>lua require('persistence').load()<CR>"),

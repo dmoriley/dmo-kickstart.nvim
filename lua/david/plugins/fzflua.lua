@@ -8,6 +8,9 @@ return {
   config = function()
     local fzflua = require('fzf-lua')
     fzflua.setup({
+      files = {
+        formatter = 'path.filename_first',
+      },
       oldfiles = {
         include_current_session = true,
       },

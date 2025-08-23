@@ -101,5 +101,15 @@ return {
 
     require('mini.cursorword').setup({ delay = 150 })
     vim.cmd('hi MiniCursorword gui=standout guifg=standout guibg=standout')
+
+    require('mini.ai').setup({
+      -- custom text object using m for matching pair, ex: yim
+      custom_textobjects = {
+        m = {
+          { '%b()', '%b[]', '%b{}' },
+          '^.().*().$',
+        },
+      },
+    })
   end,
 }

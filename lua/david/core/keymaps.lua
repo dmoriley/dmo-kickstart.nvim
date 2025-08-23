@@ -144,3 +144,7 @@ nnoremap('dd', function()
     return [[dd]]
   end
 end, { expr = true })
+
+nxnoremap('M', '%', { desc = 'Jump to matching pair' })
+-- o is operator pending mode, so that it can be used in operator commands like delete and change
+mapper('o')('M', '%')

@@ -1,5 +1,3 @@
-local env = require('david.core.env')
-
 return {
   {
     'neovim/nvim-lspconfig',
@@ -32,11 +30,6 @@ return {
     },
     lazy = true,
   },
-  -- { 'mason-org/mason-lspconfig.nvim', lazy = true },
-  -- {
-  --   'RRethy/vim-illuminate', -- highlighting and cursor over after delay
-  --   lazy = true,
-  -- },
   {
     'yioneko/nvim-vtsls',
     ft = {
@@ -46,9 +39,4 @@ return {
       'typescriptreact',
     },
   },
-  -- {
-  --   'dmmulroy/tsc.nvim',
-  --   cmd = { 'TSC' },
-  --   config = true,
-  -- },
 }

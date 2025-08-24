@@ -7,7 +7,7 @@ return {
   lazy = false,
   priority = 1000,
   opts = {
-    transparent_background = true,
+    transparent_background = false,
     gamma = 1.00,
     custom_highlights = {
       FloatBorder = { fg = fgColour, bg = bgColour },

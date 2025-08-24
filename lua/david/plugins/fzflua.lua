@@ -8,7 +8,8 @@ return {
   config = function()
     local fzflua = require('fzf-lua')
     fzflua.setup({
-      files = {
+      -- pickers configs
+      defaults = {
         formatter = 'path.filename_first',
       },
       oldfiles = {
@@ -17,6 +18,7 @@ return {
       keymaps = {
         show_details = false,
       },
+      -- previewers config inside picker
       previewers = {
         builtin = {
           -- don't add syntax highlighting for files larger than below
@@ -24,6 +26,9 @@ return {
         },
       },
     })
+
+    -- highlights
+    vim.api.nvim_set_hl(0, 'FzfLuaBorder', { fg = '#FFCC00' })
 
     -- global
     nnoremap('<leader><space>', fzflua.global, { desc = 'FzfLua global' })

@@ -32,7 +32,7 @@ return {
     },
     lazy = true,
   },
-  { 'mason-org/mason-lspconfig.nvim', lazy = true },
+  -- { 'mason-org/mason-lspconfig.nvim', lazy = true },
   -- {
   --   'RRethy/vim-illuminate', -- highlighting and cursor over after delay
   --   lazy = true,
@@ -45,11 +45,10 @@ return {
       'typescript',
       'typescriptreact',
     },
-    enabled = not env.NVIM_USER_USE_TS_LS,
   },
-  {
-    'dmmulroy/tsc.nvim',
-    cmd = { 'TSC' },
-    config = true,
-  },
+  -- {
+  --   'dmmulroy/tsc.nvim',
+  --   cmd = { 'TSC' },
+  --   config = true,
+  -- },
 }

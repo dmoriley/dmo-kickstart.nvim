@@ -12,17 +12,10 @@ M.servers = {
   -- eslint = NIL,
   -- jsonls = NIL,
 }
-
 if env.NVIM_USER_USE_TS_LS then
   M.servers.ts_ls = require('david.plugins.lsp.servers.ts_ls')
-  M.servers.vtsls = {
-    enabled = false,
-  }
 else
   M.servers.vtsls = require('david.plugins.lsp.servers.vtsls')
-  M.servers.ts_ls = {
-    enabled = false,
-  }
 end
 
 M.formatters = {

@@ -5,12 +5,12 @@ return function()
 
   require('mason').setup()
 
-  local masonLspConfig = require('mason-lspconfig')
-  masonLspConfig.setup({
-    ensure_installed = vim.tbl_keys(servers),
-    automatic_enable = true, -- could be redundant cause of lsp.enable call in loop further down
-  })
-  local installed = masonLspConfig.get_installed_servers()
+  -- local masonLspConfig = require('mason-lspconfig')
+  -- masonLspConfig.setup({
+  --   ensure_installed = vim.tbl_keys(servers),
+  --   -- automatic_enable = true, -- could be redundant cause of lsp.enable call in loop further down
+  -- })
+  -- local installed = masonLspConfig.get_installed_servers()
 
   -- attach common lsp callbacks
   local groupId = vim.api.nvim_create_augroup('user-lsp-attach', {})
@@ -31,9 +31,9 @@ return function()
     lineFoldingOnly = true,
   }
 
-  for _, name in ipairs(installed) do
+  for name, value in pairs(servers) do
     -- add capabilities to the config obj
-    local config = vim.tbl_deep_extend('force', servers[name] or {}, { capabilities = capabilities })
+    local config = vim.tbl_deep_extend('force', value or {}, { capabilities = capabilities })
     vim.lsp.config(name, config)
     vim.lsp.enable(name)
   end

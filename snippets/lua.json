@@ -1,0 +1,7 @@
+{
+  "snippets-check": {
+    "prefix": "globalsnippetslua",
+    "body": ["Custom global Lua snippets work!"],
+    "description": "Test if snippets are working"
+  }
+}

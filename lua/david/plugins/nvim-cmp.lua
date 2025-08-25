@@ -7,55 +7,72 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
+    'saadparwaiz1/cmp_luasnip',
   },
   config = function()
     local cmp = require('cmp')
+    local luasnip = require('luasnip')
 
     cmp.setup({
       snippet = {
         expand = function(args)
-          vim.snippet.expand(args.body)
+          require('luasnip').lsp_expand(args.body)
         end,
       },
       completion = {
         completeopt = 'menu,menuone,noinsert,noselect',
       },
-      mapping = cmp.mapping.preset.insert({
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-y>'] = cmp.mapping.confirm({
-          select = true,
-          -- behavior = cmp.ConfirmBehavior.Replace,
-        }),
-        -- manually trigger auto completion window
-        ['<C-Space>'] = cmp.mapping.complete({}),
-        -- jump forward placeholder in snippet
-        ['<C-l>'] = cmp.mapping(function()
-          --check if can jump forward first
-          if vim.snippet.active({ direction = 1 }) then
-            vim.snippet.jump(1)
-          end
-        end, { 'i', 's' }),
-        -- jump backwards placeholder in snippet
-        ['<C-h>'] = cmp.mapping(function()
-          --check if can jump backwards first
-          if vim.snippet.active({ direction = -1 }) then
-            vim.snippet.jump(-1)
-          end
-        end, { 'i', 's' }),
-      }),
       sources = cmp.config.sources({
-        { name = 'snippets' }, -- nvim snippets
+        -- { name = 'snippets' }, -- nvim snippets
+        { name = 'luasnip' }, -- nvim snippets
         { name = 'lazydev', group_index = 0 }, -- set group index to 0 to skip loading LuaLS completions
         { name = 'nvim_lsp' },
         { name = 'path' },
       }, {
         { name = 'buffer' },
       }),
+      mapping = cmp.mapping.preset.insert({
+        ['<C-y>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            if luasnip.expandable() then
+              luasnip.expand({})
+            else
+              cmp.confirm({
+                select = true,
+              })
+            end
+          else
+            fallback()
+          end
+        end),
+
+        ['<C-n>'] = cmp.mapping(function(fallback)
+          if luasnip.locally_jumpable(1) then
+            luasnip.jump(1)
+          elseif cmp.visible() then
+            cmp.select_next_item()
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
+
+        ['<C-p>'] = cmp.mapping(function(fallback)
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          elseif cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
+        -- manually trigger auto completion window
+        ['<C-Space>'] = cmp.mapping.complete({}),
+      }),
       performance = {
         debounce = 0, --default is 60
         throttle = 0, --default is 30
       },
+
       --[[ matching = {
         -- turn off fuzzy matching to increase performance
         disallow_fuzzy_matching = true,

@@ -1,0 +1,11 @@
+{
+  "name": "davids_global_snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "lua.json"
+      }
+    ]
+  }
+}

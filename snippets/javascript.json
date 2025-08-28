@@ -1,0 +1,7 @@
+{
+  "snippets-check": {
+    "prefix": "globalsnippetsjavascript",
+    "body": ["Custom global javascript snippets work!"],
+    "description": "Test if snippets are working"
+  }
+}

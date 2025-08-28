@@ -5,6 +5,13 @@
       {
         "language": "lua",
         "path": "lua.json"
+      },
+      {
+        "language": [
+          "javascript",
+          "typescript"
+        ],
+        "path": "javascript.json"
       }
     ]
   }

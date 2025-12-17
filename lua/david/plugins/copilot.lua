@@ -94,23 +94,23 @@ return {
         -- Included/Default  models are: GPT-4.1 and GPT 4.o
         -- run :CopilotChatModels for available models
         -- gpt-4.1
-        model = 'gpt-5',
+        model = 'gpt-5.1',
         temperature = 0.1, -- Lower = focused, higher = creative
         chat_autocomplete = true,
         auto_insert_mode = true,
         show_help = true,
         question_header = '  ' .. user .. ' ',
         answer_header = '  Copilot ',
-        window = {
-          width = 0.8,
-          height = 0.8,
-          -- width = 80, -- Fixed width in columns
-          -- height = 20, -- Fixed height in rows
-          layout = 'float', --vertical, horizontal, float
-          border = 'rounded', -- 'single', 'double', 'rounded', 'solid'
-          title = '🤖 Copilot Chat',
-          zindex = 100, -- Ensure window stays on top
-        },
+        -- window = {
+        --   width = 0.8,
+        --   height = 0.8,
+        --   -- width = 80, -- Fixed width in columns
+        --   -- height = 20, -- Fixed height in rows
+        --   layout = 'float', --vertical, horizontal, float
+        --   border = 'rounded', -- 'single', 'double', 'rounded', 'solid'
+        --   title = '🤖 Copilot Chat',
+        --   zindex = 100, -- Ensure window stays on top
+        -- },
         headers = {
           user = '👨‍💻 You',
           assistant = '💻 Copilot',

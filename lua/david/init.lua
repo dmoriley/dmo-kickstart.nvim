@@ -1,4 +1,4 @@
 require('david.core')
 require('david.lazy')
 require('david.ui')
-require('david.file-switcher')
+require('david.core.utils').source_folder('david/custom')

@@ -92,6 +92,15 @@ function M.get_lang_from_cursor_pos()
     :lang()
 end
 
+--- Source all lua files of a path + folder thats inside of the lua folder
+--- @param folderPathAndName string Path and name of the folder
+--- @return nil
+function M.source_folder(folderPathAndName)
+  local dir = vim.fn.stdpath('config') .. '/lua/' .. folderPathAndName
+  for _, file in ipairs(vim.fn.glob(dir .. '/*.lua', false, true)) do
+    vim.cmd('source ' .. vim.fn.fnameescape(file))
+  end
+end
 ------------------------------------------------------------------------------
 --- COMMON STRING UTILITIES
 --- @see https://github.com/tbastos/lift/blob/master/lift/string.lua

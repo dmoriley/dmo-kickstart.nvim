@@ -101,6 +101,49 @@ function M.source_folder(folderPathAndName)
     vim.cmd('source ' .. vim.fn.fnameescape(file))
   end
 end
+
+---Create a centered floating window.
+---@param opts? { width?: integer, height?: integer, border?: string | table, buf?: integer }
+function M.open_floating_window(opts)
+  opts = opts or {}
+
+  -- Get current editor size
+  local columns = vim.o.columns
+  local lines = vim.o.lines
+
+  -- Default to 80% of screen
+  local width = opts.width or math.floor(columns * 0.8)
+  local height = opts.height or math.floor(lines * 0.8)
+
+  -- Make sure it fits
+  width = math.min(width, columns)
+  height = math.min(height, lines)
+
+  -- Center it
+  local col = math.floor((columns - width) / 2)
+  -- Subtract cmdheight and statusline area from lines
+  local row = math.floor((lines - height) / 2 - vim.o.cmdheight)
+
+  local buf = nil
+  if vim.api.nvim_buf_is_valid(opts.buf) then
+    buf = opts.buf
+  else
+    buf = vim.api.nvim_create_buf(false, true) -- no file, scratch buffer
+  end
+
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = 'editor',
+    width = width,
+    height = height,
+    col = col,
+    row = row,
+    style = 'minimal',
+    border = opts.border or 'rounded',
+  })
+
+  return { buf = buf, win = win }
+end
+
 ------------------------------------------------------------------------------
 --- COMMON STRING UTILITIES
 --- @see https://github.com/tbastos/lift/blob/master/lift/string.lua

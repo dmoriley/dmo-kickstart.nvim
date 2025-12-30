@@ -13,6 +13,7 @@ local nxnoremap = mapper({ 'n', 'x' })
 local ntnoremap = mapper({ 'n', 't' })
 local inoremap = mapper('i')
 local xnoremap = mapper('x')
+local tnoremap = mapper('t')
 
 -- below keymaps are for netrw explorer when enabled
 -- keymap("n", "<leader>xx",  ":Lexplore %:p:h<CR>", options("Open left explore in current file directory"));
@@ -145,6 +146,9 @@ nnoremap('dd', function()
   end
 end, { expr = true })
 
+-- easier matching pair
 nxnoremap('M', '%', { desc = 'Jump to matching pair' })
--- o is operator pending mode, so that it can be used in operator commands like delete and change
-mapper('o')('M', '%')
+mapper('o')('M', '%') -- o is operator pending mode, so that it can be used in operator commands like delete and change
+
+-- easier escape to normal mode from ternimal
+tnoremap('<esc><esc>', '<c-\\><c-n>', { desc = 'Escape to normal mode' })

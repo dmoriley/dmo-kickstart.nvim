@@ -18,6 +18,11 @@ return {
       keymaps = {
         show_details = false,
       },
+      helptags = {
+        actions = {
+          ['enter'] = fzflua.actions.help_vert,
+        },
+      },
       -- previewers config inside picker
       previewers = {
         builtin = {

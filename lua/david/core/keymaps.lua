@@ -15,10 +15,6 @@ local inoremap = mapper('i')
 local xnoremap = mapper('x')
 local tnoremap = mapper('t')
 
--- below keymaps are for netrw explorer when enabled
--- keymap("n", "<leader>xx",  ":Lexplore %:p:h<CR>", options("Open left explore in current file directory"));
--- keymap("n", "<leader>xl",  ":Lexplore<CR>", options("Toggle left explore"));
-
 -- See :help key-notation for which keys map to what string
 
 -- To bind cmd key in mac:

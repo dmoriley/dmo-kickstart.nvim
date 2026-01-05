@@ -36,7 +36,7 @@ return {
     vim.api.nvim_set_hl(0, 'FzfLuaBorder', { fg = '#FFCC00' })
 
     -- global
-    nnoremap('<leader><space>', fzflua.global, { desc = 'FzfLua global' })
+    -- nnoremap('<leader><space>', fzflua.global, { desc = 'FzfLua global' })
 
     -- find
     nnoremap('<leader>ff', fzflua.files, { desc = 'Find files' })

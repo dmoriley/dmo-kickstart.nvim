@@ -28,6 +28,10 @@ local tnoremap = mapper('t')
 
 mapper({ 'n', 'v' })('<Space>', '<Nop>')
 
+nnoremap('gh', function()
+  vim.cmd('help ' .. vim.fn.expand('<cword>'))
+end, { desc = 'Search word under cursor in help files' })
+
 -- fast line movement
 nxnoremap('K', '5k', { desc = 'Up faster' })
 nxnoremap('J', '5j', { desc = 'Down faster' })

@@ -8,6 +8,13 @@ local state = {
   },
 }
 
+-- vim.api.nvim_create_autocmd('TermOpen', {
+--   pattern = '*',
+--   callback = function()
+--     vim.cmd('startinsert')
+--   end,
+-- })
+
 local toggle_terminal = function()
   if not vim.api.nvim_win_is_valid(state.floating.win) then
     state.floating = open_floating_window({ buf = state.floating.buf })
@@ -15,6 +22,7 @@ local toggle_terminal = function()
       -- call terminal inside of the new buffer
       vim.cmd.terminal()
     end
+    vim.cmd('startinsert')
   else
     vim.api.nvim_win_hide(state.floating.win)
   end

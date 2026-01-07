@@ -94,7 +94,9 @@ return {
         -- Included/Default  models are: GPT-4.1 and GPT 4.o
         -- run :CopilotChatModels for available models
         -- gpt-4.1
-        model = 'gpt-5.1',
+        -- gpt-5.1
+        -- gpt-5
+        model = 'gemini-2.5-pro',
         temperature = 0.1, -- Lower = focused, higher = creative
         chat_autocomplete = true,
         auto_insert_mode = true,

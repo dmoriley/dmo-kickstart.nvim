@@ -96,7 +96,8 @@ return {
         -- gpt-4.1
         -- gpt-5.1
         -- gpt-5
-        model = 'gemini-2.5-pro',
+        -- gemini-2.5-pro
+        model = 'claude-sonnet-4.5',
         temperature = 0.1, -- Lower = focused, higher = creative
         chat_autocomplete = true,
         auto_insert_mode = true,

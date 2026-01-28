@@ -1,5 +1,5 @@
 return {
-  'echasnovski/mini.nvim',
+  'nvim-mini/mini.nvim',
   version = false,
   event = 'BufReadPre',
   config = function()
@@ -20,37 +20,33 @@ return {
     -- Better buffer deletion
     require('mini.bufremove').setup()
     vim.keymap.set('n', '<leader>bd', function()
-      -- _G is global table that MiniBufremove was added to in the setup function
-      -- could have just used a require call
-      _G.MiniBufremove.delete(vim.api.nvim_get_current_buf())
+      MiniBufremove.delete(vim.api.nvim_get_current_buf())
     end, { noremap = true, silent = true, desc = 'Delete current buffer' })
 
     vim.keymap.set('n', '<leader>bD', function()
       local buffers = vim.api.nvim_list_bufs()
       for _, buf in ipairs(buffers) do
         if buf ~= vim.api.nvim_get_current_buf() then
-          _G.MiniBufremove.delete(buf)
+          MiniBufremove.delete(buf)
         end
       end
     end, { noremap = true, silent = true, desc = 'Delete all but current buffer' })
 
     vim.keymap.set('n', '<C-q>', function()
-      -- _G is global table that MiniBufremove was added to in the setup function
       -- could have just used a require call
-      _G.MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
+      MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
     end, { noremap = true, silent = true, desc = 'Wipeout current buffer' })
 
     vim.keymap.set('n', '<leader>bw', function()
-      -- _G is global table that MiniBufremove was added to in the setup function
       -- could have just used a require call
-      _G.MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
+      MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
     end, { noremap = true, silent = true, desc = 'Wipeout current buffer' })
 
     vim.keymap.set('n', '<leader>bW', function()
       local buffers = vim.api.nvim_list_bufs()
       for _, buf in ipairs(buffers) do
         if buf ~= vim.api.nvim_get_current_buf() then
-          _G.MiniBufremove.wipeout(buf)
+          MiniBufremove.wipeout(buf)
         end
       end
     end, { noremap = true, silent = true, desc = 'Wipeout all but current buffer' })
@@ -93,8 +89,8 @@ return {
       },
     })
     vim.keymap.set('n', '<leader>e', function() -- Open directory of current file (in last used state) focused on the file
-      if not _G.MiniFiles.close() then
-        _G.MiniFiles.open(vim.api.nvim_buf_get_name(0))
+      if not MiniFiles.close() then
+        MiniFiles.open(vim.api.nvim_buf_get_name(0))
       end
     end, { noremap = true, silent = true, desc = 'Toggle file explorer' })
     vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = '#d2a8ff' })

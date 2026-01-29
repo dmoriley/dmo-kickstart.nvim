@@ -20,6 +20,9 @@ set.spell = true -- spell checking
 set.pumblend = 10 -- Make builtin completion menus slightly transparent
 set.pumheight = 10 -- Make popup menu smaller
 set.winblend = 10 -- Make floating windows slightly transparent
+set.scrolloff = 8 -- Keeps at least 1 line visible above/below the cursor when scrolling vertically
+set.sidescroll = 1 -- When horizontal scrolling is needed, scroll by 1 column at a time (smoother)
+set.sidescrolloff = 2 -- Keeps at least 2 columns visible to the left/right of the cursor when scrolling horizontally
 
 -- indentation
 set.smarttab = true

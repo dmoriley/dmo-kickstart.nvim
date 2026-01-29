@@ -152,3 +152,40 @@ mapper('o')('M', '%') -- o is operator pending mode, so that it can be used in o
 
 -- easier escape to normal mode from ternimal
 tnoremap('<esc><esc>', '<c-\\><c-n>', { desc = 'Escape to normal mode' })
+
+-- insert blank line above
+nnoremap('< ', function()
+  local count = vim.v.count1
+  local line = vim.fn.line('.')
+  local blank_lines = {}
+
+  for _ = 1, count do
+    table.insert(blank_lines, '')
+  end
+
+  vim.fn.append(line - 1, blank_lines)
+  -- vim.cmd('silent normal! ' .. count .. 'k') -- move cursor to first blank line
+
+  -- Optional: repeat.vim support
+  -- if vim.bo.modifiable and vim.fn.exists('*repeat#set') == 1 then
+  --   vim.fn['repeat#set']('\\<Plug>(unimpaired-blank-up)', count)
+  -- end
+end, { desc = 'Insert blank lines above the cursor' })
+
+-- insert blank line below
+nnoremap('> ', function()
+  local count = vim.v.count1
+  local line = vim.fn.line('.')
+  local blank_lines = {}
+
+  for _ = 1, count do
+    table.insert(blank_lines, '')
+  end
+
+  vim.fn.append(line, blank_lines)
+
+  -- Optional: repeat.vim support
+  -- if vim.bo.modifiable and vim.fn.exists('*repeat#set') == 1 then
+  --   vim.fn['repeat#set']('\\<Plug>(unimpaired-blank-down)', count)
+  -- end
+end, { desc = 'Insert blank lines below the cursor' })

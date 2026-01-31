@@ -5,10 +5,11 @@ local xnoremap = mapper('x')
 return {
   'ibhagwan/fzf-lua',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  event = 'VeryLazy',
   config = function()
     local fzflua = require('fzf-lua')
+    fzflua.register_ui_select()
     fzflua.setup({
-      -- pickers configs
       defaults = {
         formatter = 'path.filename_first',
       },

@@ -1,5 +1,4 @@
 return function()
-  local lspConfig = require('lspconfig')
   local servers = require('david.plugins.lsp.servers').servers
   local lsp_mappings = require('david.plugins.lsp.mappings')
 

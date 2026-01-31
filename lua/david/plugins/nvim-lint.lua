@@ -1,10 +1,5 @@
 return {
   'mfussenegger/nvim-lint',
-  -- event = {
-  --   'BufReadPre',
-  --   'BufNewFile',
-  -- },
-  -- ft = { 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' },
   keys = {
     {
       '<leader>l',

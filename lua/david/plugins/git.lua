@@ -20,7 +20,7 @@ return {
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
-    event = 'BufReadPre',
+    event = 'VeryLazy',
     keys = {
       { '<leader>go', '<cmd>Gitsigns<CR>', mode = 'n', desc = 'Search Git options', noremap = true, silent = true },
       { '<leader>gb', '<cmd>Gitsigns blame_line<CR>', mode = 'n', desc = 'Git blame line', noremap = true, silent = true },

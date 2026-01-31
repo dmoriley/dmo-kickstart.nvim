@@ -3,11 +3,10 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local conform = require('conform')
-
     conform.setup({
       format_on_save = {
         timeout_ms = 500,
-        lsp_fallback = false,
+        lsp_format = 'fallback',
         async = false,
       },
       formatters_by_ft = {
@@ -23,6 +22,8 @@ return {
         lua = { 'stylua' },
         go = { 'goimports', 'gofumpt' }, --golines
       },
+      notify_on_error = true,
+      notify_no_formatters = true,
     })
 
     -- normal mode: format whole file

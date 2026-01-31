@@ -1,5 +1,5 @@
 return {
   'folke/persistence.nvim',
-  event = 'BufReadPre',
+  event = 'BufReadPre', -- this will only start session saving when an actual file was opened
   opts = {},
 }

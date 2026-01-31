@@ -2,7 +2,7 @@ return {
   -- commenting supported natively in neovim 0.10, but doesnt do block comments yet
   -- can probably remove when that is available
   'numToStr/Comment.nvim',
-  event = 'BufReadPre',
+  event = { 'BufReadPost', 'BufNewFile' },
   config = function()
     require('Comment').setup()
     -- @see https://github.com/numToStr/Comment.nvim/issues/70

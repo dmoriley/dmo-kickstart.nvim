@@ -3,13 +3,8 @@ return {
   {
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
-    event = 'BufReadPre',
+    event = 'VeryLazy',
   },
-  -- {
-  --     "kylechui/nvim-surround",
-  --     event = "InsertEnter",
-  --     opts = {}
-  -- },
   {
     'folke/persistence.nvim',
     event = 'BufReadPre',
@@ -18,6 +13,6 @@ return {
   {
     -- Better f/F/t/T finding
     'rhysd/clever-f.vim',
-    event = 'BufReadPre',
+    event = 'VeryLazy',
   },
 }

@@ -1,7 +1,7 @@
 return {
   'nvim-mini/mini.nvim',
   version = false,
-  event = 'BufReadPre',
+  event = { 'BufReadPost', 'BufNewFile' },
   config = function()
     require('mini.indentscope').setup({
       draw = {

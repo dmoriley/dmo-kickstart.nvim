@@ -1,7 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    event = 'BufReadPre',
+    event = 'VeryLazy',
     opts = function()
       ---@class PluginLspOpts
       local ret = {
@@ -28,7 +28,7 @@ return {
         },
       },
     },
-    lazy = true,
+    lazy = true, -- never auto lazy loads. Needs to be manually init by called one of the ft, cmd's or requiring it.
   },
   {
     'yioneko/nvim-vtsls',

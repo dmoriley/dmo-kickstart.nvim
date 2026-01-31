@@ -1,3 +1,7 @@
+local mapper = require('david.core.utils').mapper_factory
+local nxnoremap = mapper({ 'n', 'x' })
+local xnoremap = mapper('x')
+
 return {
   {
     'tpope/vim-fugitive',
@@ -45,29 +49,20 @@ return {
         local gs = package.loaded.gitsigns
 
         -- Visual mode padding for selection
-        local vmap = function(keys, func, desc)
-          if desc then
-            desc = 'Git ' .. desc
-          end
-          local opts = { buffer = bufnr, noremap = true, silent = true, desc = desc }
-          vim.keymap.set('v', keys, func, opts)
-        end
-
-        vmap('ghs', function()
+        xnoremap('ghs', function()
           gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end, 'Hunk Stage Selected')
+        end, { desc = 'Hunk Stage Selected' })
 
-        vmap('ghu', function()
+        xnoremap('ghu', function()
           gs.undo_stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end, 'Hunk Undo Staged')
+        end, { desc = 'Hunk Stage Selected' })
 
-        vmap('ghr', function()
+        xnoremap('ghr', function()
           gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end, 'Hunk Reset Selected')
-        -- end of visual mode mapping
+        end, { desc = 'Hunk Stage Selected' })
 
         -- don't override the built-in and fugitive keymaps
-        vim.keymap.set({ 'n', 'v' }, ']h', function()
+        nxnoremap(']h', function()
           if vim.wo.diff then
             return ']h'
           end
@@ -77,7 +72,8 @@ return {
           end)
           return '<Ignore>'
         end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
-        vim.keymap.set({ 'n', 'v' }, '[h', function()
+
+        nxnoremap('[h', function()
           if vim.wo.diff then
             return '[h'
           end

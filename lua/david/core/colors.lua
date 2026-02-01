@@ -1,7 +1,4 @@
--- overrides for the theme set in the plugins folder
-
 vim.api.nvim_set_hl(0, 'CursorLine', { underline = true })
--- vim.cmd([[highlight! CursorLine gui=underline]])
 
 -- Change the colour of the spell check underline
 local spellCheckColour = '#0388fc'

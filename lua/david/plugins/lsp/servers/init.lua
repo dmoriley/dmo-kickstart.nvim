@@ -18,7 +18,7 @@ else
 end
 
 M.formatters = {
-  -- "eslint_d",
+  -- 'eslint_d',
   'prettierd',
 
   -- Golang formatters

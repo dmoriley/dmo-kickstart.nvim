@@ -22,16 +22,16 @@ return {
     }
 
     dashboard.section.buttons.val = {
-      dashboard.button('SPC f f', '  Find files', '<CMD>FzfLua files <CR>'),
-      dashboard.button('SPC f o', '  Recently used files', '<CMD>FzfLua oldfiles <CR>'),
-      dashboard.button('SPC s e', '  Find text', '<CMD>FzfLua live_grep <CR>'),
-      dashboard.button('SPC e', '  File Explorer', "<CMD>lua require('mini.files').open()<CR>"),
-      dashboard.button('c', '  Configuration', "<CMD>cd $HOME/.config/nvim/ | lua require('fzf-lua').files()<CR>"),
-      dashboard.button('e', '  New file', '<CMD>ene <BAR> startinsert <CR>'),
-      dashboard.button('p', '📁 Find Project', "<CMD>lua require('persistence').select()<CR>"),
-      dashboard.button('s', '  Current Directory Session', "<CMD>lua require('persistence').load()<CR>"),
-      dashboard.button('l', '⏪ Last Session', "<CMD>lua require('persistence').load({ last = true })<CR>"),
-      dashboard.button('q', '  Quit Neovim', '<CMD>qa<CR>'),
+      dashboard.button('SPC f f', '  Find files', '<CMD>FzfLua files <CR>'),
+      dashboard.button('SPC f o', '  Recently used files', '<CMD>FzfLua oldfiles <CR>'),
+      dashboard.button('SPC s e', '  Find text', '<CMD>FzfLua live_grep <CR>'),
+      dashboard.button('SPC e', '  File Explorer', '<CMD>lua require(\'mini.files\').open()<CR>'),
+      dashboard.button('c', '  Configuration', '<CMD>cd $HOME/.config/nvim/ | lua require(\'fzf-lua\').files()<CR>'),
+      dashboard.button('e', '  New file', '<CMD>ene <BAR> startinsert <CR>'),
+      dashboard.button('p', '📁 Find Project', '<CMD>lua require(\'persistence\').select()<CR>'),
+      dashboard.button('s', '  Current Directory Session', '<CMD>lua require(\'persistence\').load()<CR>'),
+      dashboard.button('l', '⏪ Last Session', '<CMD>lua require(\'persistence\').load({ last = true })<CR>'),
+      dashboard.button('q', '  Quit Neovim', '<CMD>qa<CR>'),
     }
 
     vim.api.nvim_create_autocmd('User', {

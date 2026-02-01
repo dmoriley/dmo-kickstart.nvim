@@ -53,7 +53,7 @@ return {
         function()
           require('dap').step_over()
         end,
-        desc = 'Debug: SStep Over',
+        desc = 'Debug: Step Over',
       },
       {
         '<F7>',
@@ -139,6 +139,7 @@ return {
         end,
         desc = 'Debug: Widgets',
       },
+      -- keymaps preserved for possible future use
       -- {
       --   '<localleader>dg',
       --   function()

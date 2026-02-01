@@ -4,13 +4,6 @@ return function()
 
   require('mason').setup()
 
-  -- local masonLspConfig = require('mason-lspconfig')
-  -- masonLspConfig.setup({
-  --   ensure_installed = vim.tbl_keys(servers),
-  --   -- automatic_enable = true, -- could be redundant cause of lsp.enable call in loop further down
-  -- })
-  -- local installed = masonLspConfig.get_installed_servers()
-
   -- attach common lsp callbacks
   local groupId = vim.api.nvim_create_augroup('user-lsp-attach', {})
   vim.api.nvim_create_autocmd('LspAttach', {

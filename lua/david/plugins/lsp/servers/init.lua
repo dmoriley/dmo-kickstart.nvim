@@ -1,13 +1,12 @@
 local env = require('david.core.env')
 local M = {}
-local NIL = {}
 
 -- server names are according to lspconfig (see :h lspconfig-all)
 M.servers = {
   lua_ls = require('david.plugins.lsp.servers.lua'),
   gopls = require('david.plugins.lsp.servers.go'),
   angularls = require('david.plugins.lsp.servers.angular'),
-  html = NIL,
+  html = {},
   -- cssls = NIL
   -- eslint = NIL,
   -- jsonls = NIL,

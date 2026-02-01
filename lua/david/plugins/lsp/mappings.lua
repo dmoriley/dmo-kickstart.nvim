@@ -32,7 +32,7 @@ M.attach = function(args)
 
   nvnoremap('<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP: Code action' })
   nnoremap('<leader>ch', '<cmd>ToggleInlayHints<cr>', { buffer = bufnr, desc = 'LSP: Toggle inlay hints' })
-  nnoremap('<leader>cr', vim.lsp.buf.rename, { desc = 'LSP: Rename' })
+  nnoremap('<leader>cr', vim.lsp.buf.rename, { buffer = bufnr, desc = 'LSP: Rename' })
   nnoremap('gk', vim.lsp.buf.hover, { desc = 'LSP: Hover Documentation' })
   nnoremap('gK', vim.lsp.buf.signature_help, { desc = 'LSP Signature Documentation' })
   nnoremap('gD', vim.lsp.buf.declaration, { desc = 'LSP: Go to declaration' })

@@ -1,3 +1,6 @@
+local mapper = require('david.core.utils').mapper_factory
+local nnoremap = mapper('n')
+
 return {
   'nvim-mini/mini.nvim',
   version = false,
@@ -19,37 +22,35 @@ return {
 
     -- Better buffer deletion
     require('mini.bufremove').setup()
-    vim.keymap.set('n', '<leader>bd', function()
+    nnoremap('<leader>bd', function()
       MiniBufremove.delete(vim.api.nvim_get_current_buf())
-    end, { noremap = true, silent = true, desc = 'Delete current buffer' })
+    end, { desc = 'Delete current buffer' })
 
-    vim.keymap.set('n', '<leader>bD', function()
+    nnoremap('<leader>bD', function()
       local buffers = vim.api.nvim_list_bufs()
       for _, buf in ipairs(buffers) do
         if buf ~= vim.api.nvim_get_current_buf() then
           MiniBufremove.delete(buf)
         end
       end
-    end, { noremap = true, silent = true, desc = 'Delete all but current buffer' })
+    end, { desc = 'Delete all but current buffer' })
 
-    vim.keymap.set('n', '<C-q>', function()
-      -- could have just used a require call
+    nnoremap('<C-q>', function()
       MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
-    end, { noremap = true, silent = true, desc = 'Wipeout current buffer' })
+    end, { desc = 'Wipeout current buffer' })
 
-    vim.keymap.set('n', '<leader>bw', function()
-      -- could have just used a require call
+    nnoremap('<leader>bw', function()
       MiniBufremove.wipeout(vim.api.nvim_get_current_buf())
-    end, { noremap = true, silent = true, desc = 'Wipeout current buffer' })
+    end, { desc = 'Wipeout current buffer' })
 
-    vim.keymap.set('n', '<leader>bW', function()
+    nnoremap('<leader>bW', function()
       local buffers = vim.api.nvim_list_bufs()
       for _, buf in ipairs(buffers) do
         if buf ~= vim.api.nvim_get_current_buf() then
           MiniBufremove.wipeout(buf)
         end
       end
-    end, { noremap = true, silent = true, desc = 'Wipeout all but current buffer' })
+    end, { desc = 'Wipeout all but current buffer' })
 
     -- line and word jumping
 
@@ -88,11 +89,11 @@ return {
         width_preview = 50,
       },
     })
-    vim.keymap.set('n', '<leader>e', function() -- Open directory of current file (in last used state) focused on the file
+    nnoremap('<leader>e', function()
       if not MiniFiles.close() then
         MiniFiles.open(vim.api.nvim_buf_get_name(0))
       end
-    end, { noremap = true, silent = true, desc = 'Toggle file explorer' })
+    end, { desc = 'Toggle file explorer', silent = true })
     vim.api.nvim_set_hl(0, 'MiniFilesTitleFocused', { fg = '#d2a8ff' })
 
     require('mini.cursorword').setup({ delay = 150 })

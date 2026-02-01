@@ -1,3 +1,7 @@
+local mapper = require('david.core.utils').mapper_factory
+local nnoremap = mapper('n')
+local xnoremap = mapper('x')
+
 return {
   -- commenting supported natively in neovim 0.10, but doesnt do block comments yet
   -- can probably remove when that is available
@@ -6,7 +10,7 @@ return {
   config = function()
     require('Comment').setup()
     -- @see https://github.com/numToStr/Comment.nvim/issues/70
-    vim.keymap.set('n', 'gC', function()
+    nnoremap('gC', function()
       local count = vim.v.count1
       local api = require('Comment.api')
       vim.api.nvim_feedkeys('V', 'n', false)
@@ -16,12 +20,12 @@ return {
       vim.api.nvim_feedkeys('yP', 'nx', false)
       api.comment.linewise.count(count)
       vim.api.nvim_feedkeys('`<^i', 'n', false)
-    end, { noremap = true, silent = true, desc = 'Duplicate and comment selected text' })
-    vim.keymap.set(
-      'x',
+    end, { desc = 'Duplicate and comment selected text' })
+
+    xnoremap(
       'gC',
       'V<Esc>gvy`>pgv<Esc>`><cmd>lua require\'Comment.api\'.comment.linewise(\'V\')<CR><Down>^',
-      { noremap = true, silent = true, desc = 'Duplicate and comment selected text' }
+      { desc = 'Duplicate and comment selected text' }
     )
   end,
 }

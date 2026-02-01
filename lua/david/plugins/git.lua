@@ -55,11 +55,11 @@ return {
 
         xnoremap('ghu', function()
           gs.undo_stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end, { desc = 'Hunk Stage Selected' })
+        end, { desc = 'Hunk Undo Stage Selected' })
 
         xnoremap('ghr', function()
           gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-        end, { desc = 'Hunk Stage Selected' })
+        end, { desc = 'Hunk Reset Selected' })
 
         -- don't override the built-in and fugitive keymaps
         nxnoremap(']h', function()

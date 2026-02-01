@@ -1,3 +1,6 @@
+local mapper = require('david.core.utils').mapper_factory
+local nvnoremap = mapper({ 'n', 'v' })
+
 return {
   'stevearc/conform.nvim',
   event = { 'BufReadPre', 'BufNewFile' },
@@ -28,12 +31,12 @@ return {
 
     -- normal mode: format whole file
     -- visual mode: format selection
-    vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
+    nvnoremap('<leader>cf', function()
       conform.format({
         timeout_ms = 500,
-        lsp_fallback = false,
+        lsp_format = 'fallback',
         async = false,
       })
-    end, { noremap = true, silent = true, desc = 'Code format file or range (in visual mode)' })
+    end, { desc = 'Code format file or range (in visual mode)' })
   end,
 }

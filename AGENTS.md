@@ -10,7 +10,8 @@ This is a personal Neovim configuration written in Lua using lazy.nvim as the pl
 ├── lua/david/
 │   ├── init.lua               # Main setup: core, lazy, custom
 │   ├── lazy.lua               # lazy.nvim plugin manager setup
-│   ├── custom/                # Custom neovim configuration code for self-made features
+│   ├── custom/                # Custom neovim configuration code for self-made features loaded after lazy plugins
+│   │   └── colors.lua         # Color/highlight overrides
 │   ├── core/                  # Core configuration modules
 │   │   ├── init.lua           # Loads all core modules
 │   │   ├── settings.lua       # Vim settings and options
@@ -18,7 +19,6 @@ This is a personal Neovim configuration written in Lua using lazy.nvim as the pl
 │   │   ├── autocommands.lua   # Autocommands
 │   │   ├── commands.lua       # Custom commands
 │   │   ├── utils.lua          # Utility functions
-│   │   ├── colors.lua         # Color/highlight overrides
 │   │   └── env.lua            # Environment variables
 │   └── plugins/               # Plugin configurations (one file per plugin)
 │       ├── init.lua           # Simple plugins without config

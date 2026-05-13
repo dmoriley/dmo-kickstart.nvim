@@ -89,6 +89,38 @@ return {
         width_preview = 50,
       },
     })
+
+    local function open_current_dir_in_os()
+      local state = MiniFiles.get_explorer_state()
+      if state == nil then
+        return
+      end
+
+      local path = state.branch[state.depth_focus] or state.anchor
+      if path == nil then
+        return
+      end
+
+      if vim.fn.isdirectory(path) == 0 then
+        path = vim.fs.dirname(path)
+      end
+
+      local _, err = vim.ui.open(path)
+      if err ~= nil then
+        vim.notify(err, vim.log.levels.ERROR)
+      end
+    end
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'MiniFilesBufferCreate',
+      callback = function(args)
+        vim.keymap.set('n', 'gO', open_current_dir_in_os, {
+          buffer = args.data.buf_id,
+          desc = 'Open current dir in OS explorer',
+        })
+      end,
+    })
+
     nnoremap('<leader>e', function()
       if not MiniFiles.close() then
         MiniFiles.open(vim.api.nvim_buf_get_name(0))

@@ -10,8 +10,10 @@ local function apply_custom_highlights()
   end
 
   -- Make code lenses distinct from inlay hints.
-  local code_lens_color = '#7aa2f7'
-  vim.api.nvim_set_hl(0, 'LspCodeLens', { fg = code_lens_color })
+  local code_lens_color = '#36FCFF'
+  vim.api.nvim_set_hl(0, 'LspCodeLens', {
+    fg = code_lens_color,
+  })
   vim.api.nvim_set_hl(0, 'LspCodeLensSeparator', { fg = code_lens_color })
 end
 

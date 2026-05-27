@@ -13,6 +13,13 @@ return {
       defaults = {
         formatter = 'path.filename_first',
       },
+      commands = {
+        actions = {
+          -- Override the default `ex_run` behavior, which feeds `:` and leaves the
+          -- selected command in the cmdline, so selecting a command executes it immediately.
+          ['enter'] = fzflua.actions.ex_run_cr,
+        },
+      },
       oldfiles = {
         include_current_session = true,
       },

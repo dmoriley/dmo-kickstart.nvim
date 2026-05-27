@@ -1,8 +1,8 @@
 -- Go-specific LSP configuration.
 --
 -- This file is intentionally focused on the parts of `gopls` that shape the
--- day-to-day editing experience: diagnostics, inlay hints, code lenses, and a
--- small semantic token compatibility shim for older `gopls` behavior.
+-- day-to-day editing experience: diagnostics, inlay hints, code lenses, and
+-- semantic highlighting.
 return {
   settings = {
     gopls = {
@@ -24,8 +24,9 @@ return {
       -- scan in mixed-language repos.
       directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-**/node_modules' },
 
-      -- Ask `gopls` to serve semantic tokens. The `on_attach` block below fills
-      -- in the advertised capability when older versions omit it.
+      -- Ask `gopls` to serve semantic tokens when the server version supports
+      -- them fully. Neovim needs the server's own legend to decode tokens, so
+      -- we intentionally do not synthesize this capability on the client side.
       semanticTokens = true,
 
       analyses = {
@@ -95,23 +96,18 @@ return {
     },
   },
   on_attach = function(client, _)
-    -- Some `gopls` versions accept semantic token requests but do not advertise
-    -- the provider during initialization. Reuse the client's declared legend so
-    -- Neovim can enable semantic highlighting consistently.
-    if client.server_capabilities.semanticTokensProvider then
+    -- A malformed semantic token provider can crash Neovim's decoder while you
+    -- type, so disable it unless the server advertises a usable legend.
+    local semantic_provider = client.server_capabilities.semanticTokensProvider
+    if not semantic_provider then
       return
     end
 
-    local text_document = client.config.capabilities.textDocument
-    local semantic = text_document and text_document.semanticTokens
-    if not semantic then
+    local legend = semantic_provider.legend
+    if legend and vim.islist(legend.tokenTypes) and vim.islist(legend.tokenModifiers) then
       return
     end
 
-    client.server_capabilities.semanticTokensProvider = {
-      full = true,
-      legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
-      range = true,
-    }
+    client.server_capabilities.semanticTokensProvider = nil
   end,
 }

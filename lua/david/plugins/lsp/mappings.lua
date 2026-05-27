@@ -3,7 +3,9 @@ local mapper = require('david.core.utils').mapper_factory
 local nnoremap = mapper('n')
 local nvnoremap = mapper({ 'n', 'v' })
 
-M.attach = function(args)
+M.attach = function(args, opts)
+  opts = opts or {}
+
   local client = vim.lsp.get_client_by_id(args.data.client_id)
   if not client then
     return
@@ -17,7 +19,7 @@ M.attach = function(args)
   end, { desc = 'Format current buffer with LSP' })
 
   vim.api.nvim_buf_create_user_command(bufnr, 'LspCapabilities', function(_)
-    print(vim.inspect(vim.lsp.get_clients()[1].server_capabilities))
+    print(vim.inspect(client.server_capabilities))
   end, { desc = 'Show lsp capabilities' })
 
   vim.api.nvim_buf_create_user_command(bufnr, 'ToggleInlayHints', function(_)
@@ -29,6 +31,26 @@ M.attach = function(args)
       vim.notify((is_enabled and 'Disabled' or 'Enabled') .. ' inlay hint', vim.log.levels.INFO)
     end
   end, { desc = 'Toggle inlay hints' })
+
+  if opts.inlay_hints and opts.inlay_hints.enabled and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) and vim.lsp.inlay_hint then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
+
+  if client.supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+    local codelens_group = vim.api.nvim_create_augroup('user-lsp-codelens-' .. bufnr, { clear = true })
+
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+      group = codelens_group,
+      buffer = bufnr,
+      callback = function()
+        pcall(vim.lsp.codelens.refresh, { bufnr = bufnr })
+      end,
+      desc = 'Refresh LSP code lenses',
+    })
+
+    pcall(vim.lsp.codelens.refresh, { bufnr = bufnr })
+    nnoremap('<leader>cl', vim.lsp.codelens.run, { buffer = bufnr, desc = 'LSP: Run code lens' })
+  end
 
   nvnoremap('<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP: Code action' })
   nnoremap('<leader>ch', '<cmd>ToggleInlayHints<cr>', { buffer = bufnr, desc = 'LSP: Toggle inlay hints' })

@@ -17,11 +17,11 @@ else
   M.servers.vtsls = require('david.plugins.lsp.servers.vtsls')
 end
 
-M.formatters = {
-  -- 'eslint_d',
+M.tools = {
   'prettierd',
 
-  -- Golang formatters
+  -- Golang tools
+  'gopls',
   'goimports',
   'gofumpt',
   -- 'golines',

@@ -1,15 +1,13 @@
-return function()
+return function(_, opts)
   local servers = require('david.plugins.lsp.servers').servers
   local lsp_mappings = require('david.plugins.lsp.mappings')
 
-  require('mason').setup()
-
   -- attach common lsp callbacks
-  local groupId = vim.api.nvim_create_augroup('user-lsp-attach', {})
+  local groupId = vim.api.nvim_create_augroup('user-lsp-attach', { clear = true })
   vim.api.nvim_create_autocmd('LspAttach', {
     group = groupId,
     callback = function(args)
-      lsp_mappings.attach(args)
+      lsp_mappings.attach(args, opts)
     end,
   })
 

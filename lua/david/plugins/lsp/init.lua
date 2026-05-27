@@ -2,6 +2,10 @@ return {
   {
     'neovim/nvim-lspconfig',
     event = 'VeryLazy',
+    dependencies = {
+      'mason-org/mason.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+    },
     opts = function()
       ---@class PluginLspOpts
       local ret = {
@@ -28,7 +32,20 @@ return {
         },
       },
     },
-    lazy = true, -- never auto lazy loads. Needs to be manually init by called one of the ft, cmd's or requiring it.
+    lazy = true,
+  },
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    dependencies = {
+      'mason-org/mason.nvim',
+    },
+    opts = function()
+      return {
+        ensure_installed = require('david.plugins.lsp.servers').tools,
+        run_on_start = true,
+      }
+    end,
+    lazy = true,
   },
   {
     'yioneko/nvim-vtsls',

@@ -18,7 +18,6 @@ local function setup_codelens_display()
       -- rounded separators into the cached title.
       local decorated_lens = vim.tbl_extend('keep', {}, lens)
       decorated_lens.command = vim.tbl_extend('keep', {}, lens.command or {})
-      -- decorated_lens.command.title = '⟦▶ ' .. title:upper():gsub('%s+', ' ') .. ' ◀⟧'
       decorated_lens.command.title = '|▶ ' .. title:upper():gsub('%s+', ' ') .. ' ◀|'
       decorated_lenses[index] = decorated_lens
     end
@@ -32,6 +31,20 @@ return function(_, opts)
   local lsp_mappings = require('david.plugins.lsp.mappings')
 
   setup_codelens_display()
+
+  vim.api.nvim_create_user_command('ToggleInlayHints', function(command_opts)
+    local bufnr = command_opts.args ~= '' and tonumber(command_opts.args) or vim.api.nvim_get_current_buf()
+
+    if not bufnr then
+      vim.notify('ToggleInlayHints expects a numeric buffer number', vim.log.levels.ERROR)
+      return
+    end
+
+    lsp_mappings.toggle_inlay_hints(bufnr)
+  end, {
+    nargs = '?',
+    desc = 'Toggle inlay hints for the current buffer or a given bufnr',
+  })
 
   -- attach common lsp callbacks
   local groupId = vim.api.nvim_create_augroup('user-lsp-attach', { clear = true })

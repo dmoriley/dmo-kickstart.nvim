@@ -3,6 +3,33 @@ local mapper = require('david.core.utils').mapper_factory
 local nnoremap = mapper('n')
 local nvnoremap = mapper({ 'n', 'v' })
 
+---@param bufnr integer
+function M.toggle_inlay_hints(bufnr)
+  bufnr = bufnr == 0 and vim.api.nvim_get_current_buf() or bufnr
+
+  if not vim.lsp.inlay_hint then
+    vim.notify('Inlay hints are not available in this Neovim version', vim.log.levels.WARN)
+    return
+  end
+
+  local supports_inlay_hints = false
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+    if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+      supports_inlay_hints = true
+      break
+    end
+  end
+
+  if not supports_inlay_hints then
+    vim.notify('Inlay hints are not supported for this buffer', vim.log.levels.WARN)
+    return
+  end
+
+  local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+  vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = bufnr })
+  vim.notify((is_enabled and 'Disabled' or 'Enabled') .. ' inlay hints', vim.log.levels.INFO)
+end
+
 M.attach = function(args, opts)
   opts = opts or {}
 
@@ -21,16 +48,6 @@ M.attach = function(args, opts)
   vim.api.nvim_buf_create_user_command(bufnr, 'LspCapabilities', function(_)
     print(vim.inspect(client.server_capabilities))
   end, { desc = 'Show lsp capabilities' })
-
-  vim.api.nvim_buf_create_user_command(bufnr, 'ToggleInlayHints', function(_)
-    if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) and vim.lsp.inlay_hint then
-      local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
-      -- 0 = current buffer OR nil = all buffers
-      vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = bufnr })
-
-      vim.notify((is_enabled and 'Disabled' or 'Enabled') .. ' inlay hint', vim.log.levels.INFO)
-    end
-  end, { desc = 'Toggle inlay hints' })
 
   if opts.inlay_hints and opts.inlay_hints.enabled and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) and vim.lsp.inlay_hint then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -53,7 +70,9 @@ M.attach = function(args, opts)
   end
 
   nvnoremap('<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP: Code action' })
-  nnoremap('<leader>ch', '<cmd>ToggleInlayHints<cr>', { buffer = bufnr, desc = 'LSP: Toggle inlay hints' })
+  nnoremap('<leader>ch', function()
+    M.toggle_inlay_hints(bufnr)
+  end, { buffer = bufnr, desc = 'LSP: Toggle inlay hints' })
   nnoremap('<leader>cr', vim.lsp.buf.rename, { buffer = bufnr, desc = 'LSP: Rename' })
   nnoremap('gk', vim.lsp.buf.hover, { desc = 'LSP: Hover Documentation' })
   nnoremap('gK', vim.lsp.buf.signature_help, { desc = 'LSP Signature Documentation' })

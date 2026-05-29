@@ -8,6 +8,7 @@ return {
   event = 'VeryLazy',
   config = function()
     local fzflua = require('fzf-lua')
+
     fzflua.register_ui_select()
     fzflua.setup({
       defaults = {
@@ -48,7 +49,36 @@ return {
 
     -- find
     nnoremap('<leader>ff', fzflua.files, { desc = 'Find files' })
-    nnoremap('<leader>fr', fzflua.oldfiles, { desc = 'Find recent files' })
+    nnoremap('<leader>fr', function()
+      fzflua.oldfiles({
+        cwd_only = true,
+        winopts = {
+          title = ' Recent files ',
+        },
+      })
+    end, { desc = 'Find recent files' })
+    nnoremap('<S-Tab>', function()
+      fzflua.oldfiles({
+        cwd_only = true,
+        winopts = {
+          title = ' Quick Recent ',
+        },
+        fzf_opts = {
+          ['--no-input'] = true,
+          ['--no-multi'] = true,
+        },
+        keymap = {
+          fzf = {
+            ['q'] = 'abort',
+            ['tab'] = 'down',
+          },
+        },
+        actions = {
+          ['a'] = fzflua.actions.file_edit,
+          ['enter'] = fzflua.actions.file_edit,
+        },
+      })
+    end, { desc = 'Quick Recent' })
 
     -- search
     nnoremap('<leader>,', fzflua.buffers, { desc = 'Search open buffers' })

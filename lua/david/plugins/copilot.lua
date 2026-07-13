@@ -99,7 +99,9 @@ return {
         -- gemini-2.5-pro
         -- claude-sonnet-4.5,
         -- claude-opus-4.6,
-        model = 'gpt-5-mini',
+        -- model = 'gpt-5-mini',
+        -- model = 'gpt-5.4-mini',
+        model = 'gpt-5.6-luna',
         temperature = 0.1, -- Lower = focused, higher = creative
         chat_autocomplete = true,
         auto_insert_mode = true,

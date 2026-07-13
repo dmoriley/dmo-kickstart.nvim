@@ -76,6 +76,7 @@ return {
 
     require('mini.surround').setup({
       n_lines = 500,
+      highlight_duration = 1500,
     })
 
     require('mini.files').setup({

@@ -8,6 +8,7 @@ return {
     })
 
     wk.add({
+      { '<leader>a', group = '[A]i / Coding agent' },
       { '<leader>b', group = '[B]uffer' },
       { '<leader>c', group = '[C]ode' },
       { '<leader>c_', hidden = true },

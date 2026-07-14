@@ -1,5 +1,3 @@
-local M = {}
-
 -- ---@param kind string
 -- function M.pick(kind)
 --   return function()
@@ -76,7 +74,7 @@ return {
             end
           end)
         end,
-        desc = 'CopilotChat - Quick chat',
+        desc = 'Quick Chat (CopilotChat)',
         mode = { 'n', 'v' },
       },
       {

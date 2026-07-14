@@ -132,11 +132,6 @@ nnoremap(']d', function()
 end, { desc = 'Go to next diagnostic message' })
 nnoremap('<C-w><C-d>', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
-nnoremap('<leader><C-t>', function()
-  vim.cmd.vsplit()
-  vim.cmd.term()
-end, { desc = 'Open terminal in split window' })
-
 -- `dd` but don't yank if the line is empty
 nnoremap('dd', function()
   if vim.api.nvim_get_current_line():match('^%s*$') then

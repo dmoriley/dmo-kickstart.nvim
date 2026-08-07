@@ -15,6 +15,18 @@ local function apply_custom_highlights()
     fg = code_lens_color,
   })
   vim.api.nvim_set_hl(0, 'LspCodeLensSeparator', { fg = code_lens_color })
+
+  -- Give the CodeCompanion chat buffer distinct backgrounds. The plugin only
+  -- defines these as `default` links, so setting them here wins. Inherit the
+  -- foreground/style from the group it would have linked to.
+  for group, spec in pairs({
+    CodeCompanionChatHeader = { link = '@markup.heading.2.markdown', bg = '#373B43' },
+    CodeCompanionChatSeparator = { link = '@markup.heading.2.markdown', bg = '#373B43' },
+  }) do
+    local hl = vim.api.nvim_get_hl(0, { name = spec.link, link = false })
+    hl.bg = spec.bg
+    vim.api.nvim_set_hl(0, group, hl)
+  end
 end
 
 vim.api.nvim_create_autocmd('ColorScheme', {

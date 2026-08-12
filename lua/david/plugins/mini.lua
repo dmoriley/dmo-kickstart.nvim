@@ -73,6 +73,7 @@ return {
 
     -- tabline instead of using lualine tabline
     require('mini.tabline').setup()
+    require('mini.pairs').setup()
 
     require('mini.surround').setup({
       n_lines = 500,

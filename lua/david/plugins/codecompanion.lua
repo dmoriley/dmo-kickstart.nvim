@@ -79,35 +79,6 @@ return {
                 default = 'minimax-m3',
               },
             },
-            -- handlers = {
-            --   -- The built-in ollama adapter indexes `json.message` without checking it
-            --   -- exists, so any error body (401, unknown model, ...) throws a Lua error
-            --   -- instead of surfacing the message. Surface it instead.
-            --   inline_output = function(self, data, context)
-            --     if not data or data == '' then
-            --       return
-            --     end
-            --
-            --     local ok, json = pcall(vim.json.decode, data.body, { luanil = { object = true } })
-            --     if not ok then
-            --       return { status = 'error', output = data.body }
-            --     end
-            --
-            --     if json.error then
-            --       local err = json.error
-            --       return {
-            --         status = 'error',
-            --         output = type(err) == 'string' and err or vim.inspect(err),
-            --       }
-            --     end
-            --
-            --     if json.message and json.message.content then
-            --       return { status = 'success', output = json.message.content }
-            --     end
-            --
-            --     return { status = 'error', output = data.body }
-            --   end,
-            -- },
           })
         end,
       },
@@ -123,7 +94,11 @@ return {
           ---The header name for the LLM's messages
           ---@type string|fun(adapter: CodeCompanion.HTTPAdapter|CodeCompanion.ACPAdapter): string
           llm = function(adapter)
-            return '  ' .. adapter.model.name .. ' (' .. adapter.formatted_name .. ')'
+            local modelName = (adapter.model and adapter.model.name) or 'AI'
+            local providerName = adapter.formatted_name or '?'
+            local adapterType = adapter.type or '?'
+            -- vim.print(adapter)
+            return string.format('  %s (%s | %s)', modelName, providerName, adapterType)
           end,
 
           ---The header name for your messages

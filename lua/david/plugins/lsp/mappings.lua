@@ -14,7 +14,7 @@ function M.toggle_inlay_hints(bufnr)
 
   local supports_inlay_hints = false
   for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-    if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
       supports_inlay_hints = true
       break
     end
@@ -49,24 +49,15 @@ M.attach = function(args, opts)
     print(vim.inspect(client.server_capabilities))
   end, { desc = 'Show lsp capabilities' })
 
-  if opts.inlay_hints and opts.inlay_hints.enabled and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) and vim.lsp.inlay_hint then
+  if opts.inlay_hints and opts.inlay_hints.enabled and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) and vim.lsp.inlay_hint then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
 
-  if client.supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
-    local codelens_group = vim.api.nvim_create_augroup('user-lsp-codelens-' .. bufnr, { clear = true })
-
-    vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-      group = codelens_group,
-      buffer = bufnr,
-      callback = function()
-        pcall(vim.lsp.codelens.refresh, { bufnr = bufnr })
-      end,
-      desc = 'Refresh LSP code lenses',
-    })
-
-    pcall(vim.lsp.codelens.refresh, { bufnr = bufnr })
-    nnoremap('<leader>cl', vim.lsp.codelens.run, { buffer = bufnr, desc = 'LSP: Run code lens' })
+  if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+    pcall(vim.lsp.codelens.enable, true, { bufnr = bufnr })
+    nnoremap('<leader>cl', function()
+      vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+    end, { buffer = bufnr, desc = 'LSP: Toggle codelens' })
   end
 
   nvnoremap('<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP: Code action' })

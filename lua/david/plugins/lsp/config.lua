@@ -1,36 +1,34 @@
-local function setup_codelens_display()
-  local codelens = vim.lsp.codelens
-  if codelens._rounded_display then
-    return
-  end
-
-  codelens._rounded_display = true
-
-  local default_display = codelens.display
-
-  codelens.display = function(lenses, bufnr, client_id)
-    local decorated_lenses = {}
-
-    for index, lens in ipairs(lenses or {}) do
-      local title = lens.command and lens.command.title or 'Unresolved lens ...'
-
-      -- Copy the lens before decorating so refreshes do not keep nesting the
-      -- rounded separators into the cached title.
-      local decorated_lens = vim.tbl_extend('keep', {}, lens)
-      decorated_lens.command = vim.tbl_extend('keep', {}, lens.command or {})
-      decorated_lens.command.title = '|▶ ' .. title:upper():gsub('%s+', ' ') .. ' ◀|'
-      decorated_lenses[index] = decorated_lens
-    end
-
-    default_display(decorated_lenses, bufnr, client_id)
-  end
-end
+-- local function setup_codelens_display()
+--   local codelens = vim.lsp.codelens
+--   if codelens._rounded_display then
+--     return
+--   end
+--
+--   codelens._rounded_display = true
+--
+--   local default_display = codelens.display
+--
+--   codelens.display = function(lenses, bufnr, client_id)
+--     local decorated_lenses = {}
+--
+--     for index, lens in ipairs(lenses or {}) do
+--       local title = lens.command and lens.command.title or 'Unresolved lens ...'
+--
+--       -- Copy the lens before decorating so refreshes do not keep nesting the
+--       -- rounded separators into the cached title.
+--       local decorated_lens = vim.tbl_extend('keep', {}, lens)
+--       decorated_lens.command = vim.tbl_extend('keep', {}, lens.command or {})
+--       decorated_lens.command.title = '|▶ ' .. title:upper():gsub('%s+', ' ') .. ' ◀|'
+--       decorated_lenses[index] = decorated_lens
+--     end
+--
+--     default_display(decorated_lenses, bufnr, client_id)
+--   end
+-- end
 
 return function(_, opts)
   local servers = require('david.plugins.lsp.servers').servers
   local lsp_mappings = require('david.plugins.lsp.mappings')
-
-  setup_codelens_display()
 
   vim.api.nvim_create_user_command('ToggleInlayHints', function(command_opts)
     local bufnr = command_opts.args ~= '' and tonumber(command_opts.args) or vim.api.nvim_get_current_buf()

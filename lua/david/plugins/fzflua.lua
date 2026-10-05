@@ -107,7 +107,24 @@ return {
     nnoremap('<leader>sD', fzflua.diagnostics_workspace, { desc = 'Search Workspace Diagnostics' })
     nnoremap('<leader>ss', fzflua.lsp_document_symbols, { desc = 'Search document symbols' })
     nnoremap('<leader>sS', fzflua.lsp_workspace_symbols, { desc = 'Search workspace symbols' })
-    nnoremap('gr', fzflua.lsp_references, { desc = 'Lsp references' })
-    nnoremap('gd', fzflua.lsp_definitions, { desc = 'Lsp definitions' })
+    -- Multiple clients (e.g. vtsls + angularls) can return the same locations, and
+    -- fzf-lua only dedupes within a single client's response, so filter across clients.
+    local function dedupe_locations()
+      local seen = {}
+      return function(item)
+        local key = string.format('%s:%d:%d', item.filename, item.lnum, item.col)
+        if seen[key] then
+          return false
+        end
+        seen[key] = true
+        return true
+      end
+    end
+    nnoremap('gr', function()
+      fzflua.lsp_references({ regex_filter = dedupe_locations() })
+    end, { desc = 'Lsp references' })
+    nnoremap('gd', function()
+      fzflua.lsp_definitions({ regex_filter = dedupe_locations() })
+    end, { desc = 'Lsp definitions' })
   end,
 }

@@ -116,6 +116,26 @@ nnoremap('<leader>sR', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<left><left><left>]], {
 xnoremap('<leader>rw', [["zy:%s/<C-r><C-o>"/]], { desc = 'Replace visually selected text in buffer', silent = false })
 nnoremap('<leader>rw', [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]], { desc = 'Replace word under cursor in buffer', silent = false })
 
+-- quickfix
+nnoremap('<leader>q', function()
+  local is_open = vim.fn.getqflist({ winid = 0 }).winid ~= 0
+  vim.cmd(is_open and 'cclose' or 'copen')
+end, { desc = 'Toggle [q]uickfix list' })
+
+-- pcall so [q / ]q don't throw an error on an empty list or at either end of it
+nnoremap('[q', function()
+  pcall(vim.cmd.cprevious, { count = vim.v.count1 })
+end, { desc = 'Previous quickfix item' })
+nnoremap(']q', function()
+  pcall(vim.cmd.cnext, { count = vim.v.count1 })
+end, { desc = 'Next quickfix item' })
+nnoremap('[Q', function()
+  vim.cmd.crewind()
+end, { desc = 'First quickfix item' })
+nnoremap(']Q', function()
+  vim.cmd.clast()
+end, { desc = 'Last quickfix item' })
+
 -- easier way to select alternate buffer
 nnoremap('<Tab>', '<C-6>', { desc = 'Select alternate buffer' })
 

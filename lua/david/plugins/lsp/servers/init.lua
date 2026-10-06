@@ -6,7 +6,9 @@ M.servers = {
   lua_ls = require('david.plugins.lsp.servers.lua'),
   gopls = require('david.plugins.lsp.servers.go'),
   angularls = require('david.plugins.lsp.servers.angular'),
-  html = {},
+  html = {
+    filetypes = { 'html', 'htmlangular' },
+  },
   -- cssls = NIL
   -- eslint = NIL,
   -- jsonls = NIL,

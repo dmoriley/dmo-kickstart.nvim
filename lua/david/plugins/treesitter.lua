@@ -32,6 +32,7 @@ return {
             'css',
             'scss',
             'html',
+            'angular',
             'markdown',
             'yaml',
             'dockerfile',
@@ -98,7 +99,7 @@ return {
   -- treesitter dep, but seperate from dep table so it can be lazy loaded based on file type
   {
     'windwp/nvim-ts-autotag',
-    ft = { 'html', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript', 'astro', 'handlebars', 'xml', 'markdown' },
+    ft = { 'html', 'htmlangular', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript', 'astro', 'handlebars', 'xml', 'markdown' },
     opts = {
       autotag = {
         enable_close_on_slash = false,

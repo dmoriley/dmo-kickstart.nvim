@@ -1,16 +1,4 @@
-local lspconfig = require('lspconfig')
-
 return {
-  -- root_markers = { 'angular.json' },
-  -- root_dir = lspconfig.util.root_pattern('angular.json'),
+  -- only start inside an Angular workspace (angular.json / nx.json), not in every ts/html file
+  workspace_required = true,
 }
-
--- figure this out later
--- setup = {
---   angularls = function()
---     LazyVim.lsp.on_attach(function(client)
---       --HACK: disable angular renaming capability due to duplicate rename popping up
---       client.server_capabilities.renameProvider = false
---     end, "angularls")
---   end,
--- },

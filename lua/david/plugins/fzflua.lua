@@ -98,8 +98,31 @@ return {
     -- git
     nnoremap('<leader>fg', fzflua.git_files, { desc = 'Find git files' })
     nnoremap('<leader>gs', fzflua.git_status, { desc = 'Git status' })
-    nnoremap('<leader>gl', fzflua.git_bcommits, { desc = 'Git log buffer' })
-    nnoremap('<leader>gL', fzflua.git_commits, { desc = 'Git log workspace' })
+    nnoremap('<leader>gf', fzflua.git_bcommits, { desc = 'Git file log' })
+    nnoremap('<leader>gF', fzflua.git_commits, { desc = 'Git workspace log' })
+    -- `git log -L` tracks a line range through history; -s drops the patch so each commit is one fzf line.
+    local function git_line_history(first, last)
+      fzflua.git_bcommits({
+        cmd = string.format(
+          [[git log -L%d,%d:{file} -s --color --pretty=format:"%%C(yellow)%%h%%Creset %%Cgreen(%%><(12)%%cr%%><|(12))%%Creset %%s %%C(blue)<%%an>%%Creset"]],
+          first,
+          last
+        ),
+        prompt = string.format('Line history %d-%d> ', first, last),
+      })
+    end
+    nnoremap('<leader>gl', function()
+      local line = vim.fn.line('.')
+      git_line_history(line, line)
+    end, { desc = 'Git log current line' })
+    xnoremap('<leader>gl', function()
+      local first, last = vim.fn.line('v'), vim.fn.line('.')
+      if first > last then
+        first, last = last, first
+      end
+      vim.cmd('normal! \27')
+      git_line_history(first, last)
+    end, { desc = 'Git log selected lines' })
     nnoremap('<leader>gB', fzflua.git_branches, { desc = 'Git branches' })
 
     -- lsp/dianostics
